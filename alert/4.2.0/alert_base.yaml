@@ -26,7 +26,7 @@ spec:
                 name: ${NAME}-blackduck-alert-config
             - secretRef:
                 name: ${NAME}-alert-secret
-          image: docker.io/blackducksoftware/blackduck-alert:4.1.0
+          image: docker.io/blackducksoftware/blackduck-alert:4.2.0
           imagePullPolicy: Always
           livenessProbe:
             exec:
