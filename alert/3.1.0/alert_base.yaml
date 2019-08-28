@@ -8,6 +8,7 @@ metadata:
     app: alert
     name: ${NAME}
   name: ${NAME}-alert
+  namespace: ${NAMESPACE}
 spec:
   replicas: 1
   selector:
@@ -39,13 +40,13 @@ spec:
             timeoutSeconds: 10
           name: blackduck-alert
           ports:
-            - containerPort: 8443
+            - containerPort: ${ALERT_PORT}
               protocol: TCP
           resources:
             limits:
-              memory: 2560M
+              memory: ${ALERT_MEM}
             requests:
-              memory: 2560M
+              memory: ${ALERT_MEM}
           volumeMounts:
             - mountPath: /opt/blackduck/alert/alert-config
               name: dir-alert
@@ -65,6 +66,7 @@ metadata:
     app: alert
     name: ${NAME}
   name: ${NAME}-cfssl
+  namespace: ${NAMESPACE}
 spec:
   replicas: 1
   selector:
@@ -97,9 +99,9 @@ spec:
               protocol: TCP
           resources:
             limits:
-              memory: 640M
+              memory: ${CFSSL_MEM}
             requests:
-              memory: 640M
+              memory: ${CFSSL_MEM}
           volumeMounts:
             - mountPath: /etc/cfssl
               name: dir-cfssl
@@ -119,16 +121,17 @@ metadata:
     app: alert
     name: ${NAME}
   name: ${NAME}-alert
+  namespace: ${NAMESPACE}
 spec:
   ports:
-    - name: port-8443
-      port: 8443
+    - name: port-${ALERT_PORT}
+      port: ${ALERT_PORT}
       protocol: TCP
-      targetPort: 8443
+      targetPort: ${ALERT_PORT}
   selector:
     app: alert
     name: ${NAME}
-  type: ClusterIP
+  type: ${SERVICE_TYPE}
 
 ---
 apiVersion: v1
@@ -141,6 +144,7 @@ metadata:
     app: alert
     name: ${NAME}
   name: ${NAME}-cfssl
+  namespace: ${NAMESPACE}
 spec:
   ports:
     - name: port-8888
@@ -167,6 +171,7 @@ metadata:
     app: alert
     name: ${NAME}
   name: ${NAME}-blackduck-alert-config
+  namespace: ${NAMESPACE}
 
 ---
 apiVersion: v1
@@ -184,6 +189,7 @@ metadata:
     app: alert
     name: ${NAME}
   name: ${NAME}-alert-secret
+  namespace: ${NAMESPACE}
 type: Opaque
 
 ---
@@ -197,6 +203,7 @@ metadata:
     app: alert
     name: ${NAME}
   name: ${NAME}-alert-pvc
+  namespace: ${NAMESPACE}
 spec:
   accessModes:
     - ReadWriteOnce
