@@ -67,7 +67,7 @@ metadata:
 apiVersion: v1
 data:
   postgres_host: ${POSTGRES_HOST}
-  postgres_port: ${POSTGRES_PORT}
+  postgres_port: "${POSTGRES_PORT}"
 kind: ConfigMap
 metadata:
   name: postgres
