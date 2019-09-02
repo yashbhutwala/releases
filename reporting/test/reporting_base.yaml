@@ -5,7 +5,7 @@ metadata:
     chartVersion: 0.0.1192
     component: None
     componentVersion: None
-    environment: ${ENIRONMENT_NAME}
+    environment: ${ENVIRONMENT_NAME}
     service: rp-issue-manager
   name: rp-issue-manager
 ---
@@ -16,7 +16,7 @@ metadata:
     chartVersion: 0.0.1192
     component: None
     componentVersion: None
-    environment: ${ENIRONMENT_NAME}
+    environment: ${ENVIRONMENT_NAME}
     service: rp-polaris-agent-service
   name: rp-polaris-agent-service
 ---
@@ -27,7 +27,7 @@ metadata:
     chartVersion: 0.0.1192
     component: None
     componentVersion: None
-    environment: ${ENIRONMENT_NAME}
+    environment: ${ENVIRONMENT_NAME}
     service: rp-portfolio-service
   name: rp-portfolio-service
 ---
@@ -38,7 +38,7 @@ metadata:
     chartVersion: 0.0.1192
     component: None
     componentVersion: None
-    environment: ${ENIRONMENT_NAME}
+    environment: ${ENVIRONMENT_NAME}
     service: rp-report-service
   name: rp-report-service
 ---
@@ -49,7 +49,7 @@ metadata:
     chartVersion: 0.0.1192
     component: None
     componentVersion: None
-    environment: ${ENIRONMENT_NAME}
+    environment: ${ENVIRONMENT_NAME}
     service: rp-swagger-doc
   name: rp-swagger-doc
 ---
@@ -60,7 +60,7 @@ metadata:
     chartVersion: 0.0.1192
     component: None
     componentVersion: None
-    environment: ${ENIRONMENT_NAME}
+    environment: ${ENVIRONMENT_NAME}
     service: rp-tools-portfolio-service
   name: rp-tools-portfolio-service
 ---
@@ -376,7 +376,7 @@ spec:
         - name: SPRING_PROFILE
           value: production
         - name: SWIP_ENVIRONMENT_NAME
-          value: ${ENIRONMENT_NAME}
+          value: ${ENVIRONMENT_NAME}
         - name: SWIP_ROOT_DOMAIN
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
@@ -479,7 +479,7 @@ spec:
         - name: SPRING_PROFILE
           value: production
         - name: SWIP_ENVIRONMENT_NAME
-          value: ${ENIRONMENT_NAME}
+          value: ${ENVIRONMENT_NAME}
         - name: SWIP_ROOT_DOMAIN
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
@@ -622,7 +622,7 @@ spec:
         - name: SPRING_PROFILE
           value: production
         - name: SWIP_ENVIRONMENT_NAME
-          value: ${ENIRONMENT_NAME}
+          value: ${ENVIRONMENT_NAME}
         - name: SWIP_ROOT_DOMAIN
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
@@ -745,7 +745,7 @@ spec:
         - name: SPRING_PROFILE
           value: production
         - name: SWIP_ENVIRONMENT_NAME
-          value: ${ENIRONMENT_NAME}
+          value: ${ENVIRONMENT_NAME}
         - name: SWIP_ROOT_DOMAIN
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
@@ -866,7 +866,7 @@ spec:
         - name: SPRING_PROFILE
           value: production
         - name: SWIP_ENVIRONMENT_NAME
-          value: ${ENIRONMENT_NAME}
+          value: ${ENVIRONMENT_NAME}
         - name: SWIP_ROOT_DOMAIN
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
@@ -977,7 +977,7 @@ spec:
         - name: SPRING_PROFILE
           value: production
         - name: SWIP_ENVIRONMENT_NAME
-          value: ${ENIRONMENT_NAME}
+          value: ${ENVIRONMENT_NAME}
         - name: SWIP_ROOT_DOMAIN
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
