@@ -275,7 +275,7 @@ spec:
         - mountPath: /storage
           name: storage
       imagePullSecrets:
-      - name: '{IMAGE_PULL_SECRETS}'
+      - name: '${IMAGE_PULL_SECRETS}'
       volumes:
       - name: storage
         persistentVolumeClaim:
@@ -315,7 +315,7 @@ spec:
             cpu: 250m
             memory: 256Mi
       imagePullSecrets:
-      - name: '{IMAGE_PULL_SECRETS}'
+      - name: '${IMAGE_PULL_SECRETS}'
       restartPolicy: Always
 ---
 apiVersion: extensions/v1beta1
@@ -416,7 +416,7 @@ spec:
           name: vault-client-cert
           readOnly: true
       imagePullSecrets:
-      - name: '{IMAGE_PULL_SECRETS}'
+      - name: '${IMAGE_PULL_SECRETS}'
       restartPolicy: Always
       volumes:
       - name: vault-cacert
@@ -539,7 +539,7 @@ spec:
           name: vault-client-cert
           readOnly: true
       imagePullSecrets:
-      - name: '{IMAGE_PULL_SECRETS}'
+      - name: '${IMAGE_PULL_SECRETS}'
       restartPolicy: Always
       volumes:
       - name: vault-cacert
@@ -662,7 +662,7 @@ spec:
           name: vault-client-cert
           readOnly: true
       imagePullSecrets:
-      - name: '{IMAGE_PULL_SECRETS}'
+      - name: '${IMAGE_PULL_SECRETS}'
       restartPolicy: Always
       volumes:
       - name: vault-cacert
@@ -803,7 +803,7 @@ spec:
         ports:
         - containerPort: 3310
       imagePullSecrets:
-      - name: '{IMAGE_PULL_SECRETS}'
+      - name: '${IMAGE_PULL_SECRETS}'
       restartPolicy: Always
       volumes:
       - name: vault-cacert
@@ -894,7 +894,7 @@ spec:
           name: vault-client-cert
           readOnly: true
       imagePullSecrets:
-      - name: '{IMAGE_PULL_SECRETS}'
+      - name: '${IMAGE_PULL_SECRETS}'
       restartPolicy: Always
       volumes:
       - name: vault-cacert
@@ -1017,7 +1017,7 @@ spec:
           name: vault-server-cert
           readOnly: true
       imagePullSecrets:
-      - name: '{IMAGE_PULL_SECRETS}'
+      - name: '${IMAGE_PULL_SECRETS}'
       restartPolicy: Always
       serviceAccount: auth-server
       volumes:
