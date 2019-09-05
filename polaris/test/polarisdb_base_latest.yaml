@@ -428,8 +428,8 @@ subjects:
 ---
 apiVersion: v1
 data:
-  POSTGRES_PASSWORD: root
-  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  POSTGRES_USER: ${POSTGRES_USERNAME}
 kind: ConfigMap
 metadata:
   labels:
@@ -535,7 +535,7 @@ type: Opaque
 ---
 apiVersion: v1
 data:
-  gossip-key: TDNsdEp4eTJvSjlPSU1FUmd4Q0Y2c2tq
+  gossip-key: a0tXNWw3cVJoMWlSODVPeDQ1MXpHWTJp
 kind: Secret
 metadata:
   labels:
@@ -1754,7 +1754,7 @@ kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-d7bib
+  name: swip-db-ui-test-p7quo
   namespace: ${NAMESPACE}
 spec:
   containers:
