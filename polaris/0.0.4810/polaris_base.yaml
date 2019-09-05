@@ -3255,7 +3255,7 @@ spec:
         - name: LOG_ORIGIN
           value: /api/logs/logging/web-core
         - name: REPORTING_URL
-          value: ""
+          value: https://${POLARIS_ROOT_DOMAIN}/reporting
         image: gcr.io/snps-swip-staging/web-core:1.7.872
         imagePullPolicy: IfNotPresent
         name: web-core
@@ -4112,6 +4112,34 @@ spec:
           serviceName: web-core
           servicePort: 8080
         path: /()(.*)
+      - backend:
+          serviceName: rp-frontend
+          servicePort: 80
+        path: /reporting(/|$)(.*)
+      - backend:
+          serviceName: rp-tools-portfolio-service
+          servicePort: 60281
+        path: /reporting/tps(/|$)(.*)
+      - backend:
+          serviceName: rp-issue-manager
+          servicePort: 6888
+        path: /reporting/im(/|$)(.*)
+      - backend:
+          serviceName: rp-portfolio-service
+          servicePort: 60289
+        path: /reporting/rpps(/|$)(.*)
+      - backend:
+          serviceName: rp-report-service
+          servicePort: 7979
+        path: /reporting/rs(/|$)(.*)
+      - backend:
+          serviceName: rp-swagger-doc
+          servicePort: 8765
+        path: /reporting/swagger(/|$)(.*)
+      - backend:
+          serviceName: rp-polaris-agent-service
+          servicePort: 7788
+        path: /reporting/pas(/|$)(.*)
       - backend:
           serviceName: web-help
           servicePort: 8080
