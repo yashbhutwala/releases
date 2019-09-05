@@ -428,6 +428,17 @@ subjects:
 ---
 apiVersion: v1
 data:
+  POSTGRES_PASSWORD: root
+  POSTGRES_USER: postgres
+kind: ConfigMap
+metadata:
+  labels:
+    app: postgresql
+  name: postgresql-config
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+data:
   run.sh: |-
     @test "Testing Consul cluster has quorum" {
       for i in {0..2}; do
@@ -524,7 +535,7 @@ type: Opaque
 ---
 apiVersion: v1
 data:
-  gossip-key: QmxFNXR1U2N3b1JsS3c5SkFjVDhjVHpq
+  gossip-key: TDNsdEp4eTJvSjlPSU1FUmd4Q0Y2c2tq
 kind: Secret
 metadata:
   labels:
@@ -581,6 +592,22 @@ spec:
     protocol: TCP
   selector:
     service: mongodb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: postgresql
+  name: postgresql
+  namespace: ${NAMESPACE}
+spec:
+  ports:
+  - name: postgresql
+    port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    app: postgresql
 ---
 apiVersion: v1
 kind: Service
@@ -999,6 +1026,40 @@ spec:
       - name: mongodb-data
         persistentVolumeClaim:
           claimName: mongodb
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: postgresql
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresql
+  template:
+    metadata:
+      labels:
+        app: postgresql
+      name: postgresql
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: postgresql-config
+        image: postgres:10.7-alpine
+        imagePullPolicy: IfNotPresent
+        name: postgresql
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgresdb
+          subPath: postgres
+      volumes:
+      - name: postgresdb
+        persistentVolumeClaim:
+          claimName: postgresql-pv-claim
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -1675,11 +1736,25 @@ spec:
       storage: 20Gi
 ---
 apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: postgresql
+  name: postgresql-pv-claim
+  namespace: null
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
 kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-2v9uf
+  name: swip-db-ui-test-d7bib
   namespace: ${NAMESPACE}
 spec:
   containers:
