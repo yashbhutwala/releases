@@ -771,7 +771,7 @@ metadata:
   name: swip-db-vault
   namespace: ${NAMESPACE}
 spec:
-  replicas: 3
+  replicas: 1
   strategy:
     rollingUpdate:
       maxUnavailable: 1
@@ -1040,7 +1040,7 @@ metadata:
   name: swip-db-consul
   namespace: ${NAMESPACE}
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       component: swip-db-consul
