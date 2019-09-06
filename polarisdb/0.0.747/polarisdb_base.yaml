@@ -567,7 +567,7 @@ type: Opaque
 ---
 apiVersion: v1
 data:
-  gossip-key: TE9xVVM5UGI1YzF6UDMxcWRYTmczNWRp
+  gossip-key: Umk0VG9jS3NqbkthRWRhV3lZUHZOY2Zq
 kind: Secret
 metadata:
   labels:
@@ -1830,7 +1830,7 @@ kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-97xzm
+  name: swip-db-ui-test-zn1ih
   namespace: ${NAMESPACE}
 spec:
   containers:
