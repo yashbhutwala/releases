@@ -17,24 +17,6 @@ metadata:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  labels:
-    app: nomad-consul-exporter
-    release: swip-db
-  name: swip-db-nomad-consul-exporter
-  namespace: ${NAMESPACE}
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  labels:
-    app: vault-consul-exporter
-    release: swip-db
-  name: swip-db-vault-consul-exporter
-  namespace: ${NAMESPACE}
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
   annotations:
     helm.sh/hook: pre-upgrade,pre-install
     helm.sh/hook-delete-policy: before-hook-creation
@@ -79,78 +61,6 @@ metadata:
     service: vault-init
   name: vault-init
   namespace: ${NAMESPACE}
----
-apiVersion: extensions/v1beta1
-kind: PodSecurityPolicy
-metadata:
-  annotations:
-    apparmor.security.beta.kubernetes.io/allowedProfileNames: runtime/default
-    apparmor.security.beta.kubernetes.io/defaultProfileName: runtime/default
-    seccomp.security.alpha.kubernetes.io/allowedProfileNames: docker/default
-    seccomp.security.alpha.kubernetes.io/defaultProfileName: docker/default
-  labels:
-    app: nomad-consul-exporter
-    release: swip-db
-  name: swip-db-nomad-consul-exporter
-spec:
-  allowPrivilegeEscalation: false
-  fsGroup:
-    rule: RunAsAny
-  hostIPC: false
-  hostNetwork: false
-  hostPID: false
-  privileged: false
-  readOnlyRootFilesystem: false
-  requiredDropCapabilities:
-  - ALL
-  runAsUser:
-    rule: RunAsAny
-  seLinux:
-    rule: RunAsAny
-  supplementalGroups:
-    rule: RunAsAny
-  volumes:
-  - configMap
-  - emptyDir
-  - projected
-  - secret
-  - downwardAPI
----
-apiVersion: extensions/v1beta1
-kind: PodSecurityPolicy
-metadata:
-  annotations:
-    apparmor.security.beta.kubernetes.io/allowedProfileNames: runtime/default
-    apparmor.security.beta.kubernetes.io/defaultProfileName: runtime/default
-    seccomp.security.alpha.kubernetes.io/allowedProfileNames: docker/default
-    seccomp.security.alpha.kubernetes.io/defaultProfileName: docker/default
-  labels:
-    app: vault-consul-exporter
-    release: swip-db
-  name: swip-db-vault-consul-exporter
-spec:
-  allowPrivilegeEscalation: false
-  fsGroup:
-    rule: RunAsAny
-  hostIPC: false
-  hostNetwork: false
-  hostPID: false
-  privileged: false
-  readOnlyRootFilesystem: false
-  requiredDropCapabilities:
-  - ALL
-  runAsUser:
-    rule: RunAsAny
-  seLinux:
-    rule: RunAsAny
-  supplementalGroups:
-    rule: RunAsAny
-  volumes:
-  - configMap
-  - emptyDir
-  - projected
-  - secret
-  - downwardAPI
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -259,42 +169,6 @@ rules:
   - update
   - patch
   - delete
----
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: Role
-metadata:
-  labels:
-    app: nomad-consul-exporter
-    release: swip-db
-  name: swip-db-nomad-consul-exporter
-  namespace: ${NAMESPACE}
-rules:
-- apiGroups:
-  - extensions
-  resourceNames:
-  - swip-db-nomad-consul-exporter
-  resources:
-  - podsecuritypolicies
-  verbs:
-  - use
----
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: Role
-metadata:
-  labels:
-    app: vault-consul-exporter
-    release: swip-db
-  name: swip-db-vault-consul-exporter
-  namespace: ${NAMESPACE}
-rules:
-- apiGroups:
-  - extensions
-  resourceNames:
-  - swip-db-vault-consul-exporter
-  resources:
-  - podsecuritypolicies
-  verbs:
-  - use
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -390,40 +264,6 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: vault-init
-  namespace: ${NAMESPACE}
----
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: RoleBinding
-metadata:
-  labels:
-    app: nomad-consul-exporter
-    release: swip-db
-  name: swip-db-nomad-consul-exporter
-  namespace: ${NAMESPACE}
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: swip-db-nomad-consul-exporter
-subjects:
-- kind: ServiceAccount
-  name: swip-db-nomad-consul-exporter
-  namespace: ${NAMESPACE}
----
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: RoleBinding
-metadata:
-  labels:
-    app: vault-consul-exporter
-    release: swip-db
-  name: swip-db-vault-consul-exporter
-  namespace: ${NAMESPACE}
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: swip-db-vault-consul-exporter
-subjects:
-- kind: ServiceAccount
-  name: swip-db-vault-consul-exporter
   namespace: ${NAMESPACE}
 ---
 apiVersion: v1
@@ -673,26 +513,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  annotations: {}
-  labels:
-    app: nomad-consul-exporter
-    release: swip-db
-  name: swip-db-nomad-consul-exporter
-  namespace: ${NAMESPACE}
-spec:
-  ports:
-  - name: http
-    port: 9107
-    protocol: TCP
-    targetPort: http
-  selector:
-    app: nomad-consul-exporter
-    release: swip-db
-  type: ClusterIP
----
-apiVersion: v1
-kind: Service
-metadata:
   labels:
     app: vault
     release: swip-db
@@ -706,26 +526,6 @@ spec:
     targetPort: 8200
   selector:
     app: vault
-    release: swip-db
-  type: ClusterIP
----
-apiVersion: v1
-kind: Service
-metadata:
-  annotations: {}
-  labels:
-    app: vault-consul-exporter
-    release: swip-db
-  name: swip-db-vault-consul-exporter
-  namespace: ${NAMESPACE}
-spec:
-  ports:
-  - name: http
-    port: 9107
-    protocol: TCP
-    targetPort: http
-  selector:
-    app: vault-consul-exporter
     release: swip-db
   type: ClusterIP
 ---
@@ -749,131 +549,6 @@ spec:
   selector:
     service: upload-server
   type: ClusterIP
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    chartVersion: 0.0.747
-    component: swip-db
-    componentVersion: 0.0.747
-    environment: ${ENVIRONMENT_NAME}
-    service: vault-exporter
-  name: vault-exporter
-  namespace: ${NAMESPACE}
-spec:
-  ports:
-  - name: http
-    port: 9410
-  selector:
-    app: vault
-  type: ClusterIP
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app: nomad-consul-exporter
-    release: swip-db
-  name: swip-db-nomad-consul-exporter
-  namespace: ${NAMESPACE}
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: nomad-consul-exporter
-      release: swip-db
-  template:
-    metadata:
-      labels:
-        app: nomad-consul-exporter
-        release: swip-db
-    spec:
-      containers:
-      - args:
-        - --consul.server=consul:8500
-        command:
-        - consul_exporter
-        image: gcr.io/snps-swip-staging/public/prom/consul-exporter:v0.4.0
-        imagePullPolicy: IfNotPresent
-        livenessProbe:
-          httpGet:
-            path: /
-            port: http
-          initialDelaySeconds: 30
-          timeoutSeconds: 10
-        name: nomad-consul-exporter
-        ports:
-        - containerPort: 9107
-          name: http
-          protocol: TCP
-        readinessProbe:
-          httpGet:
-            path: /
-            port: http
-          initialDelaySeconds: 30
-          timeoutSeconds: 10
-        resources:
-          limits:
-            cpu: 200m
-            memory: 150Mi
-          requests:
-            cpu: 100m
-            memory: 100Mi
-      serviceAccountName: swip-db-nomad-consul-exporter
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app: vault-consul-exporter
-    release: swip-db
-  name: swip-db-vault-consul-exporter
-  namespace: ${NAMESPACE}
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: vault-consul-exporter
-      release: swip-db
-  template:
-    metadata:
-      labels:
-        app: vault-consul-exporter
-        release: swip-db
-    spec:
-      containers:
-      - args:
-        - --consul.server=polaris-db-consul:8500
-        command:
-        - consul_exporter
-        image: gcr.io/snps-swip-staging/public/prom/consul-exporter:v0.4.0
-        imagePullPolicy: IfNotPresent
-        livenessProbe:
-          httpGet:
-            path: /
-            port: http
-          initialDelaySeconds: 30
-          timeoutSeconds: 10
-        name: vault-consul-exporter
-        ports:
-        - containerPort: 9107
-          name: http
-          protocol: TCP
-        readinessProbe:
-          httpGet:
-            path: /
-            port: http
-          initialDelaySeconds: 30
-          timeoutSeconds: 10
-        resources:
-          limits:
-            cpu: 200m
-            memory: 150Mi
-          requests:
-            cpu: 100m
-            memory: 100Mi
-      serviceAccountName: swip-db-vault-consul-exporter
 ---
 apiVersion: apps/v1
 kind: Deployment
