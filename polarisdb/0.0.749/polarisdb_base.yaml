@@ -1529,7 +1529,6 @@ spec:
   resources:
     requests:
       storage: 20Gi
-  storageClassName: ""
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -1550,7 +1549,7 @@ kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-se65a
+  name: swip-db-ui-test-fb1sn
   namespace: ${NAMESPACE}
 spec:
   containers:
