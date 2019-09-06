@@ -268,6 +268,18 @@ subjects:
 ---
 apiVersion: v1
 data:
+  config.json: |
+    {"listener":{"tcp":{"address":"[::]:8200","cluster_address":"[::]:8201","tls_cert_file":"/vault/tls/tls.crt","tls_cipher_suites":"TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_256_CBC_SHA","tls_disable":false,"tls_key_file":"/vault/tls/tls.key","tls_prefer_server_cipher_suites":true}},"storage":{"consul":{"address":"polaris-db-consul:8500","path":"vault"}},"ui":true}
+kind: ConfigMap
+metadata:
+  labels:
+    app: polaris-db-vault
+    release: swip-db
+  name: polaris-db-vault-config
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+data:
   init.sh: |-
     #!/bin/bash
     set -e
@@ -308,18 +320,6 @@ metadata:
   labels:
     app: postgresql
   name: postgresql-config
-  namespace: ${NAMESPACE}
----
-apiVersion: v1
-data:
-  config.json: |
-    {"listener":{"tcp":{"address":"[::]:8200","cluster_address":"[::]:8201","tls_cert_file":"/vault/tls/tls.crt","tls_cipher_suites":"TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_256_CBC_SHA","tls_disable":false,"tls_key_file":"/vault/tls/tls.key","tls_prefer_server_cipher_suites":true}},"storage":{"consul":{"address":"polaris-db-consul:8500","path":"vault"}},"ui":true}
-kind: ConfigMap
-metadata:
-  labels:
-    app: vault
-    release: swip-db
-  name: swip-db-vault-config
   namespace: ${NAMESPACE}
 ---
 apiVersion: v1
@@ -370,6 +370,18 @@ metadata:
 ---
 apiVersion: v1
 data:
+  gossip-key: SXErN2o1QVo0cm1ocXFNbG1OLzFCdz09
+kind: Secret
+metadata:
+  labels:
+    component: swip-db-consul
+    release: swip-db
+  name: polaris-db-consul-gossip-key
+  namespace: ${NAMESPACE}
+type: Opaque
+---
+apiVersion: v1
+data:
   host: ${SMTP_HOST}
   passwd: ${SMTP_PASSWORD}
   port: ${SMTP_PORT}
@@ -377,18 +389,6 @@ data:
 kind: Secret
 metadata:
   name: smtp
-  namespace: ${NAMESPACE}
-type: Opaque
----
-apiVersion: v1
-data:
-  gossip-key: STY3cUpJeFU1T01GbWFCeHlURElQcWpZ
-kind: Secret
-metadata:
-  labels:
-    component: swip-db-consul
-    release: swip-db
-  name: swip-db-consul-gossip-key
   namespace: ${NAMESPACE}
 type: Opaque
 ---
@@ -443,28 +443,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app: postgresql
-  name: postgresql
-  namespace: ${NAMESPACE}
-spec:
-  ports:
-  - name: postgresql
-    port: 5432
-    protocol: TCP
-    targetPort: 5432
-  selector:
-    app: postgresql
----
-apiVersion: v1
-kind: Service
-metadata:
   annotations:
     service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
   labels:
     component: swip-db-consul
     release: swip-db
-  name: swip-db-consul
+  name: polaris-db-consul
   namespace: ${NAMESPACE}
 spec:
   clusterIP: None
@@ -501,7 +485,7 @@ metadata:
   labels:
     component: swip-db-consul
     release: swip-db
-  name: swip-db-consul-ui
+  name: polaris-db-consul-ui
   namespace: ${NAMESPACE}
 spec:
   ports:
@@ -515,9 +499,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: vault
+    app: polaris-db-vault
     release: swip-db
-  name: swip-db-vault
+  name: polaris-db-vault
   namespace: ${NAMESPACE}
 spec:
   ports:
@@ -526,9 +510,25 @@ spec:
     protocol: TCP
     targetPort: 8200
   selector:
-    app: vault
+    app: polaris-db-vault
     release: swip-db
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: postgresql
+  name: postgresql
+  namespace: ${NAMESPACE}
+spec:
+  ports:
+  - name: postgresql
+    port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    app: postgresql
 ---
 apiVersion: v1
 kind: Service
@@ -605,7 +605,7 @@ spec:
         - vault-init
         env:
         - name: VAULT_ADDR
-          value: https://swip-db-vault:8200
+          value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
           value: /vault/tls/ca.crt
         - name: VAULT_INIT_SECRET
@@ -731,45 +731,11 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: postgresql
-  namespace: ${NAMESPACE}
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: postgresql
-  template:
-    metadata:
-      labels:
-        app: postgresql
-      name: postgresql
-    spec:
-      containers:
-      - envFrom:
-        - configMapRef:
-            name: postgresql-config
-        image: registry.access.redhat.com/rhscl/postgresql-10-rhel7:1
-        imagePullPolicy: IfNotPresent
-        name: postgresql
-        ports:
-        - containerPort: 5432
-        volumeMounts:
-        - mountPath: /var/lib/postgresql/data
-          name: postgresdb
-          subPath: postgres
-      volumes:
-      - name: postgresdb
-        persistentVolumeClaim:
-          claimName: postgresql-pv-claim
----
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
   annotations: {}
   labels:
-    app: vault
+    app: polaris-db-vault
     release: swip-db
-  name: swip-db-vault
+  name: polaris-db-vault
   namespace: ${NAMESPACE}
 spec:
   replicas: 1
@@ -781,7 +747,7 @@ spec:
     metadata:
       annotations: {}
       labels:
-        app: vault
+        app: polaris-db-vault
         release: swip-db
     spec:
       affinity:
@@ -790,7 +756,7 @@ spec:
           - podAffinityTerm:
               labelSelector:
                 matchLabels:
-                  app: swip-db-vault
+                  app: polaris-db-vault
                   release: swip-db
               topologyKey: kubernetes.io/hostname
             weight: 100
@@ -879,9 +845,11 @@ spec:
         volumeMounts:
         - mountPath: /vault/tls
           name: vault-tls-certificate
+      imagePullSecrets:
+      - name: gcr-json-key
       volumes:
       - configMap:
-          name: swip-db-vault-config
+          name: polaris-db-vault-config
         name: vault-config
       - emptyDir: {}
         name: vault-root
@@ -891,6 +859,40 @@ spec:
       - name: vault-init-secret
         secret:
           secretName: vault-init-secret
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: postgresql
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresql
+  template:
+    metadata:
+      labels:
+        app: postgresql
+      name: postgresql
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: postgresql-config
+        image: registry.access.redhat.com/rhscl/postgresql-10-rhel7:1
+        imagePullPolicy: IfNotPresent
+        name: postgresql
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgresdb
+          subPath: postgres
+      volumes:
+      - name: postgresdb
+        persistentVolumeClaim:
+          claimName: postgresql-pv-claim
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -1038,7 +1040,7 @@ metadata:
   labels:
     component: swip-db-consul
     release: swip-db
-  name: swip-db-consul
+  name: polaris-db-consul
   namespace: ${NAMESPACE}
 spec:
   replicas: 1
@@ -1046,7 +1048,7 @@ spec:
     matchLabels:
       component: swip-db-consul
       release: swip-db
-  serviceName: swip-db-consul
+  serviceName: polaris-db-consul
   template:
     metadata:
       labels:
@@ -1054,7 +1056,7 @@ spec:
         component: swip-db-consul
         heritage: Tiller
         release: swip-db
-      name: swip-db-consul
+      name: polaris-db-consul
     spec:
       affinity:
         podAntiAffinity:
@@ -1111,9 +1113,9 @@ spec:
             -http-port=8500
         env:
         - name: INITIAL_CLUSTER_SIZE
-          value: "3"
+          value: "1"
         - name: STATEFULSET_NAME
-          value: swip-db-consul
+          value: polaris-db-consul
         - name: POD_IP
           valueFrom:
             fieldRef:
@@ -1133,7 +1135,7 @@ spec:
             - members
           initialDelaySeconds: 300
           timeoutSeconds: 5
-        name: swip-db-consul
+        name: polaris-db-consul
         ports:
         - containerPort: 8500
           name: http
@@ -1170,7 +1172,7 @@ spec:
       volumes:
       - name: gossip-key
         secret:
-          secretName: swip-db-consul-gossip-key
+          secretName: polaris-db-consul-gossip-key
   updateStrategy:
     type: RollingUpdate
   volumeClaimTemplates:
@@ -1189,7 +1191,7 @@ metadata:
   labels:
     component: swip-db-consul
     release: swip-db
-  name: swip-db-consul-pdb
+  name: polaris-db-consul-pdb
   namespace: ${NAMESPACE}
 spec:
   maxUnavailable: 1
@@ -1200,13 +1202,13 @@ spec:
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  name: swip-db-vault
+  name: polaris-db-vault
   namespace: ${NAMESPACE}
 spec:
   maxUnavailable: 1
   selector:
     matchLabels:
-      app: vault
+      app: polaris-db-vault
       release: swip-db
 ---
 apiVersion: batch/v1
@@ -1440,7 +1442,7 @@ spec:
         - vault-tls-init
         env:
         - name: VAULT_SERVICE_NAME
-          value: swip-db-vault
+          value: polaris-db-vault
         - name: VAULT_KUBERNETES_NAMESPACE
           value: default
         - name: VAULT_CLIENT_CERTIFICATES
