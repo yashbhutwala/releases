@@ -124,10 +124,10 @@ metadata:
   namespace: ${NAMESPACE}
 spec:
   ports:
-    - name: port-${ALERT_PORT}
+    - name: port-8443
       port: 8443
       protocol: TCP
-      targetPort: ${ALERT_PORT}
+      targetPort: 8443
   selector:
     app: alert
     name: ${NAME}
