@@ -1977,7 +1977,7 @@ metadata:
   name: jobs-controller-service
   namespace: ${NAMESPACE}
 spec:
-  replicas: null
+  replicas: 1
   selector:
     matchLabels:
       service: jobs-controller-service
