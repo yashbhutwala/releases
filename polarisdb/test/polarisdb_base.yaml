@@ -6,12 +6,30 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: eventstore-init
   name: eventstore-init
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: nomad-consul-exporter
+    release: swip-db
+  name: swip-db-nomad-consul-exporter
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: vault-consul-exporter
+    release: swip-db
+  name: swip-db-vault-consul-exporter
   namespace: ${NAMESPACE}
 ---
 apiVersion: v1
@@ -22,9 +40,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: tools-minio-secret-init
   name: tools-minio-secret-init
@@ -38,9 +56,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: upload-server-secret-init
   name: upload-server-secret-init
@@ -54,13 +72,85 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-init
   namespace: ${NAMESPACE}
+---
+apiVersion: extensions/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  annotations:
+    apparmor.security.beta.kubernetes.io/allowedProfileNames: runtime/default
+    apparmor.security.beta.kubernetes.io/defaultProfileName: runtime/default
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: docker/default
+    seccomp.security.alpha.kubernetes.io/defaultProfileName: docker/default
+  labels:
+    app: nomad-consul-exporter
+    release: swip-db
+  name: swip-db-nomad-consul-exporter
+spec:
+  allowPrivilegeEscalation: false
+  fsGroup:
+    rule: RunAsAny
+  hostIPC: false
+  hostNetwork: false
+  hostPID: false
+  privileged: false
+  readOnlyRootFilesystem: false
+  requiredDropCapabilities:
+  - ALL
+  runAsUser:
+    rule: RunAsAny
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  volumes:
+  - configMap
+  - emptyDir
+  - projected
+  - secret
+  - downwardAPI
+---
+apiVersion: extensions/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  annotations:
+    apparmor.security.beta.kubernetes.io/allowedProfileNames: runtime/default
+    apparmor.security.beta.kubernetes.io/defaultProfileName: runtime/default
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: docker/default
+    seccomp.security.alpha.kubernetes.io/defaultProfileName: docker/default
+  labels:
+    app: vault-consul-exporter
+    release: swip-db
+  name: swip-db-vault-consul-exporter
+spec:
+  allowPrivilegeEscalation: false
+  fsGroup:
+    rule: RunAsAny
+  hostIPC: false
+  hostNetwork: false
+  hostPID: false
+  privileged: false
+  readOnlyRootFilesystem: false
+  requiredDropCapabilities:
+  - ALL
+  runAsUser:
+    rule: RunAsAny
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  volumes:
+  - configMap
+  - emptyDir
+  - projected
+  - secret
+  - downwardAPI
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -70,9 +160,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: eventstore-init
   name: eventstore-init
@@ -97,9 +187,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: tools-minio-secret-init
   name: tools-minio-secret-init
@@ -124,9 +214,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: upload-server-secret-init
   name: upload-server-secret-init
@@ -151,9 +241,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-init
@@ -169,6 +259,42 @@ rules:
   - update
   - patch
   - delete
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: Role
+metadata:
+  labels:
+    app: nomad-consul-exporter
+    release: swip-db
+  name: swip-db-nomad-consul-exporter
+  namespace: ${NAMESPACE}
+rules:
+- apiGroups:
+  - extensions
+  resourceNames:
+  - swip-db-nomad-consul-exporter
+  resources:
+  - podsecuritypolicies
+  verbs:
+  - use
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: Role
+metadata:
+  labels:
+    app: vault-consul-exporter
+    release: swip-db
+  name: swip-db-vault-consul-exporter
+  namespace: ${NAMESPACE}
+rules:
+- apiGroups:
+  - extensions
+  resourceNames:
+  - swip-db-vault-consul-exporter
+  resources:
+  - podsecuritypolicies
+  verbs:
+  - use
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -178,9 +304,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "1"
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: eventstore-init
   name: eventstore-init
@@ -202,9 +328,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "1"
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: tools-minio-secret-init
   name: tools-minio-secret-init
@@ -226,9 +352,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "1"
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: upload-server-secret-init
   name: upload-server-secret-init
@@ -250,9 +376,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "1"
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-init
@@ -264,6 +390,40 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: vault-init
+  namespace: ${NAMESPACE}
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  labels:
+    app: nomad-consul-exporter
+    release: swip-db
+  name: swip-db-nomad-consul-exporter
+  namespace: ${NAMESPACE}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: swip-db-nomad-consul-exporter
+subjects:
+- kind: ServiceAccount
+  name: swip-db-nomad-consul-exporter
+  namespace: ${NAMESPACE}
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  labels:
+    app: vault-consul-exporter
+    release: swip-db
+  name: swip-db-vault-consul-exporter
+  namespace: ${NAMESPACE}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: swip-db-vault-consul-exporter
+subjects:
+- kind: ServiceAccount
+  name: swip-db-vault-consul-exporter
   namespace: ${NAMESPACE}
 ---
 apiVersion: v1
@@ -300,13 +460,39 @@ metadata:
 ---
 apiVersion: v1
 data:
-  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-  POSTGRES_USER: ${POSTGRES_USERNAME}
+  POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
+  POSTGRESQL_USER: ${POSTGRES_USERNAME}
 kind: ConfigMap
 metadata:
   labels:
     app: postgresql
   name: postgresql-config
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+data:
+  run.sh: |-
+    @test "Testing Consul cluster has quorum" {
+      for i in {0..2}; do
+        for n in {1..30}; do
+          if [ `kubectl exec swip-db-consul-$i consul members --namespace=default | grep server | wc -l` -ge "3" ]; then
+            echo "swip-db-consul-$i OK. consul members returning at least 3 records."
+            break
+          else
+            echo "swip-db-consul-$i ERROR. consul members returning less than 3 records."
+          fi
+
+          if [ "$n" -ge "30" ]; then
+            echo "Failed $n times to get members from swip-db-consul-$i"
+            exit 1
+          fi
+          sleep 10
+        done
+      done
+    }
+kind: ConfigMap
+metadata:
+  name: swip-db-consul-tests
   namespace: ${NAMESPACE}
 ---
 apiVersion: v1
@@ -359,9 +545,9 @@ data:
 kind: ConfigMap
 metadata:
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-policies
@@ -381,7 +567,7 @@ type: Opaque
 ---
 apiVersion: v1
 data:
-  gossip-key: REdxQnFweDJ2MUZSbWtXamw1bTJpb1NY
+  gossip-key: eHJKN0c0WVNzbm1Xa0c4YnduWThSbDk3
 kind: Secret
 metadata:
   labels:
@@ -395,9 +581,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: eventstore
   name: eventstore
@@ -424,9 +610,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: mongodb
   name: mongodb
@@ -513,6 +699,26 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  annotations: {}
+  labels:
+    app: nomad-consul-exporter
+    release: swip-db
+  name: swip-db-nomad-consul-exporter
+  namespace: ${NAMESPACE}
+spec:
+  ports:
+  - name: http
+    port: 9107
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: nomad-consul-exporter
+    release: swip-db
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
   labels:
     app: vault
     release: swip-db
@@ -532,10 +738,30 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  annotations: {}
   labels:
-    chartVersion: 0.0.748
+    app: vault-consul-exporter
+    release: swip-db
+  name: swip-db-vault-consul-exporter
+  namespace: ${NAMESPACE}
+spec:
+  ports:
+  - name: http
+    port: 9107
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: vault-consul-exporter
+    release: swip-db
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: upload-server
   name: upload-server
@@ -554,9 +780,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: vault-exporter
   name: vault-exporter
@@ -572,14 +798,120 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  labels:
+    app: nomad-consul-exporter
+    release: swip-db
+  name: swip-db-nomad-consul-exporter
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nomad-consul-exporter
+      release: swip-db
+  template:
+    metadata:
+      labels:
+        app: nomad-consul-exporter
+        release: swip-db
+    spec:
+      containers:
+      - args:
+        - --consul.server=consul:8500
+        command:
+        - consul_exporter
+        image: gcr.io/snps-swip-staging/public/prom/consul-exporter:v0.4.0
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 30
+          timeoutSeconds: 10
+        name: nomad-consul-exporter
+        ports:
+        - containerPort: 9107
+          name: http
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 30
+          timeoutSeconds: 10
+        resources:
+          limits:
+            cpu: 200m
+            memory: 150Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+      serviceAccountName: swip-db-nomad-consul-exporter
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: vault-consul-exporter
+    release: swip-db
+  name: swip-db-vault-consul-exporter
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vault-consul-exporter
+      release: swip-db
+  template:
+    metadata:
+      labels:
+        app: vault-consul-exporter
+        release: swip-db
+    spec:
+      containers:
+      - args:
+        - --consul.server=polaris-db-consul:8500
+        command:
+        - consul_exporter
+        image: gcr.io/snps-swip-staging/public/prom/consul-exporter:v0.4.0
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 30
+          timeoutSeconds: 10
+        name: vault-consul-exporter
+        ports:
+        - containerPort: 9107
+          name: http
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 30
+          timeoutSeconds: 10
+        resources:
+          limits:
+            cpu: 200m
+            memory: 150Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+      serviceAccountName: swip-db-vault-consul-exporter
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   annotations:
     helm.sh/hook: pre-upgrade,pre-install
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "3"
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-init
@@ -592,9 +924,9 @@ spec:
     metadata:
       labels:
         chart: swip-db
-        chartVersion: 0.0.748
+        chartVersion: 0.0.749
         component: swip-db
-        componentVersion: 0.0.748
+        componentVersion: 0.0.749
         environment: ${ENVIRONMENT_NAME}
         service: vault-init
       name: vault-init
@@ -626,9 +958,9 @@ spec:
             environment: "${ENVIRONMENT_NAME}"
             service: "vault-init"
             component: "swip-db"
-            componentVersion: "0.0.748"
+            componentVersion: "0.0.749"
             chart: "swip-db"
-            chartVersion: "0.0.748"
+            chartVersion: "0.0.749"
         image: gcr.io/snps-swip-staging/vault-util:0.1.10
         imagePullPolicy: IfNotPresent
         name: vault-init
@@ -671,9 +1003,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: mongodb
   name: mongodb
@@ -689,9 +1021,9 @@ spec:
     metadata:
       labels:
         chart: swip-db
-        chartVersion: 0.0.748
+        chartVersion: 0.0.749
         component: swip-db
-        componentVersion: 0.0.748
+        componentVersion: 0.0.749
         environment: ${ENVIRONMENT_NAME}
         service: mongodb
       name: mongodb
@@ -771,7 +1103,7 @@ metadata:
   name: swip-db-vault
   namespace: ${NAMESPACE}
 spec:
-  replicas: 1
+  replicas: 3
   strategy:
     rollingUpdate:
       maxUnavailable: 1
@@ -895,15 +1227,15 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: upload-server
   name: upload-server
   namespace: ${NAMESPACE}
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       service: upload-server
@@ -916,9 +1248,9 @@ spec:
     metadata:
       labels:
         chart: swip-db
-        chartVersion: 0.0.748
+        chartVersion: 0.0.749
         component: swip-db
-        componentVersion: 0.0.748
+        componentVersion: 0.0.749
         environment: ${ENVIRONMENT_NAME}
         service: upload-server
     spec:
@@ -1040,7 +1372,7 @@ metadata:
   name: swip-db-consul
   namespace: ${NAMESPACE}
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       component: swip-db-consul
@@ -1216,9 +1548,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: eventstore-init
   name: eventstore-init
@@ -1228,9 +1560,9 @@ spec:
     metadata:
       labels:
         chart: swip-db
-        chartVersion: 0.0.748
+        chartVersion: 0.0.749
         component: swip-db
-        componentVersion: 0.0.748
+        componentVersion: 0.0.749
         environment: ${ENVIRONMENT_NAME}
         service: eventstore-init
       name: eventstore-init
@@ -1250,9 +1582,9 @@ spec:
             environment: "${ENVIRONMENT_NAME}"
             service: "eventstore-init"
             component: "swip-db"
-            componentVersion: "0.0.748"
+            componentVersion: "0.0.749"
             chart: "swip-db"
-            chartVersion: "0.0.748"
+            chartVersion: "0.0.749"
         image: gcr.io/snps-swip-staging/eventstore-util:0.0.22
         imagePullPolicy: IfNotPresent
         name: eventstore-init
@@ -1313,9 +1645,9 @@ metadata:
     helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: tools-minio-secret-init
   name: tools-minio-secret-init
@@ -1325,9 +1657,9 @@ spec:
     metadata:
       labels:
         chart: swip-db
-        chartVersion: 0.0.748
+        chartVersion: 0.0.749
         component: swip-db
-        componentVersion: 0.0.748
+        componentVersion: 0.0.749
         environment: ${ENVIRONMENT_NAME}
         service: tools-minio-secret-init
       name: tools-minio-secret-init
@@ -1345,9 +1677,9 @@ spec:
             environment: "${ENVIRONMENT_NAME}"
             service: "tools-minio-secret-init"
             component: "swip-db"
-            componentVersion: "0.0.748"
+            componentVersion: "0.0.749"
             chart: "swip-db"
-            chartVersion: "0.0.748"
+            chartVersion: "0.0.749"
         image: gcr.io/snps-swip-staging/minio-util:0.0.9
         imagePullPolicy: IfNotPresent
         name: tools-minio-secret-init
@@ -1364,9 +1696,9 @@ metadata:
     helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: upload-server-secret-init
   name: upload-server-secret-init
@@ -1376,9 +1708,9 @@ spec:
     metadata:
       labels:
         chart: swip-db
-        chartVersion: 0.0.748
+        chartVersion: 0.0.749
         component: swip-db
-        componentVersion: 0.0.748
+        componentVersion: 0.0.749
         environment: ${ENVIRONMENT_NAME}
         service: upload-server-secret-init
       name: upload-server-secret-init
@@ -1396,9 +1728,9 @@ spec:
             environment: "${ENVIRONMENT_NAME}"
             service: "upload-server-secret-init"
             component: "swip-db"
-            componentVersion: "0.0.748"
+            componentVersion: "0.0.749"
             chart: "swip-db"
-            chartVersion: "0.0.748"
+            chartVersion: "0.0.749"
         image: gcr.io/snps-swip-staging/minio-util:0.0.9
         imagePullPolicy: IfNotPresent
         name: upload-server-secret-init
@@ -1415,9 +1747,9 @@ metadata:
     helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-tls-init
@@ -1427,9 +1759,9 @@ spec:
     metadata:
       labels:
         chart: swip-db
-        chartVersion: 0.0.748
+        chartVersion: 0.0.749
         component: swip-db
-        componentVersion: 0.0.748
+        componentVersion: 0.0.749
         environment: ${ENVIRONMENT_NAME}
         service: vault-init
       name: vault-tls-init
@@ -1449,9 +1781,9 @@ spec:
             environment: "${ENVIRONMENT_NAME}"
             service: "vault-init"
             component: "swip-db"
-            componentVersion: "0.0.748"
+            componentVersion: "0.0.749"
             chart: "swip-db"
-            chartVersion: "0.0.748"
+            chartVersion: "0.0.749"
         image: gcr.io/snps-swip-staging/vault-util:0.1.10
         imagePullPolicy: IfNotPresent
         name: vault-tls-init
@@ -1465,9 +1797,9 @@ kind: PersistentVolumeClaim
 metadata:
   annotations: null
   labels:
-    chartVersion: 0.0.748
+    chartVersion: 0.0.749
     component: swip-db
-    componentVersion: 0.0.748
+    componentVersion: 0.0.749
     environment: ${ENVIRONMENT_NAME}
     service: mongodb
   name: mongodb
@@ -1493,3 +1825,64 @@ spec:
     requests:
       storage: 10Gi
 ---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    helm.sh/hook: test-success
+  name: swip-db-ui-test-w3uzg
+  namespace: ${NAMESPACE}
+spec:
+  containers:
+  - command:
+    - /tools/bats/bats
+    - -t
+    - /tests/run.sh
+    image: lachlanevenson/k8s-kubectl:v1.4.8-bash
+    name: swip-db-ui-test
+    volumeMounts:
+    - mountPath: /tests
+      name: tests
+      readOnly: true
+    - mountPath: /tools
+      name: tools
+  initContainers:
+  - command:
+    - bash
+    - -c
+    - |
+      set -ex
+      # copy bats to tools dir
+      cp -R /usr/local/libexec/ /tools/bats/
+    image: dduportal/bats:0.4.0
+    name: test-framework
+    volumeMounts:
+    - mountPath: /tools
+      name: tools
+  restartPolicy: Never
+  volumes:
+  - configMap:
+      name: swip-db-consul-tests
+    name: tests
+  - emptyDir: {}
+    name: tools
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    helm.sh/hook: test-success
+  name: swip-db-vault-status-test
+  namespace: ${NAMESPACE}
+spec:
+  containers:
+  - command:
+    - sh
+    - -c
+    - vault status
+    env:
+    - name: VAULT_ADDR
+      value: http://swip-db-vault.default:8200
+    image: vault:0.11.2
+    name: swip-db-vault-status-test
+  restartPolicy: Never
