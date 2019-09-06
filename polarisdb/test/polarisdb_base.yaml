@@ -302,6 +302,7 @@ apiVersion: v1
 data:
   POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
   POSTGRESQL_USER: ${POSTGRES_USERNAME}
+  POSTGRESQL_DATABASE: "polaris"
 kind: ConfigMap
 metadata:
   labels:
