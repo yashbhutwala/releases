@@ -903,7 +903,7 @@ metadata:
   name: upload-server
   namespace: ${NAMESPACE}
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       service: upload-server
