@@ -300,6 +300,7 @@ metadata:
 ---
 apiVersion: v1
 data:
+  POSTGRESQL_DATABASE: polaris
   POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
   POSTGRESQL_USER: ${POSTGRES_USERNAME}
 kind: ConfigMap
@@ -407,7 +408,7 @@ type: Opaque
 ---
 apiVersion: v1
 data:
-  gossip-key: aGZMR2xYc0xvQmlTMTNrMDBjSzJSZ2FD
+  gossip-key: STY3cUpJeFU1T01GbWFCeHlURElQcWpZ
 kind: Secret
 metadata:
   labels:
@@ -1312,12 +1313,12 @@ spec:
         - name: POSTGRES_USER
           valueFrom:
             configMapKeyRef:
-              key: POSTGRES_USER
+              key: POSTGRESQL_USER
               name: postgresql-config
         - name: POSTGRES_PASSWORD
           valueFrom:
             configMapKeyRef:
-              key: POSTGRES_PASSWORD
+              key: POSTGRESQL_PASSWORD
               name: postgresql-config
         image: registry.access.redhat.com/rhscl/postgresql-96-rhel7:1
         name: postgres-init
@@ -1524,7 +1525,7 @@ kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-bd1qo
+  name: swip-db-ui-test-2gqxy
   namespace: ${NAMESPACE}
 spec:
   containers:
