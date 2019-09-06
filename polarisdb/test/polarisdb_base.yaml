@@ -911,10 +911,7 @@ spec:
     matchLabels:
       service: upload-server
   strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-    type: RollingUpdate
+    type: Recreate
   template:
     metadata:
       labels:
@@ -927,9 +924,8 @@ spec:
     spec:
       containers:
       - args:
-        - gateway
-        - gcs
-        - snps-swip-staging
+        - server
+        - /opt/data
         env:
         - name: MINIO_BROWSER
           value: "off"
@@ -943,8 +939,6 @@ spec:
             secretKeyRef:
               key: secret_key
               name: swip-upload-server
-        - name: GOOGLE_APPLICATION_CREDENTIALS
-          value: /etc/credentials/credentials.json
         image: gcr.io/snps-swip-staging/public/minio/minio:RELEASE.2018-09-25T21-34-43Z
         name: upload-server
         ports:
@@ -952,15 +946,25 @@ spec:
         resources:
           service: upload-server
         volumeMounts:
-        - mountPath: /etc/credentials
-          name: gcs-credentials
-          readOnly: true
+        - mountPath: /opt/data
+          name: upload-server
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - command:
+        - sh
+        - -c
+        - mkdir -p /opt/data/${ENVIRONMENT_NAME}-uploads-bucket
+        image: gcr.io/snps-swip-staging/public/busybox:latest
+        name: bootstrap-upload-server
+        volumeMounts:
+        - mountPath: /opt/data
+          name: upload-server
+          readOnly: false
       volumes:
-      - name: gcs-credentials
-        secret:
-          secretName: gcs-credentials
+      - name: upload-server
+        persistentVolumeClaim:
+          claimName: upload-server-pv-claim
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -1481,6 +1485,25 @@ spec:
   resources:
     requests:
       storage: 20Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    chartVersion: 0.0.749
+    component: swip-db
+    componentVersion: 0.0.749
+    environment: ${ENVIRONMENT_NAME}
+    service: upload-server
+  name: upload-server-pv-claim
+  namespace: ${NAMESPACE}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: ""
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
