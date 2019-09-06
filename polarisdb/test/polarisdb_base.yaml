@@ -6,9 +6,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: eventstore-init
   name: eventstore-init
@@ -22,9 +22,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: tools-minio-secret-init
   name: tools-minio-secret-init
@@ -38,9 +38,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: upload-server-secret-init
   name: upload-server-secret-init
@@ -54,9 +54,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-init
@@ -70,9 +70,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: eventstore-init
   name: eventstore-init
@@ -97,9 +97,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: tools-minio-secret-init
   name: tools-minio-secret-init
@@ -124,9 +124,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: upload-server-secret-init
   name: upload-server-secret-init
@@ -151,9 +151,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-init
@@ -178,9 +178,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "1"
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: eventstore-init
   name: eventstore-init
@@ -202,9 +202,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "1"
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: tools-minio-secret-init
   name: tools-minio-secret-init
@@ -226,9 +226,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "1"
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: upload-server-secret-init
   name: upload-server-secret-init
@@ -250,9 +250,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "1"
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-init
@@ -359,9 +359,9 @@ data:
 kind: ConfigMap
 metadata:
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-policies
@@ -381,7 +381,7 @@ type: Opaque
 ---
 apiVersion: v1
 data:
-  gossip-key: cWNBM0VCb2VRWXhYR1V0V254eXJ1S2d6
+  gossip-key: REdxQnFweDJ2MUZSbWtXamw1bTJpb1NY
 kind: Secret
 metadata:
   labels:
@@ -395,9 +395,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: eventstore
   name: eventstore
@@ -424,9 +424,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: mongodb
   name: mongodb
@@ -533,9 +533,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: upload-server
   name: upload-server
@@ -550,6 +550,25 @@ spec:
     service: upload-server
   type: ClusterIP
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    chartVersion: 0.0.748
+    component: swip-db
+    componentVersion: 0.0.748
+    environment: ${ENVIRONMENT_NAME}
+    service: vault-exporter
+  name: vault-exporter
+  namespace: ${NAMESPACE}
+spec:
+  ports:
+  - name: http
+    port: 9410
+  selector:
+    app: vault
+  type: ClusterIP
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -558,9 +577,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "3"
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-init
@@ -573,9 +592,9 @@ spec:
     metadata:
       labels:
         chart: swip-db
-        chartVersion: 0.0.747
+        chartVersion: 0.0.748
         component: swip-db
-        componentVersion: 0.0.747
+        componentVersion: 0.0.748
         environment: ${ENVIRONMENT_NAME}
         service: vault-init
       name: vault-init
@@ -607,10 +626,10 @@ spec:
             environment: "${ENVIRONMENT_NAME}"
             service: "vault-init"
             component: "swip-db"
-            componentVersion: "0.0.747"
+            componentVersion: "0.0.748"
             chart: "swip-db"
-            chartVersion: "0.0.747"
-        image: gcr.io/snps-swip-staging/vault-util:0.1.9
+            chartVersion: "0.0.748"
+        image: gcr.io/snps-swip-staging/vault-util:0.1.10
         imagePullPolicy: IfNotPresent
         name: vault-init
         volumeMounts:
@@ -652,9 +671,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: mongodb
   name: mongodb
@@ -670,9 +689,9 @@ spec:
     metadata:
       labels:
         chart: swip-db
-        chartVersion: 0.0.747
+        chartVersion: 0.0.748
         component: swip-db
-        componentVersion: 0.0.747
+        componentVersion: 0.0.748
         environment: ${ENVIRONMENT_NAME}
         service: mongodb
       name: mongodb
@@ -827,7 +846,7 @@ spec:
           value: https://localhost:8200
         - name: VAULT_CACERT
           value: /vault/tls/ca.crt
-        image: gcr.io/snps-swip-staging/vault-util:0.1.9
+        image: gcr.io/snps-swip-staging/vault-util:0.1.10
         name: vault-sidecar
         volumeMounts:
         - mountPath: /vault/tls
@@ -876,9 +895,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: upload-server
   name: upload-server
@@ -897,9 +916,9 @@ spec:
     metadata:
       labels:
         chart: swip-db
-        chartVersion: 0.0.747
+        chartVersion: 0.0.748
         component: swip-db
-        componentVersion: 0.0.747
+        componentVersion: 0.0.748
         environment: ${ENVIRONMENT_NAME}
         service: upload-server
     spec:
@@ -1197,9 +1216,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: eventstore-init
   name: eventstore-init
@@ -1209,9 +1228,9 @@ spec:
     metadata:
       labels:
         chart: swip-db
-        chartVersion: 0.0.747
+        chartVersion: 0.0.748
         component: swip-db
-        componentVersion: 0.0.747
+        componentVersion: 0.0.748
         environment: ${ENVIRONMENT_NAME}
         service: eventstore-init
       name: eventstore-init
@@ -1231,9 +1250,9 @@ spec:
             environment: "${ENVIRONMENT_NAME}"
             service: "eventstore-init"
             component: "swip-db"
-            componentVersion: "0.0.747"
+            componentVersion: "0.0.748"
             chart: "swip-db"
-            chartVersion: "0.0.747"
+            chartVersion: "0.0.748"
         image: gcr.io/snps-swip-staging/eventstore-util:0.0.22
         imagePullPolicy: IfNotPresent
         name: eventstore-init
@@ -1294,9 +1313,9 @@ metadata:
     helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: tools-minio-secret-init
   name: tools-minio-secret-init
@@ -1306,9 +1325,9 @@ spec:
     metadata:
       labels:
         chart: swip-db
-        chartVersion: 0.0.747
+        chartVersion: 0.0.748
         component: swip-db
-        componentVersion: 0.0.747
+        componentVersion: 0.0.748
         environment: ${ENVIRONMENT_NAME}
         service: tools-minio-secret-init
       name: tools-minio-secret-init
@@ -1326,9 +1345,9 @@ spec:
             environment: "${ENVIRONMENT_NAME}"
             service: "tools-minio-secret-init"
             component: "swip-db"
-            componentVersion: "0.0.747"
+            componentVersion: "0.0.748"
             chart: "swip-db"
-            chartVersion: "0.0.747"
+            chartVersion: "0.0.748"
         image: gcr.io/snps-swip-staging/minio-util:0.0.9
         imagePullPolicy: IfNotPresent
         name: tools-minio-secret-init
@@ -1345,9 +1364,9 @@ metadata:
     helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: upload-server-secret-init
   name: upload-server-secret-init
@@ -1357,9 +1376,9 @@ spec:
     metadata:
       labels:
         chart: swip-db
-        chartVersion: 0.0.747
+        chartVersion: 0.0.748
         component: swip-db
-        componentVersion: 0.0.747
+        componentVersion: 0.0.748
         environment: ${ENVIRONMENT_NAME}
         service: upload-server-secret-init
       name: upload-server-secret-init
@@ -1377,9 +1396,9 @@ spec:
             environment: "${ENVIRONMENT_NAME}"
             service: "upload-server-secret-init"
             component: "swip-db"
-            componentVersion: "0.0.747"
+            componentVersion: "0.0.748"
             chart: "swip-db"
-            chartVersion: "0.0.747"
+            chartVersion: "0.0.748"
         image: gcr.io/snps-swip-staging/minio-util:0.0.9
         imagePullPolicy: IfNotPresent
         name: upload-server-secret-init
@@ -1396,9 +1415,9 @@ metadata:
     helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-tls-init
@@ -1408,9 +1427,9 @@ spec:
     metadata:
       labels:
         chart: swip-db
-        chartVersion: 0.0.747
+        chartVersion: 0.0.748
         component: swip-db
-        componentVersion: 0.0.747
+        componentVersion: 0.0.748
         environment: ${ENVIRONMENT_NAME}
         service: vault-init
       name: vault-tls-init
@@ -1430,10 +1449,10 @@ spec:
             environment: "${ENVIRONMENT_NAME}"
             service: "vault-init"
             component: "swip-db"
-            componentVersion: "0.0.747"
+            componentVersion: "0.0.748"
             chart: "swip-db"
-            chartVersion: "0.0.747"
-        image: gcr.io/snps-swip-staging/vault-util:0.1.9
+            chartVersion: "0.0.748"
+        image: gcr.io/snps-swip-staging/vault-util:0.1.10
         imagePullPolicy: IfNotPresent
         name: vault-tls-init
       imagePullSecrets:
@@ -1446,9 +1465,9 @@ kind: PersistentVolumeClaim
 metadata:
   annotations: null
   labels:
-    chartVersion: 0.0.747
+    chartVersion: 0.0.748
     component: swip-db
-    componentVersion: 0.0.747
+    componentVersion: 0.0.748
     environment: ${ENVIRONMENT_NAME}
     service: mongodb
   name: mongodb
