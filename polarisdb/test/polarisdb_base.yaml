@@ -383,8 +383,15 @@ type: Opaque
 apiVersion: v1
 data:
   host: ${SMTP_HOST}
-  passwd: ${SMTP_PASSWORD}
   port: ${SMTP_PORT}
+kind: ConfigMap
+metadata:
+  name: smtp
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+data:
+  passwd: ${SMTP_PASSWORD}
   username: ${SMTP_USERNAME}
 kind: Secret
 metadata:
