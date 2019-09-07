@@ -939,12 +939,12 @@ spec:
           value: /mnt/vault/cert/vault_server_cert
         - name: SMTP_HOST
           valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               key: host
               name: smtp
         - name: SMTP_PORT
           valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               key: port
               name: smtp
         - name: SMTP_PASSWORD
