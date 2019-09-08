@@ -287,9 +287,9 @@ data:
       echo "POSTGRES_HOST must be set"
       exit 1
     fi
-    if [[ `PGPASSWORD=${POSTGRES_PASSWORD} psql -h $POSTGRES_HOST -U $POSTGRES_USER -c "SELECT datname FROM pg_catalog.pg_database WHERE datname='cos';" --tuples-only | wc -l` -eq 1 ]]; then
+    if [[ `PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U $POSTGRES_USER -c "SELECT datname FROM pg_catalog.pg_database WHERE datname='cos';" --tuples-only | wc -l` -eq 1 ]]; then
       echo "cos is missing. Initializing the database..."
-      PGPASSWORD=${POSTGRES_PASSWORD} psql -h $POSTGRES_HOST -U postgres << EOF
+      PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U postgres << EOF
       CREATE DATABASE cos;
       CREATE DATABASE "jobs-service";
       CREATE DATABASE issues;
@@ -320,6 +320,15 @@ metadata:
   labels:
     app: postgresql
   name: postgresql-config
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+data:
+  host: ${SMTP_HOST}
+  port: ${SMTP_PORT}
+kind: ConfigMap
+metadata:
+  name: smtp
   namespace: ${NAMESPACE}
 ---
 apiVersion: v1
@@ -383,15 +392,8 @@ type: Opaque
 apiVersion: v1
 data:
   host: ${SMTP_HOST}
-  port: ${SMTP_PORT}
-kind: ConfigMap
-metadata:
-  name: smtp
-  namespace: ${NAMESPACE}
----
-apiVersion: v1
-data:
   passwd: ${SMTP_PASSWORD}
+  port: ${SMTP_PORT}
   username: ${SMTP_USERNAME}
 kind: Secret
 metadata:
@@ -1302,7 +1304,7 @@ spec:
             configMapKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
-        - name: POSTGRES_PASSWORD
+        - name: POSTGRESQL_PASSWORD
           valueFrom:
             configMapKeyRef:
               key: POSTGRESQL_PASSWORD
