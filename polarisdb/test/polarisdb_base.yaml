@@ -309,10 +309,6 @@ data:
   init.sh: |-
     #!/bin/bash
     set -e
-    echo $POSTGRES_HOST
-    echo $POSTGRES_PORT
-    echo $POSTGRESQL_USER
-    echo $POSTGRESQL_PASSWORD
     if [[ -z "$POSTGRES_HOST" ]]; then
       echo "POSTGRES_HOST must be set"
       exit 1
@@ -342,6 +338,7 @@ metadata:
 ---
 apiVersion: v1
 data:
+  POSTGRESQL_ADMIN_PASSWORD: ${POSTGRES_PASSWORD}
   POSTGRESQL_DATABASE: polaris
   POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
   POSTGRESQL_USER: ${POSTGRES_USERNAME}
@@ -421,9 +418,7 @@ type: Opaque
 ---
 apiVersion: v1
 data:
-  host: ${SMTP_HOST}
   passwd: ${SMTP_PASSWORD}
-  port: ${SMTP_PORT}
   username: ${SMTP_USERNAME}
 kind: Secret
 metadata:
@@ -1562,7 +1557,7 @@ kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-ga1nt
+  name: swip-db-ui-test-ka1yh
   namespace: ${NAMESPACE}
 spec:
   containers:
