@@ -1325,7 +1325,7 @@ spec:
           value: ${POSTGRES_HOST}
         - name: POSTGRES_PORT
           value: ${POSTGRES_PORT}
-        - name: POSTGRES_USER
+        - name: POSTGRESQL_USER
           valueFrom:
             configMapKeyRef:
               key: POSTGRESQL_USER
