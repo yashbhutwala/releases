@@ -313,9 +313,14 @@ data:
       echo "POSTGRES_HOST must be set"
       exit 1
     fi
+    if [[ "$POSTGRES_TYPE" == "internal" ]];then
+      PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U postgres << EOF
+      ALTER USER $POSTGRESQL_USER CREATEDB;
+      EOF
+    fi
     if [[ `PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U $POSTGRESQL_USER -c "SELECT datname FROM pg_catalog.pg_database WHERE datname='cos';" --tuples-only | wc -l` -eq 1 ]]; then
       echo "cos is missing. Initializing the database..."
-      PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U postgres << EOF
+      PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U $POSTGRESQL_USER << EOF
       CREATE DATABASE cos;
       CREATE DATABASE "jobs-service";
       CREATE DATABASE issues;
@@ -1559,7 +1564,7 @@ kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-cc06r
+  name: swip-db-ui-test-ua1ov
   namespace: ${NAMESPACE}
 spec:
   containers:
