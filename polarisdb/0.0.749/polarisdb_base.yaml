@@ -320,9 +320,9 @@ data:
     EOF
     fi
 
-    if [[ `PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U $POSTGRESQL_USER -c "SELECT datname FROM pg_catalog.pg_database WHERE datname='cos';" --tuples-only | wc -l` -eq 1 ]]; then
+    if [[ `PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U $POSTGRESQL_USER -c "SELECT datname FROM pg_catalog.pg_database WHERE datname='cos';" -d postgres --tuples-only | wc -l` -eq 1 ]]; then
       echo "cos is missing. Initializing the database..."
-      PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U $POSTGRESQL_USER << EOF
+      PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U $POSTGRESQL_USER -d postgres << EOF
       CREATE DATABASE cos;
       CREATE DATABASE "jobs-service";
       CREATE DATABASE issues;
@@ -346,7 +346,7 @@ metadata:
 apiVersion: v1
 data:
   POSTGRESQL_ADMIN_PASSWORD: ${POSTGRES_PASSWORD}
-  POSTGRESQL_DATABASE: polaris
+  POSTGRESQL_DATABASE: ${POSTGRES_USERNAME}
   POSTGRESQL_HOST: ${POSTGRES_HOST}
   POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
   POSTGRESQL_PORT: ${POSTGRES_PORT}
@@ -1568,7 +1568,7 @@ kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-4sbyu
+  name: swip-db-ui-test-xgv0o
   namespace: ${NAMESPACE}
 spec:
   containers:
