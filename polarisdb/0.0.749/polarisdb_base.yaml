@@ -315,7 +315,7 @@ data:
     fi
     if [[ `PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U $POSTGRESQL_USER -c "SELECT datname FROM pg_catalog.pg_database WHERE datname='cos';" --tuples-only | wc -l` -eq 1 ]]; then
       echo "cos is missing. Initializing the database..."
-      PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U $POSTGRESQL_USER << EOF
+      PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U postgres << EOF
       CREATE DATABASE cos;
       CREATE DATABASE "jobs-service";
       CREATE DATABASE issues;
@@ -338,6 +338,7 @@ metadata:
 ---
 apiVersion: v1
 data:
+  POSTGRESQL_ADMIN_PASSWORD: ${POSTGRES_PASSWORD}
   POSTGRESQL_DATABASE: polaris
   POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
   POSTGRESQL_USER: ${POSTGRES_USERNAME}
@@ -417,9 +418,7 @@ type: Opaque
 ---
 apiVersion: v1
 data:
-  host: ${SMTP_HOST}
   passwd: ${SMTP_PASSWORD}
-  port: ${SMTP_PORT}
   username: ${SMTP_USERNAME}
 kind: Secret
 metadata:
@@ -1558,7 +1557,7 @@ kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-73ouo
+  name: swip-db-ui-test-ka1yh
   namespace: ${NAMESPACE}
 spec:
   containers:
