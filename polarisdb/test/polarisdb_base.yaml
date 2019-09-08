@@ -309,11 +309,15 @@ data:
   init.sh: |-
     #!/bin/bash
     set -e
+    echo $POSTGRES_HOST
+    echo $POSTGRES_PORT
+    echo $POSTGRESQL_USER
+    echo $POSTGRESQL_PASSWORD
     if [[ -z "$POSTGRES_HOST" ]]; then
       echo "POSTGRES_HOST must be set"
       exit 1
     fi
-    if [[ `PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U $POSTGRES_USER -c "SELECT datname FROM pg_catalog.pg_database WHERE datname='cos';" --tuples-only | wc -l` -eq 1 ]]; then
+    if [[ `PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U $POSTGRESQL_USER -c "SELECT datname FROM pg_catalog.pg_database WHERE datname='cos';" --tuples-only | wc -l` -eq 1 ]]; then
       echo "cos is missing. Initializing the database..."
       PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U postgres << EOF
       CREATE DATABASE cos;
