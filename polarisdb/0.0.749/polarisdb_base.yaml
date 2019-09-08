@@ -340,7 +340,9 @@ apiVersion: v1
 data:
   POSTGRESQL_ADMIN_PASSWORD: ${POSTGRES_PASSWORD}
   POSTGRESQL_DATABASE: polaris
+  POSTGRESQL_HOST: ${POSTGRES_HOST}
   POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
+  POSTGRESQL_PORT: ${POSTGRES_PORT}
   POSTGRESQL_USER: ${POSTGRES_USERNAME}
 kind: ConfigMap
 metadata:
@@ -1557,7 +1559,7 @@ kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-ka1yh
+  name: swip-db-ui-test-cc06r
   namespace: ${NAMESPACE}
 spec:
   containers:
