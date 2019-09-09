@@ -349,7 +349,7 @@ data:
   POSTGRESQL_DATABASE: ${POSTGRES_USERNAME}
   POSTGRESQL_HOST: ${POSTGRES_HOST}
   POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
-  POSTGRESQL_PORT: ${POSTGRES_PORT}
+  POSTGRESQL_PORT: "5432"
   POSTGRESQL_USER: ${POSTGRES_USERNAME}
 kind: ConfigMap
 metadata:
@@ -361,7 +361,7 @@ metadata:
 apiVersion: v1
 data:
   host: ${SMTP_HOST}
-  port: ${SMTP_PORT}
+  port: "2525"
 kind: ConfigMap
 metadata:
   name: smtp
@@ -1574,7 +1574,7 @@ kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-s1s1p
+  name: swip-db-ui-test-3gfbs
   namespace: ${NAMESPACE}
 spec:
   containers:
