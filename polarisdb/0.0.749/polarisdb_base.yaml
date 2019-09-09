@@ -316,8 +316,9 @@ data:
 
     if [[ "$POSTGRES_TYPE" == "internal" ]];then
       PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U postgres << EOF
-      ALTER USER $POSTGRESQL_USER CREATEDB;
-      ALTER USER $POSTGRESQL_USER CREATEROLE;
+      ALTER USER $POSTGRESQL_USER SUPERUSER;
+      #ALTER USER $POSTGRESQL_USER CREATEDB;
+      #ALTER USER $POSTGRESQL_USER CREATEROLE;
     EOF
     fi
 
@@ -1575,7 +1576,7 @@ kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-9limu
+  name: swip-db-ui-test-ze1fk
   namespace: ${NAMESPACE}
 spec:
   containers:
