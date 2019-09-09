@@ -361,7 +361,7 @@ metadata:
 apiVersion: v1
 data:
   host: ${SMTP_HOST}
-  port: ${SMTP_PORT}
+  port: "2525"
 kind: ConfigMap
 metadata:
   name: smtp
@@ -1574,7 +1574,7 @@ kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-s1s1p
+  name: swip-db-ui-test-3gfbs
   namespace: ${NAMESPACE}
 spec:
   containers:
