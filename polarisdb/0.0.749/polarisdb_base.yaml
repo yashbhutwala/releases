@@ -1330,9 +1330,15 @@ spec:
         - /bin/bash
         env:
         - name: POSTGRES_HOST
-          value: ${POSTGRES_HOST}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
         - name: POSTGRES_PORT
-          value: ${POSTGRES_PORT}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
             configMapKeyRef:
@@ -1568,7 +1574,7 @@ kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-aj1so
+  name: swip-db-ui-test-s1s1p
   namespace: ${NAMESPACE}
 spec:
   containers:
