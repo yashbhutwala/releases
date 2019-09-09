@@ -2165,9 +2165,6 @@ spec:
         - mountPath: /mnt/vault/cert
           name: vault-client-cert
           readOnly: true
-        - mountPath: /etc/nomad/tls
-          name: nomad-tls
-          readOnly: true
         - mountPath: /opt/jobs-server/license
           name: coverity-license
           readOnly: true
@@ -2200,9 +2197,6 @@ spec:
           - key: tls.crt
             path: vault_client_cert
           secretName: auth-client-tls-certificate
-      - name: nomad-tls
-        secret:
-          secretName: nomad
       - name: coverity-license
         secret:
           items:

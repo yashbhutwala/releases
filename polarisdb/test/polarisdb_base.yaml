@@ -317,6 +317,7 @@ data:
     if [[ "$POSTGRES_TYPE" == "internal" ]];then
       PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U postgres << EOF
       ALTER USER $POSTGRESQL_USER CREATEDB;
+      ALTER USER $POSTGRESQL_USER CREATEROLE;
     EOF
     fi
 
@@ -334,8 +335,6 @@ data:
       CREATE DATABASE desktop_metrics;
       CREATE DATABASE tds_csv;
       CREATE DATABASE tds_seeker;
-      CREATE DATABASE "uuid-ossp";
-      CREATE DATABASE pgcrypto;
     EOF
     fi
 kind: ConfigMap
