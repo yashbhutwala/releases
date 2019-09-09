@@ -313,9 +313,16 @@ data:
       echo "POSTGRES_HOST must be set"
       exit 1
     fi
-    if [[ `PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U $POSTGRESQL_USER -c "SELECT datname FROM pg_catalog.pg_database WHERE datname='cos';" --tuples-only | wc -l` -eq 1 ]]; then
-      echo "cos is missing. Initializing the database..."
+
+    if [[ "$POSTGRES_TYPE" == "internal" ]];then
       PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U postgres << EOF
+      ALTER USER $POSTGRESQL_USER CREATEDB;
+    EOF
+    fi
+
+    if [[ `PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U $POSTGRESQL_USER -c "SELECT datname FROM pg_catalog.pg_database WHERE datname='cos';" -d postgres --tuples-only | wc -l` -eq 1 ]]; then
+      echo "cos is missing. Initializing the database..."
+      PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U $POSTGRESQL_USER -d postgres << EOF
       CREATE DATABASE cos;
       CREATE DATABASE "jobs-service";
       CREATE DATABASE issues;
@@ -339,8 +346,10 @@ metadata:
 apiVersion: v1
 data:
   POSTGRESQL_ADMIN_PASSWORD: ${POSTGRES_PASSWORD}
-  POSTGRESQL_DATABASE: polaris
+  POSTGRESQL_DATABASE: ${POSTGRES_USERNAME}
+  POSTGRESQL_HOST: ${POSTGRES_HOST}
   POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
+  POSTGRESQL_PORT: '${POSTGRES_PORT}'
   POSTGRESQL_USER: ${POSTGRES_USERNAME}
 kind: ConfigMap
 metadata:
@@ -1321,9 +1330,15 @@ spec:
         - /bin/bash
         env:
         - name: POSTGRES_HOST
-          value: ${POSTGRES_HOST}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
         - name: POSTGRES_PORT
-          value: ${POSTGRES_PORT}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
             configMapKeyRef:
@@ -1334,6 +1349,8 @@ spec:
             configMapKeyRef:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
+        - name: POSTGRES_TYPE
+          value: ${POSTGRES_TYPE}
         image: registry.access.redhat.com/rhscl/postgresql-96-rhel7:1
         name: postgres-init
         volumeMounts:
@@ -1557,7 +1574,7 @@ kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-ka1yh
+  name: swip-db-ui-test-s1s1p
   namespace: ${NAMESPACE}
 spec:
   containers:
