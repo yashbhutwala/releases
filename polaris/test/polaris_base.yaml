@@ -1042,9 +1042,15 @@ spec:
         - name: JAEGER_SAMPLER_PARAM
           value: "1"
         - name: POSTGRES_HOST
-          value: ${POSTGRES_HOST}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
         - name: POSTGRES_PORT
-          value: ${POSTGRES_PORT}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
         - name: CLOUDSQL_PASSWORD
           valueFrom:
             configMapKeyRef:
@@ -1202,9 +1208,15 @@ spec:
         - name: JAEGER_SAMPLER_PARAM
           value: "1"
         - name: POSTGRES_HOST
-          value: ${POSTGRES_HOST}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
         - name: POSTGRES_PORT
-          value: ${POSTGRES_PORT}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
         - name: CLOUDSQL_PASSWORD
           valueFrom:
             configMapKeyRef:
@@ -1401,9 +1413,15 @@ spec:
         - name: KUBERNETES_NAMESPACE
           value: default
         - name: POSTGRES_HOST
-          value: ${POSTGRES_HOST}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
         - name: POSTGRES_PORT
-          value: ${POSTGRES_PORT}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
         - name: CLOUDSQL_PASSWORD
           valueFrom:
             configMapKeyRef:
@@ -1640,9 +1658,15 @@ spec:
         - name: MONGODB_PORT
           value: "27017"
         - name: POSTGRES_HOST
-          value: ${POSTGRES_HOST}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
         - name: POSTGRES_PORT
-          value: ${POSTGRES_PORT}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
         - name: CLOUDSQL_PASSWORD
           valueFrom:
             configMapKeyRef:
@@ -1876,9 +1900,15 @@ spec:
         - name: VAULT_CLIENT_CERT
           value: /mnt/vault/cert/vault_client_cert
         - name: POSTGRES_HOST
-          value: ${POSTGRES_HOST}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
         - name: POSTGRES_PORT
-          value: ${POSTGRES_PORT}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
         - name: CLOUDSQL_PASSWORD
           valueFrom:
             configMapKeyRef:
@@ -2066,9 +2096,15 @@ spec:
         - name: NOMAD_CLIENT_KEY
           value: /etc/nomad/tls/nomad-key.pem
         - name: POSTGRES_HOST
-          value: ${POSTGRES_HOST}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
         - name: POSTGRES_PORT
-          value: ${POSTGRES_PORT}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
         - name: CLOUDSQL_PASSWORD
           valueFrom:
             configMapKeyRef:
@@ -2631,9 +2667,15 @@ spec:
         - name: JAEGER_SAMPLER_PARAM
           value: "1"
         - name: POSTGRES_HOST
-          value: ${POSTGRES_HOST}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
         - name: POSTGRES_PORT
-          value: ${POSTGRES_PORT}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
         - name: CLOUDSQL_PASSWORD
           valueFrom:
             configMapKeyRef:
@@ -3053,9 +3095,15 @@ spec:
         - name: VAULT_CLIENT_CERT
           value: /mnt/vault/cert/vault_client_cert
         - name: POSTGRES_HOST
-          value: ${POSTGRES_HOST}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
         - name: POSTGRES_PORT
-          value: ${POSTGRES_PORT}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
         - name: CLOUDSQL_PASSWORD
           valueFrom:
             configMapKeyRef:
@@ -3271,9 +3319,15 @@ spec:
         - name: VAULT_CLIENT_CERT
           value: /mnt/vault/cert/vault_client_cert
         - name: POSTGRES_HOST
-          value: ${POSTGRES_HOST}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
         - name: POSTGRES_PORT
-          value: ${POSTGRES_PORT}
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
         - name: CLOUDSQL_PASSWORD
           valueFrom:
             configMapKeyRef:
