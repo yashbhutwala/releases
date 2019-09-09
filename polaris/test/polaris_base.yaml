@@ -2,9 +2,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: auth-server
   name: auth-server
@@ -14,9 +14,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -26,9 +26,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -38,9 +38,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -50,9 +50,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: download-server
   name: download-server
@@ -62,9 +62,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
@@ -74,9 +74,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: jobs-controller-service
   name: jobs-controller-service
@@ -86,9 +86,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -98,9 +98,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -110,9 +110,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: pericles-swagger-ui
   name: pericles-swagger-ui
@@ -122,9 +122,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -134,9 +134,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -146,9 +146,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: tools-deprecate-job
   name: tools-deprecate-job
@@ -158,9 +158,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -170,9 +170,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: tools-sync-job
   name: tools-sync-job
@@ -182,9 +182,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -194,9 +194,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -206,9 +206,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -218,9 +218,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -230,9 +230,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: web-help
   name: web-help
@@ -270,9 +270,9 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: Role
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: leaderElector
   name: leaderElector
@@ -315,9 +315,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: leaderElector
   name: leaderElector
@@ -362,9 +362,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: auth-server
   name: auth-server
@@ -385,9 +385,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -408,9 +408,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -431,9 +431,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -454,9 +454,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: download-server
   name: download-server
@@ -475,9 +475,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
@@ -498,9 +498,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: jobs-controller-service
   name: jobs-controller-service
@@ -518,9 +518,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -538,9 +538,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -558,9 +558,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: pericles-swagger-ui
   name: pericles-swagger-ui
@@ -578,9 +578,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -601,9 +601,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -624,9 +624,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -644,9 +644,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -667,9 +667,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -690,9 +690,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -713,9 +713,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -733,9 +733,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: web-help
   name: web-help
@@ -753,9 +753,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: auth-server
   name: auth-server
@@ -774,9 +774,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: auth-server
       name: auth-server
@@ -870,9 +870,15 @@ spec:
             configMapKeyRef:
               key: host
               name: smtp
+            secretKeyRef:
+              key: host
+              name: smtp
         - name: SMTP_PORT
           valueFrom:
             configMapKeyRef:
+              key: port
+              name: smtp
+            secretKeyRef:
               key: port
               name: smtp
         - name: SMTP_PASSWORD
@@ -977,9 +983,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -998,9 +1004,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: configs-service
       name: configs-service
@@ -1143,9 +1149,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -1164,9 +1170,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: cos-server
       name: cos-server
@@ -1362,9 +1368,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -1383,9 +1389,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: desktop-metrics-service
       name: desktop-metrics-service
@@ -1521,9 +1527,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: download-server
   name: download-server
@@ -1539,9 +1545,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: download-server
     spec:
@@ -1587,9 +1593,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
@@ -1608,9 +1614,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: issue-server
       name: issue-server
@@ -1813,9 +1819,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: jobs-controller-service
   name: jobs-controller-service
@@ -1834,9 +1840,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: jobs-controller-service
       name: jobs-controller-service
@@ -1997,9 +2003,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -2018,9 +2024,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: jobs-service
       name: jobs-service
@@ -2214,9 +2220,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -2235,9 +2241,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: logs-service
       name: logs-service
@@ -2360,9 +2366,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: pericles-swagger-ui
   name: pericles-swagger-ui
@@ -2381,9 +2387,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: pericles-swagger-ui
     spec:
@@ -2418,9 +2424,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -2439,9 +2445,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: taxonomy-server
       name: taxonomy-server
@@ -2602,9 +2608,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -2623,9 +2629,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: tds-code-analysis
       name: tds-code-analysis
@@ -2822,9 +2828,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -2843,9 +2849,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: tools-service
       name: tools-service
@@ -2982,9 +2988,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -3003,9 +3009,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: triage-command-handler
       name: triage-command-handler
@@ -3206,9 +3212,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -3227,9 +3233,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: triage-query
       name: triage-query
@@ -3430,9 +3436,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -3451,9 +3457,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: vinyl-server
       name: vinyl-server
@@ -3580,9 +3586,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -3601,9 +3607,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: web-core
       name: web-core
@@ -3691,9 +3697,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: web-help
   name: web-help
@@ -3712,9 +3718,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: web-help
       name: web-help
@@ -3782,9 +3788,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: auth-server
   name: auth-server
@@ -3810,9 +3816,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -3838,9 +3844,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -3866,9 +3872,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -3894,9 +3900,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
@@ -3922,9 +3928,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -3950,9 +3956,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -3978,9 +3984,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -4006,9 +4012,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -4034,9 +4040,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: tools-deprecate-job
   name: tools-deprecate-job
@@ -4062,9 +4068,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -4090,9 +4096,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -4118,9 +4124,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -4146,9 +4152,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -4174,9 +4180,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -4205,9 +4211,9 @@ metadata:
     helm.sh/hook: post-install,post-upgrade
     helm.sh/hook-delete-policy: before-hook-creation
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: es-migrator
   name: es-migrator
@@ -4215,9 +4221,9 @@ metadata:
 spec:
   template:
     chart: swip
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     metadata:
       labels: null
@@ -4310,9 +4316,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: tools-deprecate-job
   name: tools-deprecate-job
@@ -4323,9 +4329,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: tools-deprecate-job
     spec:
@@ -4369,9 +4375,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: tools-sync-job
   name: tools-sync-job
@@ -4382,9 +4388,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4844
+        chartVersion: 0.0.4845
         component: swip
-        componentVersion: 0.0.4844
+        componentVersion: 0.0.4845
         environment: ${ENVIRONMENT_NAME}
         service: tools-sync-job
     spec:
@@ -4437,9 +4443,9 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: swip-ingress
   name: swip-ingress
@@ -4594,9 +4600,9 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   labels:
-    chartVersion: 0.0.4844
+    chartVersion: 0.0.4845
     component: swip
-    componentVersion: 0.0.4844
+    componentVersion: 0.0.4845
     environment: ${ENVIRONMENT_NAME}
     service: download-server
   name: download-server-pv-claim
