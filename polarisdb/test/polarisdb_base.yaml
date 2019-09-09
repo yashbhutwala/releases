@@ -334,6 +334,8 @@ data:
       CREATE DATABASE desktop_metrics;
       CREATE DATABASE tds_csv;
       CREATE DATABASE tds_seeker;
+      CREATE DATABASE "uuid-ossp";
+      CREATE DATABASE pgcrypto;
     EOF
     fi
 kind: ConfigMap
