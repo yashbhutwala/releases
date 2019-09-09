@@ -2,9 +2,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: auth-server
   name: auth-server
@@ -14,9 +14,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -26,9 +26,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -38,9 +38,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -50,9 +50,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: download-server
   name: download-server
@@ -62,9 +62,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
@@ -74,9 +74,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: jobs-controller-service
   name: jobs-controller-service
@@ -86,9 +86,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -98,9 +98,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -110,9 +110,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: pericles-swagger-ui
   name: pericles-swagger-ui
@@ -122,9 +122,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -134,9 +134,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -146,9 +146,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: tools-deprecate-job
   name: tools-deprecate-job
@@ -158,9 +158,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -170,9 +170,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: tools-sync-job
   name: tools-sync-job
@@ -182,9 +182,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -194,9 +194,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -206,9 +206,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -218,9 +218,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -230,9 +230,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: web-help
   name: web-help
@@ -270,9 +270,9 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: Role
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: leaderElector
   name: leaderElector
@@ -315,9 +315,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: leaderElector
   name: leaderElector
@@ -362,9 +362,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: auth-server
   name: auth-server
@@ -385,9 +385,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -408,9 +408,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -431,9 +431,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -454,9 +454,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: download-server
   name: download-server
@@ -475,9 +475,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
@@ -498,9 +498,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: jobs-controller-service
   name: jobs-controller-service
@@ -518,9 +518,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -538,9 +538,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -558,9 +558,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: pericles-swagger-ui
   name: pericles-swagger-ui
@@ -578,9 +578,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -601,9 +601,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -624,9 +624,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -644,9 +644,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -667,9 +667,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -690,9 +690,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -713,9 +713,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -733,9 +733,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: web-help
   name: web-help
@@ -753,9 +753,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: auth-server
   name: auth-server
@@ -774,9 +774,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: auth-server
       name: auth-server
@@ -870,9 +870,15 @@ spec:
             configMapKeyRef:
               key: host
               name: smtp
+            secretKeyRef:
+              key: host
+              name: smtp
         - name: SMTP_PORT
           valueFrom:
             configMapKeyRef:
+              key: port
+              name: smtp
+            secretKeyRef:
               key: port
               name: smtp
         - name: SMTP_PASSWORD
@@ -977,9 +983,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -998,9 +1004,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: configs-service
       name: configs-service
@@ -1042,19 +1048,19 @@ spec:
         - name: JAEGER_SAMPLER_PARAM
           value: "1"
         - name: POSTGRES_HOST
-          value: postgresql
+          value: ${POSTGRES_HOST}
         - name: POSTGRES_PORT
-          value: "5432"
+          value: ${POSTGRES_PORT}
         - name: CLOUDSQL_PASSWORD
           valueFrom:
-            secretKeyRef:
-              key: password
-              name: cloudsql
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
         - name: CLOUDSQL_USERNAME
           valueFrom:
             secretKeyRef:
-              key: username
-              name: cloudsql
+              key: POSTGRESQL_USER
+              name: postgresql-config
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
@@ -1106,39 +1112,6 @@ spec:
         - mountPath: /mnt/vault/cert
           name: vault-client-cert
           readOnly: true
-      - args:
-        - -instances=$(CLOUDSQL_INSTANCE_NAME)=tcp:5432
-        - -credential_file=/secrets/cloudsql/credentials.json
-        - -verbose=false
-        command:
-        - /cloud_sql_proxy
-        env:
-        - name: POSTGRES_DB
-          value: cos
-        - name: CLOUDSQL_INSTANCE_NAME
-          valueFrom:
-            secretKeyRef:
-              key: instance-name
-              name: cloudsql-instance-credentials
-        image: gcr.io/cloudsql-docker/gce-proxy:1.11
-        name: postgresql
-        ports:
-        - containerPort: 5432
-          name: postgresql
-          protocol: TCP
-        resources:
-          limits:
-            cpu: 500m
-            memory: 1Gi
-          requests:
-            cpu: 250m
-            memory: 256Mi
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-        volumeMounts:
-        - mountPath: /secrets/cloudsql
-          name: cloudsql-instance-credentials
-          readOnly: true
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
@@ -1165,17 +1138,14 @@ spec:
           - key: tls.crt
             path: vault_client_cert
           secretName: auth-client-tls-certificate
-      - name: cloudsql-instance-credentials
-        secret:
-          secretName: cloudsql-instance-credentials
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -1194,9 +1164,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: cos-server
       name: cos-server
@@ -1238,19 +1208,19 @@ spec:
         - name: JAEGER_SAMPLER_PARAM
           value: "1"
         - name: POSTGRES_HOST
-          value: postgresql
+          value: ${POSTGRES_HOST}
         - name: POSTGRES_PORT
-          value: "5432"
+          value: ${POSTGRES_PORT}
         - name: CLOUDSQL_PASSWORD
           valueFrom:
-            secretKeyRef:
-              key: password
-              name: cloudsql
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
         - name: CLOUDSQL_USERNAME
           valueFrom:
             secretKeyRef:
-              key: username
-              name: cloudsql
+              key: POSTGRESQL_USER
+              name: postgresql-config
         - name: EVENT_STORE_ADDR
           value: eventstore
         - name: EVENT_STORE_USERNAME
@@ -1335,39 +1305,6 @@ spec:
           name: vault-client-cert
           readOnly: true
       - args:
-        - -instances=$(CLOUDSQL_INSTANCE_NAME)=tcp:5432
-        - -credential_file=/secrets/cloudsql/credentials.json
-        - -verbose=false
-        command:
-        - /cloud_sql_proxy
-        env:
-        - name: POSTGRES_DB
-          value: cos
-        - name: CLOUDSQL_INSTANCE_NAME
-          valueFrom:
-            secretKeyRef:
-              key: instance-name
-              name: cloudsql-instance-credentials
-        image: gcr.io/cloudsql-docker/gce-proxy:1.11
-        name: postgresql
-        ports:
-        - containerPort: 5432
-          name: postgresql
-          protocol: TCP
-        resources:
-          limits:
-            cpu: 500m
-            memory: 1Gi
-          requests:
-            cpu: 250m
-            memory: 256Mi
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-        volumeMounts:
-        - mountPath: /secrets/cloudsql
-          name: cloudsql-instance-credentials
-          readOnly: true
-      - args:
         - --election=cos-server
         - --election-namespace=default
         - --http=0.0.0.0:4040
@@ -1414,17 +1351,14 @@ spec:
           - key: tls.crt
             path: vault_client_cert
           secretName: auth-client-tls-certificate
-      - name: cloudsql-instance-credentials
-        secret:
-          secretName: cloudsql-instance-credentials
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -1443,9 +1377,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: desktop-metrics-service
       name: desktop-metrics-service
@@ -1473,19 +1407,19 @@ spec:
         - name: KUBERNETES_NAMESPACE
           value: default
         - name: POSTGRES_HOST
-          value: postgresql
+          value: ${POSTGRES_HOST}
         - name: POSTGRES_PORT
-          value: "5432"
+          value: ${POSTGRES_PORT}
         - name: CLOUDSQL_PASSWORD
           valueFrom:
-            secretKeyRef:
-              key: password
-              name: cloudsql
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
         - name: CLOUDSQL_USERNAME
           valueFrom:
             secretKeyRef:
-              key: username
-              name: cloudsql
+              key: POSTGRESQL_USER
+              name: postgresql-config
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
@@ -1575,9 +1509,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: download-server
   name: download-server
@@ -1593,9 +1527,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: download-server
     spec:
@@ -1641,9 +1575,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
@@ -1662,9 +1596,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: issue-server
       name: issue-server
@@ -1712,19 +1646,19 @@ spec:
         - name: MONGODB_PORT
           value: "27017"
         - name: POSTGRES_HOST
-          value: postgresql
+          value: ${POSTGRES_HOST}
         - name: POSTGRES_PORT
-          value: "5432"
+          value: ${POSTGRES_PORT}
         - name: CLOUDSQL_PASSWORD
           valueFrom:
-            secretKeyRef:
-              key: password
-              name: cloudsql
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
         - name: CLOUDSQL_USERNAME
           valueFrom:
             secretKeyRef:
-              key: username
-              name: cloudsql
+              key: POSTGRESQL_USER
+              name: postgresql-config
         - name: EVENT_STORE_ADDR
           value: eventstore
         - name: EVENT_STORE_USERNAME
@@ -1810,39 +1744,6 @@ spec:
           name: vault-client-cert
           readOnly: true
       - args:
-        - -instances=$(CLOUDSQL_INSTANCE_NAME)=tcp:5432
-        - -credential_file=/secrets/cloudsql/credentials.json
-        - -verbose=false
-        command:
-        - /cloud_sql_proxy
-        env:
-        - name: POSTGRES_DB
-          value: issues
-        - name: CLOUDSQL_INSTANCE_NAME
-          valueFrom:
-            secretKeyRef:
-              key: instance-name
-              name: cloudsql-instance-credentials
-        image: gcr.io/cloudsql-docker/gce-proxy:1.11
-        name: postgresql
-        ports:
-        - containerPort: 5432
-          name: postgresql
-          protocol: TCP
-        resources:
-          limits:
-            cpu: 500m
-            memory: 1Gi
-          requests:
-            cpu: 250m
-            memory: 256Mi
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-        volumeMounts:
-        - mountPath: /secrets/cloudsql
-          name: cloudsql-instance-credentials
-          readOnly: true
-      - args:
         - --election=issue-server
         - --election-namespace=default
         - --http=0.0.0.0:4040
@@ -1889,17 +1790,14 @@ spec:
           - key: tls.crt
             path: vault_client_cert
           secretName: auth-client-tls-certificate
-      - name: cloudsql-instance-credentials
-        secret:
-          secretName: cloudsql-instance-credentials
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: jobs-controller-service
   name: jobs-controller-service
@@ -1918,9 +1816,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: jobs-controller-service
       name: jobs-controller-service
@@ -1984,19 +1882,19 @@ spec:
         - name: VAULT_CLIENT_CERT
           value: /mnt/vault/cert/vault_client_cert
         - name: POSTGRES_HOST
-          value: postgresql
+          value: ${POSTGRES_HOST}
         - name: POSTGRES_PORT
-          value: "5432"
+          value: ${POSTGRES_PORT}
         - name: CLOUDSQL_PASSWORD
           valueFrom:
-            secretKeyRef:
-              key: password
-              name: cloudsql
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
         - name: CLOUDSQL_USERNAME
           valueFrom:
             secretKeyRef:
-              key: username
-              name: cloudsql
+              key: POSTGRESQL_USER
+              name: postgresql-config
         - name: CONFIG
           value: controller-config-k8s.yaml
         - name: POSTGRES_DB
@@ -2075,9 +1973,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -2096,9 +1994,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: jobs-service
       name: jobs-service
@@ -2174,19 +2072,19 @@ spec:
         - name: NOMAD_CLIENT_KEY
           value: /etc/nomad/tls/nomad-key.pem
         - name: POSTGRES_HOST
-          value: postgresql
+          value: ${POSTGRES_HOST}
         - name: POSTGRES_PORT
-          value: "5432"
+          value: ${POSTGRES_PORT}
         - name: CLOUDSQL_PASSWORD
           valueFrom:
-            secretKeyRef:
-              key: password
-              name: cloudsql
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
         - name: CLOUDSQL_USERNAME
           valueFrom:
             secretKeyRef:
-              key: username
-              name: cloudsql
+              key: POSTGRESQL_USER
+              name: postgresql-config
         - name: INGRESS_NAMESPACE
           value: kube-system
         - name: INGRESS_SERVICE
@@ -2286,9 +2184,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -2307,9 +2205,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: logs-service
       name: logs-service
@@ -2432,9 +2330,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: pericles-swagger-ui
   name: pericles-swagger-ui
@@ -2453,9 +2351,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: pericles-swagger-ui
     spec:
@@ -2490,9 +2388,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -2511,9 +2409,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: taxonomy-server
       name: taxonomy-server
@@ -2674,9 +2572,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -2695,9 +2593,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: tds-code-analysis
       name: tds-code-analysis
@@ -2739,19 +2637,19 @@ spec:
         - name: JAEGER_SAMPLER_PARAM
           value: "1"
         - name: POSTGRES_HOST
-          value: postgresql
+          value: ${POSTGRES_HOST}
         - name: POSTGRES_PORT
-          value: "5432"
+          value: ${POSTGRES_PORT}
         - name: CLOUDSQL_PASSWORD
           valueFrom:
-            secretKeyRef:
-              key: password
-              name: cloudsql
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
         - name: CLOUDSQL_USERNAME
           valueFrom:
             secretKeyRef:
-              key: username
-              name: cloudsql
+              key: POSTGRESQL_USER
+              name: postgresql-config
         - name: EVENT_STORE_ADDR
           value: eventstore
         - name: EVENT_STORE_USERNAME
@@ -2837,39 +2735,6 @@ spec:
           name: vault-client-cert
           readOnly: true
       - args:
-        - -instances=$(CLOUDSQL_INSTANCE_NAME)=tcp:5432
-        - -credential_file=/secrets/cloudsql/credentials.json
-        - -verbose=false
-        command:
-        - /cloud_sql_proxy
-        env:
-        - name: POSTGRES_DB
-          value: code_analysis
-        - name: CLOUDSQL_INSTANCE_NAME
-          valueFrom:
-            secretKeyRef:
-              key: instance-name
-              name: cloudsql-instance-credentials
-        image: gcr.io/cloudsql-docker/gce-proxy:1.11
-        name: postgresql
-        ports:
-        - containerPort: 5432
-          name: postgresql
-          protocol: TCP
-        resources:
-          limits:
-            cpu: 500m
-            memory: 1Gi
-          requests:
-            cpu: 250m
-            memory: 256Mi
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-        volumeMounts:
-        - mountPath: /secrets/cloudsql
-          name: cloudsql-instance-credentials
-          readOnly: true
-      - args:
         - --election=tds-code-analysis
         - --election-namespace=default
         - --http=0.0.0.0:4040
@@ -2916,17 +2781,14 @@ spec:
           - key: tls.crt
             path: vault_client_cert
           secretName: tds-code-analysis-tls-certificate
-      - name: cloudsql-instance-credentials
-        secret:
-          secretName: cloudsql-instance-credentials
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -2945,9 +2807,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: tools-service
       name: tools-service
@@ -3084,9 +2946,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -3105,9 +2967,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: triage-command-handler
       name: triage-command-handler
@@ -3197,19 +3059,19 @@ spec:
         - name: VAULT_CLIENT_CERT
           value: /mnt/vault/cert/vault_client_cert
         - name: POSTGRES_HOST
-          value: postgresql
+          value: ${POSTGRES_HOST}
         - name: POSTGRES_PORT
-          value: "5432"
+          value: ${POSTGRES_PORT}
         - name: CLOUDSQL_PASSWORD
           valueFrom:
-            secretKeyRef:
-              key: password
-              name: cloudsql
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
         - name: CLOUDSQL_USERNAME
           valueFrom:
             secretKeyRef:
-              key: username
-              name: cloudsql
+              key: POSTGRESQL_USER
+              name: postgresql-config
         image: gcr.io/snps-swip-staging/swip_triage-command-handler:1.6.1863
         imagePullPolicy: IfNotPresent
         livenessProbe:
@@ -3302,9 +3164,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -3323,9 +3185,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: triage-query
       name: triage-query
@@ -3415,19 +3277,19 @@ spec:
         - name: VAULT_CLIENT_CERT
           value: /mnt/vault/cert/vault_client_cert
         - name: POSTGRES_HOST
-          value: postgresql
+          value: ${POSTGRES_HOST}
         - name: POSTGRES_PORT
-          value: "5432"
+          value: ${POSTGRES_PORT}
         - name: CLOUDSQL_PASSWORD
           valueFrom:
-            secretKeyRef:
-              key: password
-              name: cloudsql
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
         - name: CLOUDSQL_USERNAME
           valueFrom:
             secretKeyRef:
-              key: username
-              name: cloudsql
+              key: POSTGRESQL_USER
+              name: postgresql-config
         image: gcr.io/snps-swip-staging/swip_triage-query:1.6.1863
         imagePullPolicy: IfNotPresent
         livenessProbe:
@@ -3520,9 +3382,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -3541,9 +3403,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: vinyl-server
       name: vinyl-server
@@ -3670,9 +3532,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -3691,9 +3553,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: web-core
       name: web-core
@@ -3781,9 +3643,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: web-help
   name: web-help
@@ -3802,9 +3664,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: web-help
       name: web-help
@@ -3872,9 +3734,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: auth-server
   name: auth-server
@@ -3900,9 +3762,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -3928,9 +3790,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -3956,9 +3818,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -3984,9 +3846,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
@@ -4012,9 +3874,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -4040,9 +3902,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -4068,9 +3930,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -4096,9 +3958,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -4124,9 +3986,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: tools-deprecate-job
   name: tools-deprecate-job
@@ -4152,9 +4014,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -4180,9 +4042,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -4208,9 +4070,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -4236,9 +4098,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -4264,9 +4126,9 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -4295,9 +4157,9 @@ metadata:
     helm.sh/hook: post-install,post-upgrade
     helm.sh/hook-delete-policy: before-hook-creation
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: es-migrator
   name: es-migrator
@@ -4305,9 +4167,9 @@ metadata:
 spec:
   template:
     chart: swip
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     metadata:
       labels: null
@@ -4400,9 +4262,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: tools-deprecate-job
   name: tools-deprecate-job
@@ -4413,9 +4275,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: tools-deprecate-job
     spec:
@@ -4459,9 +4321,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: tools-sync-job
   name: tools-sync-job
@@ -4472,9 +4334,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.4843
+        chartVersion: 0.0.4844
         component: swip
-        componentVersion: 0.0.4843
+        componentVersion: 0.0.4844
         environment: ${ENVIRONMENT_NAME}
         service: tools-sync-job
     spec:
@@ -4527,9 +4389,9 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: swip-ingress
   name: swip-ingress
@@ -4684,9 +4546,9 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   labels:
-    chartVersion: 0.0.4843
+    chartVersion: 0.0.4844
     component: swip
-    componentVersion: 0.0.4843
+    componentVersion: 0.0.4844
     environment: ${ENVIRONMENT_NAME}
     service: download-server
   name: download-server-pv-claim
