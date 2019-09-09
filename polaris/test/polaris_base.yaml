@@ -870,15 +870,9 @@ spec:
             configMapKeyRef:
               key: host
               name: smtp
-            secretKeyRef:
-              key: host
-              name: smtp
         - name: SMTP_PORT
           valueFrom:
             configMapKeyRef:
-              key: port
-              name: smtp
-            secretKeyRef:
               key: port
               name: smtp
         - name: SMTP_PASSWORD
