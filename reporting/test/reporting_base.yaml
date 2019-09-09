@@ -2,84 +2,73 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1192
-    component: None
-    componentVersion: None
+    chartVersion: 0.0.1251
+    component: reporting
+    componentVersion: 0.0.1251
     environment: ${ENVIRONMENT_NAME}
     service: rp-issue-manager
   name: rp-issue-manager
+  namespace: ${NAMESPACE}
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1192
-    component: None
-    componentVersion: None
+    chartVersion: 0.0.1251
+    component: reporting
+    componentVersion: 0.0.1251
     environment: ${ENVIRONMENT_NAME}
     service: rp-polaris-agent-service
   name: rp-polaris-agent-service
+  namespace: ${NAMESPACE}
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1192
-    component: None
-    componentVersion: None
+    chartVersion: 0.0.1251
+    component: reporting
+    componentVersion: 0.0.1251
     environment: ${ENVIRONMENT_NAME}
     service: rp-portfolio-service
   name: rp-portfolio-service
+  namespace: ${NAMESPACE}
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1192
-    component: None
-    componentVersion: None
+    chartVersion: 0.0.1251
+    component: reporting
+    componentVersion: 0.0.1251
     environment: ${ENVIRONMENT_NAME}
     service: rp-report-service
   name: rp-report-service
+  namespace: ${NAMESPACE}
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1192
-    component: None
-    componentVersion: None
+    chartVersion: 0.0.1251
+    component: reporting
+    componentVersion: 0.0.1251
     environment: ${ENVIRONMENT_NAME}
     service: rp-swagger-doc
   name: rp-swagger-doc
+  namespace: ${NAMESPACE}
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1192
-    component: None
-    componentVersion: None
+    chartVersion: 0.0.1251
+    component: reporting
+    componentVersion: 0.0.1251
     environment: ${ENVIRONMENT_NAME}
     service: rp-tools-portfolio-service
   name: rp-tools-portfolio-service
----
-apiVersion: v1
-data:
-  postgres_host: ${POSTGRES_HOST}
-  postgres_port: "${POSTGRES_PORT}"
-kind: ConfigMap
-metadata:
-  name: postgres
----
-apiVersion: v1
-data:
-  reporting_db_password: ${POSTGRES_PASSWORD}
-  reporting_db_username: ${POSTGRES_USERNAME}
-kind: Secret
-metadata:
-  name: postgres
-type: Opaque
+  namespace: ${NAMESPACE}
 ---
 apiVersion: v1
 kind: Service
@@ -87,7 +76,7 @@ metadata:
   labels:
     name: report-storage
   name: report-storage
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   ports:
   - port: 9000
@@ -100,7 +89,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: rp-frontend
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   ports:
   - name: "80"
@@ -115,7 +104,7 @@ metadata:
   labels:
     name: rp-issue-manager
   name: rp-issue-manager
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   ports:
   - name: "6888"
@@ -135,7 +124,7 @@ metadata:
   labels:
     name: rp-polaris-agent-service
   name: rp-polaris-agent-service
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   ports:
   - name: "7788"
@@ -155,7 +144,7 @@ metadata:
   labels:
     name: rp-portfolio-service
   name: rp-portfolio-service
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   ports:
   - name: "60289"
@@ -175,7 +164,7 @@ metadata:
   labels:
     name: rp-report-service
   name: rp-report-service
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   ports:
   - name: "7979"
@@ -195,7 +184,7 @@ metadata:
   labels:
     name: rp-swagger-doc
   name: rp-swagger-doc
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   ports:
   - name: "8765"
@@ -213,7 +202,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: rp-tools-portfolio-service
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   ports:
   - name: "60281"
@@ -228,9 +217,14 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
+    chartVersion: 0.0.1251
+    component: reporting
+    componentVersion: 0.0.1251
+    environment: ${ENVIRONMENT_NAME}
     name: report-storage
+    service: report-storage
   name: report-storage
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   selector:
     matchLabels:
@@ -259,7 +253,7 @@ spec:
               key: secret_key
               name: swip-tools-minio
         hostname: report-storage
-        image: gcr.io/snps-swip-staging/public/minio/minio:RELEASE.2018-12-27T18-33-08Z
+        image: gcr.io/snps-swip-staging/public/minio/minio:RELEASE.2019-02-14T00-21-45Z
         name: report-storage
         ports:
         - containerPort: 9000
@@ -275,7 +269,7 @@ spec:
         - mountPath: /storage
           name: storage
       imagePullSecrets:
-      - name: '${IMAGE_PULL_SECRETS}'
+      - name: ${IMAGE_PULL_SECRETS}
       volumes:
       - name: storage
         persistentVolumeClaim:
@@ -285,9 +279,14 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
+    chartVersion: 0.0.1251
+    component: reporting
+    componentVersion: 0.0.1251
+    environment: ${ENVIRONMENT_NAME}
     name: rp-frontend
+    service: rp-frontend
   name: rp-frontend
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   replicas: 1
   selector:
@@ -302,7 +301,7 @@ spec:
       - env:
         - name: REPORTING_STANDALONE
           value: "false"
-        image: gcr.io/snps-swip-staging/reporting-frontend-service:0.0.916
+        image: gcr.io/snps-swip-staging/reporting-frontend-service:0.0.758
         imagePullPolicy: Always
         name: rp-frontend
         ports:
@@ -315,16 +314,21 @@ spec:
             cpu: 250m
             memory: 256Mi
       imagePullSecrets:
-      - name: '${IMAGE_PULL_SECRETS}'
+      - name: ${IMAGE_PULL_SECRETS}
       restartPolicy: Always
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
+    chartVersion: 0.0.1251
+    component: reporting
+    componentVersion: 0.0.1251
+    environment: ${ENVIRONMENT_NAME}
     name: rp-issue-manager
+    service: rp-issue-manager
   name: rp-issue-manager
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   replicas: 1
   selector:
@@ -338,7 +342,7 @@ spec:
       containers:
       - env:
         - name: SWIP_VAULT_ADDRESS
-          value: https://swip-db-vault:8200
+          value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
           value: /mnt/vault/ca/vault_cacrt
         - name: VAULT_CLIENT_KEY
@@ -348,23 +352,23 @@ spec:
         - name: POSTGRES_HOST
           valueFrom:
             configMapKeyRef:
-              key: postgres_host
-              name: postgres
+              key: POSTGRESQL_HOST
+              name: postgresql-config
         - name: POSTGRES_PORT
           valueFrom:
             configMapKeyRef:
-              key: postgres_port
-              name: postgres
+              key: POSTGRESQL_PORT
+              name: postgresql-config
         - name: POSTGRES_PASSWORD
           valueFrom:
-            secretKeyRef:
-              key: reporting_db_password
-              name: postgres
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
         - name: POSTGRES_USERNAME
           valueFrom:
-            secretKeyRef:
-              key: reporting_db_username
-              name: postgres
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
         - name: MINIO_HOST
           value: report-storage
         - name: MINIO_PORT
@@ -393,7 +397,7 @@ spec:
           value: const
         - name: JAEGER_SAMPLER_PARAM
           value: "1"
-        image: gcr.io/snps-swip-staging/reporting-rp-issue-manager:0.0.669
+        image: gcr.io/snps-swip-staging/reporting-rp-issue-manager:0.0.588
         imagePullPolicy: Always
         name: rp-issue-manager
         ports:
@@ -416,7 +420,7 @@ spec:
           name: vault-client-cert
           readOnly: true
       imagePullSecrets:
-      - name: '${IMAGE_PULL_SECRETS}'
+      - name: ${IMAGE_PULL_SECRETS}
       restartPolicy: Always
       volumes:
       - name: vault-cacert
@@ -445,9 +449,14 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
+    chartVersion: 0.0.1251
+    component: reporting
+    componentVersion: 0.0.1251
+    environment: ${ENVIRONMENT_NAME}
     name: rp-polaris-agent-service
+    service: rp-polaris-agent-service
   name: rp-polaris-agent-service
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   replicas: 1
   selector:
@@ -461,13 +470,22 @@ spec:
       containers:
       - env:
         - name: SWIP_VAULT_ADDRESS
-          value: https://swip-db-vault:8200
+          value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
           value: /mnt/vault/ca/vault_cacrt
         - name: VAULT_CLIENT_KEY
           value: /mnt/vault/key/vault_client_key
         - name: VAULT_CLIENT_CERT
           value: /mnt/vault/cert/vault_client_cert
+        - name: EVENT_STORE_ADDR
+          value: eventstore.default.svc.cluster.local
+        - name: EVENT_STORE_READER_USERNAME
+          value: reader
+        - name: EVENT_STORE_READER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: swip-eventstore-reader-creds
         - name: MINIO_HOST
           value: report-storage
         - name: MINIO_PORT
@@ -487,23 +505,23 @@ spec:
         - name: POSTGRES_HOST
           valueFrom:
             configMapKeyRef:
-              key: postgres_host
-              name: postgres
+              key: POSTGRESQL_HOST
+              name: postgresql-config
         - name: POSTGRES_PORT
           valueFrom:
             configMapKeyRef:
-              key: postgres_port
-              name: postgres
+              key: POSTGRESQL_PORT
+              name: postgresql-config
         - name: POSTGRES_PASSWORD
           valueFrom:
-            secretKeyRef:
-              key: reporting_db_password
-              name: postgres
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
         - name: POSTGRES_USERNAME
           valueFrom:
-            secretKeyRef:
-              key: reporting_db_username
-              name: postgres
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
         - name: JAEGER_SERVICE_NAME
           value: default-rp-polaris-agent-service
         - name: JAEGER_HOST
@@ -516,7 +534,7 @@ spec:
           value: const
         - name: JAEGER_SAMPLER_PARAM
           value: "1"
-        image: gcr.io/snps-swip-staging/reporting-polaris-service:0.0.555
+        image: gcr.io/snps-swip-staging/reporting-polaris-service:0.0.220
         imagePullPolicy: Always
         name: rp-polaris-agent-service
         ports:
@@ -539,7 +557,7 @@ spec:
           name: vault-client-cert
           readOnly: true
       imagePullSecrets:
-      - name: '${IMAGE_PULL_SECRETS}'
+      - name: ${IMAGE_PULL_SECRETS}
       restartPolicy: Always
       volumes:
       - name: vault-cacert
@@ -568,9 +586,14 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
+    chartVersion: 0.0.1251
+    component: reporting
+    componentVersion: 0.0.1251
+    environment: ${ENVIRONMENT_NAME}
     name: rp-portfolio-service
+    service: rp-portfolio-service
   name: rp-portfolio-service
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   replicas: 1
   selector:
@@ -584,7 +607,7 @@ spec:
       containers:
       - env:
         - name: SWIP_VAULT_ADDRESS
-          value: https://swip-db-vault:8200
+          value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
           value: /mnt/vault/ca/vault_cacrt
         - name: VAULT_CLIENT_KEY
@@ -594,23 +617,23 @@ spec:
         - name: POSTGRES_HOST
           valueFrom:
             configMapKeyRef:
-              key: postgres_host
-              name: postgres
+              key: POSTGRESQL_HOST
+              name: postgresql-config
         - name: POSTGRES_PORT
           valueFrom:
             configMapKeyRef:
-              key: postgres_port
-              name: postgres
+              key: POSTGRESQL_PORT
+              name: postgresql-config
         - name: POSTGRES_PASSWORD
           valueFrom:
-            secretKeyRef:
-              key: reporting_db_password
-              name: postgres
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
         - name: POSTGRES_USERNAME
           valueFrom:
-            secretKeyRef:
-              key: reporting_db_username
-              name: postgres
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
         - name: MINIO_HOST
           value: report-storage
         - name: MINIO_PORT
@@ -639,7 +662,7 @@ spec:
           value: const
         - name: JAEGER_SAMPLER_PARAM
           value: "1"
-        image: gcr.io/snps-swip-staging/reporting-rp-portfolio-service:0.0.831
+        image: gcr.io/snps-swip-staging/reporting-rp-portfolio-service:0.0.785
         imagePullPolicy: Always
         name: rp-portfolio-service
         ports:
@@ -662,7 +685,7 @@ spec:
           name: vault-client-cert
           readOnly: true
       imagePullSecrets:
-      - name: '${IMAGE_PULL_SECRETS}'
+      - name: ${IMAGE_PULL_SECRETS}
       restartPolicy: Always
       volumes:
       - name: vault-cacert
@@ -691,9 +714,14 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
+    chartVersion: 0.0.1251
+    component: reporting
+    componentVersion: 0.0.1251
+    environment: ${ENVIRONMENT_NAME}
     name: rp-report-service
+    service: rp-report-service
   name: rp-report-service
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   replicas: 1
   selector:
@@ -707,7 +735,7 @@ spec:
       containers:
       - env:
         - name: SWIP_VAULT_ADDRESS
-          value: https://swip-db-vault:8200
+          value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
           value: /mnt/vault/ca/vault_cacrt
         - name: VAULT_CLIENT_KEY
@@ -717,23 +745,23 @@ spec:
         - name: POSTGRES_HOST
           valueFrom:
             configMapKeyRef:
-              key: postgres_host
-              name: postgres
+              key: POSTGRESQL_HOST
+              name: postgresql-config
         - name: POSTGRES_PORT
           valueFrom:
             configMapKeyRef:
-              key: postgres_port
-              name: postgres
+              key: POSTGRESQL_PORT
+              name: postgresql-config
         - name: POSTGRES_PASSWORD
           valueFrom:
-            secretKeyRef:
-              key: reporting_db_password
-              name: postgres
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
         - name: POSTGRES_USERNAME
           valueFrom:
-            secretKeyRef:
-              key: reporting_db_username
-              name: postgres
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
         - name: MINIO_HOST
           value: report-storage
         - name: MINIO_PORT
@@ -776,7 +804,7 @@ spec:
           value: const
         - name: JAEGER_SAMPLER_PARAM
           value: "1"
-        image: gcr.io/snps-swip-staging/reporting-report-service:0.0.837
+        image: gcr.io/snps-swip-staging/reporting-report-service:0.0.511
         imagePullPolicy: Always
         name: rp-report-service
         ports:
@@ -803,7 +831,7 @@ spec:
         ports:
         - containerPort: 3310
       imagePullSecrets:
-      - name: '${IMAGE_PULL_SECRETS}'
+      - name: ${IMAGE_PULL_SECRETS}
       restartPolicy: Always
       volumes:
       - name: vault-cacert
@@ -832,9 +860,14 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
+    chartVersion: 0.0.1251
+    component: reporting
+    componentVersion: 0.0.1251
+    environment: ${ENVIRONMENT_NAME}
     name: rp-swagger-doc
+    service: rp-swagger-doc
   name: rp-swagger-doc
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   replicas: 1
   selector:
@@ -848,7 +881,7 @@ spec:
       containers:
       - env:
         - name: SWIP_VAULT_ADDRESS
-          value: https://swip-db-vault:8200
+          value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
           value: /mnt/vault/ca/vault_cacrt
         - name: VAULT_CLIENT_KEY
@@ -871,7 +904,7 @@ spec:
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
           value: "false"
-        image: gcr.io/snps-swip-staging/reporting-swagger-doc:0.0.78
+        image: gcr.io/snps-swip-staging/reporting-swagger-doc:0.0.41
         imagePullPolicy: Always
         name: rp-swagger-doc
         ports:
@@ -894,7 +927,7 @@ spec:
           name: vault-client-cert
           readOnly: true
       imagePullSecrets:
-      - name: '${IMAGE_PULL_SECRETS}'
+      - name: ${IMAGE_PULL_SECRETS}
       restartPolicy: Always
       volumes:
       - name: vault-cacert
@@ -923,9 +956,14 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
+    chartVersion: 0.0.1251
+    component: reporting
+    componentVersion: 0.0.1251
+    environment: ${ENVIRONMENT_NAME}
     name: rp-tools-portfolio-service
+    service: rp-tools-portfolio-service
   name: rp-tools-portfolio-service
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   replicas: 1
   selector:
@@ -939,7 +977,7 @@ spec:
       containers:
       - env:
         - name: SWIP_VAULT_ADDRESS
-          value: https://swip-db-vault:8200
+          value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
           value: /mnt/vault/ca/vault_cacrt
         - name: VAULT_CLIENT_KEY
@@ -949,23 +987,23 @@ spec:
         - name: POSTGRES_HOST
           valueFrom:
             configMapKeyRef:
-              key: postgres_host
-              name: postgres
+              key: POSTGRESQL_HOST
+              name: postgresql-config
         - name: POSTGRES_PORT
           valueFrom:
             configMapKeyRef:
-              key: postgres_port
-              name: postgres
+              key: POSTGRESQL_PORT
+              name: postgresql-config
         - name: POSTGRES_PASSWORD
           valueFrom:
-            secretKeyRef:
-              key: reporting_db_password
-              name: postgres
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
         - name: POSTGRES_USERNAME
           valueFrom:
-            secretKeyRef:
-              key: reporting_db_username
-              name: postgres
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
         - name: MINIO_HOST
           value: report-storage
         - name: MINIO_PORT
@@ -994,7 +1032,7 @@ spec:
           value: const
         - name: JAEGER_SAMPLER_PARAM
           value: "1"
-        image: gcr.io/snps-swip-staging/reporting-tools-portfolio-service:0.0.1259
+        image: gcr.io/snps-swip-staging/reporting-tools-portfolio-service:0.0.1143
         imagePullPolicy: Always
         name: rp-tools-portfolio-service
         ports:
@@ -1017,7 +1055,7 @@ spec:
           name: vault-server-cert
           readOnly: true
       imagePullSecrets:
-      - name: '${IMAGE_PULL_SECRETS}'
+      - name: ${IMAGE_PULL_SECRETS}
       restartPolicy: Always
       serviceAccount: auth-server
       volumes:
@@ -1044,6 +1082,7 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   name: rp-issue-manager
+  namespace: ${NAMESPACE}
 spec:
   maxReplicas: 3
   metrics:
@@ -1065,6 +1104,7 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   name: rp-portfolio-service
+  namespace: ${NAMESPACE}
 spec:
   maxReplicas: 3
   metrics:
@@ -1086,6 +1126,7 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   name: rp-report-service
+  namespace: ${NAMESPACE}
 spec:
   maxReplicas: 3
   metrics:
@@ -1107,6 +1148,7 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   name: rp-tools-portfolio-service
+  namespace: ${NAMESPACE}
 spec:
   maxReplicas: 3
   metrics:
@@ -1130,7 +1172,7 @@ metadata:
   labels:
     name: report-storage
   name: report-storage-pv-claim
-  namespace: default
+  namespace: ${NAMESPACE}
 spec:
   accessModes:
   - ReadWriteOnce
