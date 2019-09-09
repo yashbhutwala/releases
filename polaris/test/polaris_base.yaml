@@ -1058,7 +1058,7 @@ spec:
               name: postgresql-config
         - name: CLOUDSQL_USERNAME
           valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: SWIP_VAULT_ADDRESS
@@ -1218,7 +1218,7 @@ spec:
               name: postgresql-config
         - name: CLOUDSQL_USERNAME
           valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: EVENT_STORE_ADDR
@@ -1417,7 +1417,7 @@ spec:
               name: postgresql-config
         - name: CLOUDSQL_USERNAME
           valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: SWIP_VAULT_ADDRESS
@@ -1656,7 +1656,7 @@ spec:
               name: postgresql-config
         - name: CLOUDSQL_USERNAME
           valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: EVENT_STORE_ADDR
@@ -1892,7 +1892,7 @@ spec:
               name: postgresql-config
         - name: CLOUDSQL_USERNAME
           valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: CONFIG
@@ -2082,7 +2082,7 @@ spec:
               name: postgresql-config
         - name: CLOUDSQL_USERNAME
           valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: INGRESS_NAMESPACE
@@ -2647,7 +2647,7 @@ spec:
               name: postgresql-config
         - name: CLOUDSQL_USERNAME
           valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: EVENT_STORE_ADDR
@@ -3069,7 +3069,7 @@ spec:
               name: postgresql-config
         - name: CLOUDSQL_USERNAME
           valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         image: gcr.io/snps-swip-staging/swip_triage-command-handler:1.6.1863
@@ -3287,7 +3287,7 @@ spec:
               name: postgresql-config
         - name: CLOUDSQL_USERNAME
           valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         image: gcr.io/snps-swip-staging/swip_triage-query:1.6.1863
