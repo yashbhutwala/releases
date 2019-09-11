@@ -210,25 +210,23 @@ spec:
   resources:
     requests:
       storage: 5G
-# TODO Routes
-# apiVersion: route.openshift.io/v1
-# kind: Route
-# metadata:
-#   annotations:
-#     openshift.io/host.generated: "true"
-#   labels:
-#     app: alert
-#     component: route
-#     name: ${NAME}
-#   name: ${NAME}-alert
-# spec:
-#   host: demo-alert-demo.192.168.99.100.nip.io
-#   port:
-#     targetPort: port-8443
-#   tls:
-#     termination: passthrough
-#   to:
-#     kind: Service
-#     name: ${NAME}-alert-alert
-#     weight: 100
-#   wildcardPolicy: None
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: alert
+    component: route
+    name: ${NAME}
+  name: ${NAME}-alert
+  namespace: ${NAMESPACE}
+spec:
+  port:
+    targetPort: port-8443
+  tls:
+    termination: passthrough
+  to:
+    kind: Service
+    name: ${NAME}-alert
+    weight: 100
+  wildcardPolicy: None

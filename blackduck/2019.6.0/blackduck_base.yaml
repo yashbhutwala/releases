@@ -1764,3 +1764,23 @@ spec:
       dnsPolicy: ClusterFirst
       securityContext:
         fsGroup: 0
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: blackduck
+    component: route
+    name: ${NAME}
+  name: ${NAME}-blackduck-webserver-exposed
+  namespace: ${NAMESPACE}
+spec:
+  port:
+    targetPort: port-8443
+  tls:
+    termination: passthrough
+  to:
+    kind: Service
+    name: ${NAME}-blackduck-webserver-exposed
+    weight: 100
+  wildcardPolicy: None
