@@ -433,7 +433,7 @@ data:
   username: ${SMTP_USERNAME}
 kind: Secret
 metadata:
-  name: polaris-smtp
+  name: smtp
   namespace: ${NAMESPACE}
 type: Opaque
 ---
@@ -1586,7 +1586,7 @@ kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-luh3v
+  name: swip-db-ui-test-dhn3w
   namespace: ${NAMESPACE}
 spec:
   containers:
