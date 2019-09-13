@@ -853,11 +853,11 @@ spec:
         - name: EVENT_STORE_ADDR
           value: eventstore
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_USERNAME
           value: admin
         - name: EVENT_STORE_PASSWORD
@@ -972,7 +972,7 @@ spec:
           readOnly: true
       - args:
         - --election=auth-server
-        - --election-namespace=$(LEADER_ELECTOR_NAMESPACE)
+        - "--election-namespace=$(LEADER_ELECTOR_NAMESPACE)"
         - --http=0.0.0.0:4040
         image: k8s.gcr.io/leader-elector:0.5
         imagePullPolicy: Always
@@ -1302,7 +1302,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_ADMIN_USERNAME
           value: admin
         - name: EVENT_STORE_ADMIN_PASSWORD
@@ -1315,7 +1315,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_WRITER_USERNAME
           value: writer
         - name: EVENT_STORE_WRITER_PASSWORD
@@ -1328,7 +1328,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_READER_USERNAME
           value: reader
         - name: EVENT_STORE_READER_PASSWORD
@@ -1389,7 +1389,7 @@ spec:
           readOnly: true
       - args:
         - --election=cos-server
-        - --election-namespace=$(LEADER_ELECTOR_NAMESPACE)
+        - "--election-namespace=$(LEADER_ELECTOR_NAMESPACE)"
         - --http=0.0.0.0:4040
         image: k8s.gcr.io/leader-elector:0.5
         imagePullPolicy: Always
@@ -1526,7 +1526,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_ADMIN_USERNAME
           value: admin
         - name: EVENT_STORE_ADMIN_PASSWORD
@@ -1539,7 +1539,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_READER_USERNAME
           value: reader
         - name: EVENT_STORE_READER_PASSWORD
@@ -1802,7 +1802,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_ADMIN_USERNAME
           value: admin
         - name: EVENT_STORE_ADMIN_PASSWORD
@@ -1815,7 +1815,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_WRITER_USERNAME
           value: writer
         - name: EVENT_STORE_WRITER_PASSWORD
@@ -1828,7 +1828,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_READER_USERNAME
           value: reader
         - name: EVENT_STORE_READER_PASSWORD
@@ -1890,7 +1890,7 @@ spec:
           readOnly: true
       - args:
         - --election=issue-server
-        - --election-namespace=$(LEADER_ELECTOR_NAMESPACE)
+        - "--election-namespace=$(LEADER_ELECTOR_NAMESPACE)"
         - --http=0.0.0.0:4040
         image: k8s.gcr.io/leader-elector:0.5
         imagePullPolicy: Always
@@ -2657,7 +2657,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_ADMIN_USERNAME
           value: admin
         - name: EVENT_STORE_ADMIN_PASSWORD
@@ -2670,7 +2670,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_WRITER_USERNAME
           value: writer
         - name: EVENT_STORE_WRITER_PASSWORD
@@ -2683,7 +2683,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_READER_USERNAME
           value: reader
         - name: EVENT_STORE_READER_PASSWORD
@@ -2881,7 +2881,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_ADMIN_USERNAME
           value: admin
         - name: EVENT_STORE_ADMIN_PASSWORD
@@ -2894,7 +2894,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_WRITER_USERNAME
           value: writer
         - name: EVENT_STORE_WRITER_PASSWORD
@@ -2907,7 +2907,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_READER_USERNAME
           value: reader
         - name: EVENT_STORE_READER_PASSWORD
@@ -2969,7 +2969,7 @@ spec:
           readOnly: true
       - args:
         - --election=tds-code-analysis
-        - --election-namespace=$(LEADER_ELECTOR_NAMESPACE)
+        - "--election-namespace=$(LEADER_ELECTOR_NAMESPACE)"
         - --http=0.0.0.0:4040
         image: k8s.gcr.io/leader-elector:0.5
         imagePullPolicy: Always
@@ -3277,7 +3277,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_ADMIN_USERNAME
           value: admin
         - name: EVENT_STORE_ADMIN_PASSWORD
@@ -3290,7 +3290,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_WRITER_USERNAME
           value: writer
         - name: EVENT_STORE_WRITER_PASSWORD
@@ -3303,7 +3303,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_READER_USERNAME
           value: reader
         - name: EVENT_STORE_READER_PASSWORD
@@ -3385,7 +3385,7 @@ spec:
           readOnly: true
       - args:
         - --election=triage-command-handler
-        - --election-namespace=$(LEADER_ELECTOR_NAMESPACE)
+        - "--election-namespace=$(LEADER_ELECTOR_NAMESPACE)"
         - --http=0.0.0.0:4040
         image: k8s.gcr.io/leader-elector:0.5
         imagePullPolicy: Always
@@ -3525,7 +3525,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_ADMIN_USERNAME
           value: admin
         - name: EVENT_STORE_ADMIN_PASSWORD
@@ -3538,7 +3538,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_WRITER_USERNAME
           value: writer
         - name: EVENT_STORE_WRITER_PASSWORD
@@ -3551,7 +3551,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_READER_USERNAME
           value: reader
         - name: EVENT_STORE_READER_PASSWORD
@@ -3633,7 +3633,7 @@ spec:
           readOnly: true
       - args:
         - --election=triage-query
-        - --election-namespace=$(LEADER_ELECTOR_NAMESPACE)
+        - "--election-namespace=$(LEADER_ELECTOR_NAMESPACE)"
         - --http=0.0.0.0:4040
         image: k8s.gcr.io/leader-elector:0.5
         imagePullPolicy: Always
@@ -4536,7 +4536,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: EVENT_STORE_ADDR
-          value: eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local
+          value: "eventstore.$(EVENT_STORE_NAMESPACE).svc.cluster.local"
         - name: EVENT_STORE_ADMIN_USERNAME
           value: admin
         - name: EVENT_STORE_ADMIN_PASSWORD
