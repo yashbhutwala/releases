@@ -433,7 +433,7 @@ data:
   username: ${SMTP_USERNAME}
 kind: Secret
 metadata:
-  name: smtp
+  name: polaris-smtp
   namespace: ${NAMESPACE}
 type: Opaque
 ---
