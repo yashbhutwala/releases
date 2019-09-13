@@ -926,6 +926,10 @@ spec:
             secretKeyRef:
               key: username
               name: polaris-smtp
+        - name: LEADER_ELECTOR_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
         image: gcr.io/snps-swip-staging/swip_auth-server:1.6.1871
         imagePullPolicy: IfNotPresent
         livenessProbe:
@@ -966,10 +970,6 @@ spec:
         - mountPath: /mnt/vault/cert
           name: vault-server-cert
           readOnly: true
-      - name: LEADER_ELECTOR_NAMESPACE
-        valueFrom:
-          fieldRef:
-            fieldPath: metadata.namespace
       - args:
         - --election=auth-server
         - --election-namespace=$(LEADER_ELECTOR_NAMESPACE)
@@ -1344,6 +1344,10 @@ spec:
           value: /mnt/vault/key/vault_client_key
         - name: VAULT_CLIENT_CERT
           value: /mnt/vault/cert/vault_client_cert
+        - name: LEADER_ELECTOR_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
         image: gcr.io/snps-swip-staging/swip_cos-server:1.6.1871
         imagePullPolicy: IfNotPresent
         livenessProbe:
@@ -1383,10 +1387,6 @@ spec:
         - mountPath: /mnt/vault/cert
           name: vault-client-cert
           readOnly: true
-      - name: LEADER_ELECTOR_NAMESPACE
-        valueFrom:
-          fieldRef:
-            fieldPath: metadata.namespace
       - args:
         - --election=cos-server
         - --election-namespace=$(LEADER_ELECTOR_NAMESPACE)
@@ -1844,6 +1844,10 @@ spec:
           value: /mnt/vault/key/vault_client_key
         - name: VAULT_CLIENT_CERT
           value: /mnt/vault/cert/vault_client_cert
+        - name: LEADER_ELECTOR_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
         image: gcr.io/snps-swip-staging/swip_issue-server:1.6.1871
         imagePullPolicy: IfNotPresent
         livenessProbe:
@@ -1884,10 +1888,6 @@ spec:
         - mountPath: /mnt/vault/cert
           name: vault-client-cert
           readOnly: true
-      - name: LEADER_ELECTOR_NAMESPACE
-        valueFrom:
-          fieldRef:
-            fieldPath: metadata.namespace
       - args:
         - --election=issue-server
         - --election-namespace=$(LEADER_ELECTOR_NAMESPACE)
@@ -2923,6 +2923,10 @@ spec:
           value: /mnt/vault/key/vault_client_key
         - name: VAULT_CLIENT_CERT
           value: /mnt/vault/cert/vault_client_cert
+        - name: LEADER_ELECTOR_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
         image: gcr.io/snps-swip-staging/swip_tds-code-analysis:1.8.77
         imagePullPolicy: IfNotPresent
         livenessProbe:
@@ -2963,10 +2967,6 @@ spec:
         - mountPath: /mnt/vault/cert
           name: vault-client-cert
           readOnly: true
-      - name: LEADER_ELECTOR_NAMESPACE
-        valueFrom:
-          fieldRef:
-            fieldPath: metadata.namespace
       - args:
         - --election=tds-code-analysis
         - --election-namespace=$(LEADER_ELECTOR_NAMESPACE)
@@ -3339,6 +3339,10 @@ spec:
             configMapKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
+        - name: LEADER_ELECTOR_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
         image: gcr.io/snps-swip-staging/swip_triage-command-handler:1.6.1871
         imagePullPolicy: IfNotPresent
         livenessProbe:
@@ -3379,10 +3383,6 @@ spec:
         - mountPath: /mnt/vault/cert
           name: vault-client-cert
           readOnly: true
-      - name: LEADER_ELECTOR_NAMESPACE
-        valueFrom:
-          fieldRef:
-            fieldPath: metadata.namespace
       - args:
         - --election=triage-command-handler
         - --election-namespace=$(LEADER_ELECTOR_NAMESPACE)
@@ -3587,6 +3587,10 @@ spec:
             configMapKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
+        - name: LEADER_ELECTOR_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
         image: gcr.io/snps-swip-staging/swip_triage-query:1.6.1871
         imagePullPolicy: IfNotPresent
         livenessProbe:
@@ -3627,10 +3631,6 @@ spec:
         - mountPath: /mnt/vault/cert
           name: vault-client-cert
           readOnly: true
-      - name: LEADER_ELECTOR_NAMESPACE
-        valueFrom:
-          fieldRef:
-            fieldPath: metadata.namespace
       - args:
         - --election=triage-query
         - --election-namespace=$(LEADER_ELECTOR_NAMESPACE)
