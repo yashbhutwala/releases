@@ -2,9 +2,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1251
+    chartVersion: 0.0.1279
     component: reporting
-    componentVersion: 0.0.1251
+    componentVersion: 0.0.1279
     environment: ${ENVIRONMENT_NAME}
     service: rp-issue-manager
   name: rp-issue-manager
@@ -14,9 +14,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1251
+    chartVersion: 0.0.1279
     component: reporting
-    componentVersion: 0.0.1251
+    componentVersion: 0.0.1279
     environment: ${ENVIRONMENT_NAME}
     service: rp-polaris-agent-service
   name: rp-polaris-agent-service
@@ -26,9 +26,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1251
+    chartVersion: 0.0.1279
     component: reporting
-    componentVersion: 0.0.1251
+    componentVersion: 0.0.1279
     environment: ${ENVIRONMENT_NAME}
     service: rp-portfolio-service
   name: rp-portfolio-service
@@ -38,9 +38,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1251
+    chartVersion: 0.0.1279
     component: reporting
-    componentVersion: 0.0.1251
+    componentVersion: 0.0.1279
     environment: ${ENVIRONMENT_NAME}
     service: rp-report-service
   name: rp-report-service
@@ -50,9 +50,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1251
+    chartVersion: 0.0.1279
     component: reporting
-    componentVersion: 0.0.1251
+    componentVersion: 0.0.1279
     environment: ${ENVIRONMENT_NAME}
     service: rp-swagger-doc
   name: rp-swagger-doc
@@ -62,9 +62,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1251
+    chartVersion: 0.0.1279
     component: reporting
-    componentVersion: 0.0.1251
+    componentVersion: 0.0.1279
     environment: ${ENVIRONMENT_NAME}
     service: rp-tools-portfolio-service
   name: rp-tools-portfolio-service
@@ -217,9 +217,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1251
+    chartVersion: 0.0.1279
     component: reporting
-    componentVersion: 0.0.1251
+    componentVersion: 0.0.1279
     environment: ${ENVIRONMENT_NAME}
     name: report-storage
     service: report-storage
@@ -279,9 +279,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1251
+    chartVersion: 0.0.1279
     component: reporting
-    componentVersion: 0.0.1251
+    componentVersion: 0.0.1279
     environment: ${ENVIRONMENT_NAME}
     name: rp-frontend
     service: rp-frontend
@@ -301,7 +301,7 @@ spec:
       - env:
         - name: REPORTING_STANDALONE
           value: "false"
-        image: gcr.io/snps-swip-staging/reporting-frontend-service:0.0.758
+        image: gcr.io/snps-swip-staging/reporting-frontend-service:0.0.1011
         imagePullPolicy: Always
         name: rp-frontend
         ports:
@@ -321,9 +321,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1251
+    chartVersion: 0.0.1279
     component: reporting
-    componentVersion: 0.0.1251
+    componentVersion: 0.0.1279
     environment: ${ENVIRONMENT_NAME}
     name: rp-issue-manager
     service: rp-issue-manager
@@ -397,7 +397,7 @@ spec:
           value: const
         - name: JAEGER_SAMPLER_PARAM
           value: "1"
-        image: gcr.io/snps-swip-staging/reporting-rp-issue-manager:0.0.588
+        image: gcr.io/snps-swip-staging/reporting-rp-issue-manager:0.0.699
         imagePullPolicy: Always
         name: rp-issue-manager
         ports:
@@ -449,9 +449,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1251
+    chartVersion: 0.0.1279
     component: reporting
-    componentVersion: 0.0.1251
+    componentVersion: 0.0.1279
     environment: ${ENVIRONMENT_NAME}
     name: rp-polaris-agent-service
     service: rp-polaris-agent-service
@@ -534,7 +534,7 @@ spec:
           value: const
         - name: JAEGER_SAMPLER_PARAM
           value: "1"
-        image: gcr.io/snps-swip-staging/reporting-polaris-service:0.0.220
+        image: gcr.io/snps-swip-staging/reporting-polaris-service:0.0.615
         imagePullPolicy: Always
         name: rp-polaris-agent-service
         ports:
@@ -586,9 +586,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1251
+    chartVersion: 0.0.1279
     component: reporting
-    componentVersion: 0.0.1251
+    componentVersion: 0.0.1279
     environment: ${ENVIRONMENT_NAME}
     name: rp-portfolio-service
     service: rp-portfolio-service
@@ -662,7 +662,7 @@ spec:
           value: const
         - name: JAEGER_SAMPLER_PARAM
           value: "1"
-        image: gcr.io/snps-swip-staging/reporting-rp-portfolio-service:0.0.785
+        image: gcr.io/snps-swip-staging/reporting-rp-portfolio-service:0.0.880
         imagePullPolicy: Always
         name: rp-portfolio-service
         ports:
@@ -714,9 +714,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1251
+    chartVersion: 0.0.1279
     component: reporting
-    componentVersion: 0.0.1251
+    componentVersion: 0.0.1279
     environment: ${ENVIRONMENT_NAME}
     name: rp-report-service
     service: rp-report-service
@@ -804,7 +804,7 @@ spec:
           value: const
         - name: JAEGER_SAMPLER_PARAM
           value: "1"
-        image: gcr.io/snps-swip-staging/reporting-report-service:0.0.511
+        image: gcr.io/snps-swip-staging/reporting-report-service:0.0.917
         imagePullPolicy: Always
         name: rp-report-service
         ports:
@@ -860,9 +860,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1251
+    chartVersion: 0.0.1279
     component: reporting
-    componentVersion: 0.0.1251
+    componentVersion: 0.0.1279
     environment: ${ENVIRONMENT_NAME}
     name: rp-swagger-doc
     service: rp-swagger-doc
@@ -904,7 +904,7 @@ spec:
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
           value: "false"
-        image: gcr.io/snps-swip-staging/reporting-swagger-doc:0.0.41
+        image: gcr.io/snps-swip-staging/reporting-swagger-doc:0.0.84
         imagePullPolicy: Always
         name: rp-swagger-doc
         ports:
@@ -956,9 +956,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1251
+    chartVersion: 0.0.1279
     component: reporting
-    componentVersion: 0.0.1251
+    componentVersion: 0.0.1279
     environment: ${ENVIRONMENT_NAME}
     name: rp-tools-portfolio-service
     service: rp-tools-portfolio-service
@@ -1032,7 +1032,7 @@ spec:
           value: const
         - name: JAEGER_SAMPLER_PARAM
           value: "1"
-        image: gcr.io/snps-swip-staging/reporting-tools-portfolio-service:0.0.1143
+        image: gcr.io/snps-swip-staging/reporting-tools-portfolio-service:0.0.1388
         imagePullPolicy: Always
         name: rp-tools-portfolio-service
         ports:
