@@ -3696,6 +3696,9 @@ spec:
         - nginx
         - -g
         - daemon off;
+        env:
+        - name: REPORTING_URL
+          value: ${REPORTING_URL}
         image: gcr.io/snps-swip-staging/web-core:1.7.905
         imagePullPolicy: IfNotPresent
         name: web-core
