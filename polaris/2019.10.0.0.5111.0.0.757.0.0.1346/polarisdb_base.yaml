@@ -1492,7 +1492,7 @@ kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-tt1cb
+  name: swip-db-ui-test-7lq3s
   namespace: ${NAMESPACE}
 spec:
   containers:
@@ -1548,3 +1548,201 @@ spec:
     image: vault:0.11.2
     name: swip-db-vault-status-test
   restartPolicy: Never
+---
+apiVersion: v1
+data:
+  entrypoint.js: |-
+    db.adminCommand({setFeatureCompatibilityVersion: "4.0"});
+    print("=====Done with the compatability set=========");
+    print("=====Starting with the unique version index========");
+    db.adminCommand("listDatabases").databases.forEach(function(d){
+    let mdb = db.getSiblingDB(d.name);
+    print("======Acting on the db=============", d.name);
+
+    mdb.getCollectionInfos( { type: "collection" } ).forEach(function(c){
+      let currentCollection = mdb.getCollection(c.name);
+
+      currentCollection.getIndexes().forEach(function(idx){
+         if (idx.unique){
+            print("Dropping and recreating the following index:" + tojson(idx))
+
+            assert.commandWorked(mdb.runCommand({dropIndexes: c.name, index: idx.name}));
+
+            let res = mdb.runCommand({ createIndexes: c.name, indexes: [idx] });
+            if (res.ok !== 1)
+               assert.commandWorked(res);
+         }
+        });
+      });
+    });
+    print("========Completed with the unique version index==========");
+    print("====Starting with the removing the wildcard indexes=====");
+    db.adminCommand("listDatabases").databases.forEach(function(d){
+    let mdb = db.getSiblingDB(d.name);
+    mdb.getCollectionInfos({ type: "collection" }).forEach(function(c){
+    let currentCollection = mdb.getCollection(c.name);
+    currentCollection.getIndexes().forEach(function(idx){
+
+         var key = Object.keys(idx.key);
+         if (key[0].includes("$**")) {
+
+           print("Dropping index: " + idx.name + " from " + idx.ns);
+
+           let res = mdb.runCommand({dropIndexes: currentCollection, index: idx.name});
+           assert.commandWorked(res);
+
+         }
+
+      });
+     });
+    });
+
+    print("=========Completed with removing the wildcard indexes========");
+kind: ConfigMap
+metadata:
+  name: migrationcommands
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: mongodb
+    release: mongodb
+  name: mongodb
+spec:
+  ports:
+  - name: mongodb
+    port: 27017
+    targetPort: mongodb
+  selector:
+    app: mongodb
+    release: mongodb
+  type: ClusterIP
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: mongodb
+    release: mongodb
+  name: mongodb
+spec:
+  selector:
+    matchLabels:
+      app: mongodb
+      release: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+        chart: mongodb-7.2.7
+        release: mongodb
+    spec:
+      containers:
+      - env:
+        - name: MONGODB_SYSTEM_LOG_VERBOSITY
+          value: "0"
+        - name: MONGODB_DISABLE_SYSTEM_LOG
+          value: "no"
+        - name: MONGODB_ENABLE_IPV6
+          value: "no"
+        - name: MONGODB_ENABLE_DIRECTORY_PER_DB
+          value: "no"
+        image: docker.io/bitnami/mongodb:4.0.12-debian-9-r22
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+            - mongo
+            - --eval
+            - db.adminCommand('ping')
+          failureThreshold: 6
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        name: mongodb
+        ports:
+        - containerPort: 27017
+          name: mongodb
+        readinessProbe:
+          exec:
+            command:
+            - mongo
+            - --eval
+            - db.adminCommand('ping')
+          failureThreshold: 6
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        resources:
+          limits:
+            cpu: 500m
+            memory: 2500Mi
+          requests:
+            cpu: 250m
+            memory: 2Gi
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+        volumeMounts:
+        - mountPath: /bitnami/mongodb/data/db
+          name: data
+          subPath: null
+      initContainers:
+      - args:
+        - ls -lart /data/db;if [  -n "$(ls -A /data/db 2> /dev/null)" ] && [ ! -f
+          /data/db/upgrade.done ]; then mongod & sleep 15;mongo /usr/local/entrypoint.js;sleep
+          10;mongod --shutdown; sleep 10;touch /data/db/upgrade.done;fi
+        command:
+        - /bin/sh
+        - -c
+        image: gcr.io/snps-swip-staging/swip_mongodb:0.0.6
+        name: mongomigration
+        volumeMounts:
+        - mountPath: /usr/local/entrypoint.js
+          name: configmapvolume
+          readOnly: true
+          subPath: entrypoint.js
+        - mountPath: /data/db
+          name: data
+          subPath: null
+      - command:
+        - chown
+        - -R
+        - 1001:1001
+        - /bitnami/mongodb/data/db
+        image: docker.io/bitnami/minideb:stretch
+        imagePullPolicy: Always
+        name: volume-permissions
+        resources: {}
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - mountPath: /bitnami/mongodb/data/db
+          name: data
+      securityContext:
+        fsGroup: 1001
+      volumes:
+      - configMap:
+          defaultMode: 448
+          name: migrationcommands
+        name: configmapvolume
+      - name: data
+        persistentVolumeClaim:
+          claimName: mongodb
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: mongodb
+    release: mongodb
+  name: mongodb
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: ${MONGODB_PV_SIZE}
