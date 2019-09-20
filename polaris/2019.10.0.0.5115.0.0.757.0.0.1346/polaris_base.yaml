@@ -3765,7 +3765,7 @@ spec:
         - name: LOG_ORIGIN
           value: /api/logs/logging/web-core
         - name: REPORTING_URL
-          value: https://${POLARIS_ROOT_DOMAIN}/reporting
+          value: ${REPORTING_URL}
         image: gcr.io/snps-swip-staging/web-core:1.7.908
         imagePullPolicy: IfNotPresent
         name: configure-web-core
