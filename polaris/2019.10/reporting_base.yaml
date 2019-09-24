@@ -1198,4 +1198,4 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 200Gi
+      storage: ${REPORT_STORAGE_PV_SIZE}

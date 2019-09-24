@@ -4230,4 +4230,4 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 20Gi
+      storage: ${DOWNLOAD_SERVER_PV_SIZE}

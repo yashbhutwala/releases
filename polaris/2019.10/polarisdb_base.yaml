@@ -1008,7 +1008,7 @@ spec:
       - ReadWriteOnce
       resources:
         requests:
-          storage: 10Gi
+          storage: ${EVENTSTORE_PV_SIZE}
 ---
 apiVersion: apps/v1beta1
 kind: StatefulSet
@@ -1471,7 +1471,7 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 20Gi
+      storage: ${UPLOAD_SERVER_PV_SIZE}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -1485,14 +1485,14 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: ${POSTGRES_PV_SIZE}
 ---
 apiVersion: v1
 kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-8zx6e
+  name: swip-db-ui-test-mm1nx
   namespace: ${NAMESPACE}
 spec:
   containers:
