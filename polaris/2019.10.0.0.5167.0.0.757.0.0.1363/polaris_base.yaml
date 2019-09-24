@@ -83,6 +83,8 @@ metadata:
   namespace: ${NAMESPACE}
 ---
 apiVersion: v1
+imagePullSecrets:
+- name: ${IMAGE_PULL_SECRETS}
 kind: ServiceAccount
 metadata:
   labels:
@@ -4205,4 +4207,4 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 20Gi
+      storage: ${DOWNLOAD_SERVER_PV_SIZE}
