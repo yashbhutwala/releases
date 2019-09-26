@@ -119,8 +119,33 @@ metadata:
   labels:
     operator.synopsys.com/group-id: "Alert"
     app: alert
+    component: alert
     name: ${NAME}
   name: ${NAME}-alert
+  namespace: ${NAMESPACE}
+spec:
+  ports:
+    - name: port-8443
+      port: 8443
+      protocol: TCP
+      targetPort: 8443
+  selector:
+    app: alert
+    name: ${NAME}
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    operator.synopsys.com/group-dependencies: "Alert"
+  labels:
+    operator.synopsys.com/group-id: "Alert-Exposed"
+    app: alert
+    component: alert
+    name: ${NAME}
+  name: ${NAME}-alert-exposed
   namespace: ${NAMESPACE}
 spec:
   ports:
@@ -214,7 +239,10 @@ spec:
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
+  annotations:
+    operator.synopsys.com/group-dependencies: "Alert"
   labels:
+    operator.synopsys.com/group-id: "Alert-Route"
     app: alert
     component: route
     name: ${NAME}
@@ -228,5 +256,3 @@ spec:
   to:
     kind: Service
     name: ${NAME}-alert
-    weight: 100
-  wildcardPolicy: None

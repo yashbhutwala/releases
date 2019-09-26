@@ -1768,7 +1768,10 @@ spec:
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
+  annotations:
+    operator.synopsys.com/group-dependencies: "Webserver"
   labels:
+    operator.synopsys.com/group-id: "route"
     app: blackduck
     component: route
     name: ${NAME}
@@ -1781,6 +1784,6 @@ spec:
     termination: passthrough
   to:
     kind: Service
-    name: ${NAME}-blackduck-webserver-exposed
+    name: ${NAME}-blackduck-webserver
     weight: 100
   wildcardPolicy: None
