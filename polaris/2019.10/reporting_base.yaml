@@ -2,9 +2,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1360
+    chartVersion: 0.0.1389
     component: reporting
-    componentVersion: 0.0.1360
+    componentVersion: 0.0.1389
     environment: ${ENVIRONMENT_NAME}
     service: rp-issue-manager
   name: rp-issue-manager
@@ -14,9 +14,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1360
+    chartVersion: 0.0.1389
     component: reporting
-    componentVersion: 0.0.1360
+    componentVersion: 0.0.1389
     environment: ${ENVIRONMENT_NAME}
     service: rp-polaris-agent-service
   name: rp-polaris-agent-service
@@ -26,9 +26,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1360
+    chartVersion: 0.0.1389
     component: reporting
-    componentVersion: 0.0.1360
+    componentVersion: 0.0.1389
     environment: ${ENVIRONMENT_NAME}
     service: rp-portfolio-service
   name: rp-portfolio-service
@@ -38,9 +38,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1360
+    chartVersion: 0.0.1389
     component: reporting
-    componentVersion: 0.0.1360
+    componentVersion: 0.0.1389
     environment: ${ENVIRONMENT_NAME}
     service: rp-report-service
   name: rp-report-service
@@ -50,9 +50,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1360
+    chartVersion: 0.0.1389
     component: reporting
-    componentVersion: 0.0.1360
+    componentVersion: 0.0.1389
     environment: ${ENVIRONMENT_NAME}
     service: rp-swagger-doc
   name: rp-swagger-doc
@@ -62,9 +62,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1360
+    chartVersion: 0.0.1389
     component: reporting
-    componentVersion: 0.0.1360
+    componentVersion: 0.0.1389
     environment: ${ENVIRONMENT_NAME}
     service: rp-tools-portfolio-service
   name: rp-tools-portfolio-service
@@ -110,9 +110,6 @@ spec:
   - name: "8080"
     port: 8080
     targetPort: 8080
-  - name: admin
-    port: 8081
-    targetPort: 8081
   selector:
     name: rp-issue-manager
 status:
@@ -130,9 +127,6 @@ spec:
   - name: "8080"
     port: 8080
     targetPort: 8080
-  - name: admin
-    port: 8081
-    targetPort: 8081
   selector:
     name: rp-polaris-agent-service
 status:
@@ -150,9 +144,6 @@ spec:
   - name: "8080"
     port: 8080
     targetPort: 8080
-  - name: admin
-    port: 8081
-    targetPort: 8081
   selector:
     name: rp-portfolio-service
 status:
@@ -170,9 +161,6 @@ spec:
   - name: "8080"
     port: 8080
     targetPort: 8080
-  - name: admin
-    port: 8081
-    targetPort: 8081
   selector:
     name: rp-report-service
 status:
@@ -190,9 +178,6 @@ spec:
   - name: "8080"
     port: 8080
     targetPort: 8080
-  - name: admin
-    port: 8081
-    targetPort: 8081
   selector:
     name: rp-swagger-doc
 status:
@@ -217,9 +202,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1360
+    chartVersion: 0.0.1389
     component: reporting
-    componentVersion: 0.0.1360
+    componentVersion: 0.0.1389
     environment: ${ENVIRONMENT_NAME}
     name: report-storage
     service: report-storage
@@ -279,9 +264,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1360
+    chartVersion: 0.0.1389
     component: reporting
-    componentVersion: 0.0.1360
+    componentVersion: 0.0.1389
     environment: ${ENVIRONMENT_NAME}
     name: rp-frontend
     service: rp-frontend
@@ -301,7 +286,7 @@ spec:
       - env:
         - name: REPORTING_STANDALONE
           value: "false"
-        image: gcr.io/snps-swip-staging/reporting-frontend-service:0.0.1031
+        image: gcr.io/snps-swip-staging/reporting-frontend-service:0.0.1033
         imagePullPolicy: Always
         name: rp-frontend
         ports:
@@ -321,9 +306,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1360
+    chartVersion: 0.0.1389
     component: reporting
-    componentVersion: 0.0.1360
+    componentVersion: 0.0.1389
     environment: ${ENVIRONMENT_NAME}
     name: rp-issue-manager
     service: rp-issue-manager
@@ -369,10 +354,6 @@ spec:
             configMapKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
-        - name: MINIO_HOST
-          value: report-storage
-        - name: MINIO_PORT
-          value: "9000"
         - name: CONNECTION_POOL_SIZE
           value: "10"
         - name: LOG_LEVEL
@@ -385,7 +366,7 @@ spec:
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
           value: "false"
-        image: gcr.io/snps-swip-staging/reporting-rp-issue-manager:0.0.722
+        image: gcr.io/snps-swip-staging/reporting-rp-issue-manager:0.0.732
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 5
@@ -429,6 +410,42 @@ spec:
           readOnly: true
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Always
       volumes:
       - name: vault-cacert
@@ -457,9 +474,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1360
+    chartVersion: 0.0.1389
     component: reporting
-    componentVersion: 0.0.1360
+    componentVersion: 0.0.1389
     environment: ${ENVIRONMENT_NAME}
     name: rp-polaris-agent-service
     service: rp-polaris-agent-service
@@ -494,10 +511,6 @@ spec:
             secretKeyRef:
               key: password
               name: swip-eventstore-reader-creds
-        - name: MINIO_HOST
-          value: report-storage
-        - name: MINIO_PORT
-          value: "9000"
         - name: CONNECTION_POOL_SIZE
           value: "10"
         - name: LOG_LEVEL
@@ -510,27 +523,7 @@ spec:
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
           value: "false"
-        - name: POSTGRES_HOST
-          valueFrom:
-            configMapKeyRef:
-              key: POSTGRESQL_HOST
-              name: postgresql-config
-        - name: POSTGRES_PORT
-          valueFrom:
-            configMapKeyRef:
-              key: POSTGRESQL_PORT
-              name: postgresql-config
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              key: POSTGRESQL_PASSWORD
-              name: postgresql-config
-        - name: POSTGRES_USERNAME
-          valueFrom:
-            configMapKeyRef:
-              key: POSTGRESQL_USER
-              name: postgresql-config
-        image: gcr.io/snps-swip-staging/reporting-polaris-service:0.0.677
+        image: gcr.io/snps-swip-staging/reporting-polaris-service:0.0.681
         imagePullPolicy: Always
         name: rp-polaris-agent-service
         ports:
@@ -554,6 +547,42 @@ spec:
           readOnly: true
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Always
       volumes:
       - name: vault-cacert
@@ -582,9 +611,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1360
+    chartVersion: 0.0.1389
     component: reporting
-    componentVersion: 0.0.1360
+    componentVersion: 0.0.1389
     environment: ${ENVIRONMENT_NAME}
     name: rp-portfolio-service
     service: rp-portfolio-service
@@ -630,10 +659,6 @@ spec:
             configMapKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
-        - name: MINIO_HOST
-          value: report-storage
-        - name: MINIO_PORT
-          value: "9000"
         - name: CONNECTION_POOL_SIZE
           value: "10"
         - name: LOG_LEVEL
@@ -646,7 +671,7 @@ spec:
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
           value: "false"
-        image: gcr.io/snps-swip-staging/reporting-rp-portfolio-service:0.0.928
+        image: gcr.io/snps-swip-staging/reporting-rp-portfolio-service:0.0.933
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 5
@@ -690,6 +715,42 @@ spec:
           readOnly: true
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Always
       volumes:
       - name: vault-cacert
@@ -718,9 +779,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1360
+    chartVersion: 0.0.1389
     component: reporting
-    componentVersion: 0.0.1360
+    componentVersion: 0.0.1389
     environment: ${ENVIRONMENT_NAME}
     name: rp-report-service
     service: rp-report-service
@@ -766,10 +827,6 @@ spec:
             configMapKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
-        - name: MINIO_HOST
-          value: report-storage
-        - name: MINIO_PORT
-          value: "9000"
         - name: CONNECTION_POOL_SIZE
           value: "10"
         - name: LOG_LEVEL
@@ -782,6 +839,10 @@ spec:
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
           value: "false"
+        - name: MINIO_HOST
+          value: report-storage
+        - name: MINIO_PORT
+          value: "9000"
         - name: MINIO_BUCKET
           value: reports
         - name: MINIO_ACCESS_KEY
@@ -796,7 +857,7 @@ spec:
               name: swip-tools-minio
         - name: MINIO_REGION
           value: us-central1
-        image: gcr.io/snps-swip-staging/reporting-report-service:0.0.958
+        image: gcr.io/snps-swip-staging/reporting-report-service:0.0.1022
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 5
@@ -844,6 +905,42 @@ spec:
         - containerPort: 3310
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://report-storage.$(POD_NAMESPACE).svc.cluster.local:9000/minio/health/ready,http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Always
       volumes:
       - name: vault-cacert
@@ -872,9 +969,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1360
+    chartVersion: 0.0.1389
     component: reporting
-    componentVersion: 0.0.1360
+    componentVersion: 0.0.1389
     environment: ${ENVIRONMENT_NAME}
     name: rp-swagger-doc
     service: rp-swagger-doc
@@ -900,10 +997,6 @@ spec:
           value: /mnt/vault/key/vault_client_key
         - name: VAULT_CLIENT_CERT
           value: /mnt/vault/cert/vault_client_cert
-        - name: MINIO_HOST
-          value: report-storage
-        - name: MINIO_PORT
-          value: "9000"
         - name: CONNECTION_POOL_SIZE
           value: "10"
         - name: LOG_LEVEL
@@ -916,7 +1009,7 @@ spec:
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
           value: "false"
-        image: gcr.io/snps-swip-staging/reporting-swagger-doc:0.0.91
+        image: gcr.io/snps-swip-staging/reporting-swagger-doc:0.0.95
         imagePullPolicy: Always
         name: rp-swagger-doc
         ports:
@@ -968,9 +1061,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1360
+    chartVersion: 0.0.1389
     component: reporting
-    componentVersion: 0.0.1360
+    componentVersion: 0.0.1389
     environment: ${ENVIRONMENT_NAME}
     name: rp-tools-portfolio-service
     service: rp-tools-portfolio-service
@@ -1016,10 +1109,6 @@ spec:
             configMapKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
-        - name: MINIO_HOST
-          value: report-storage
-        - name: MINIO_PORT
-          value: "9000"
         - name: CONNECTION_POOL_SIZE
           value: "10"
         - name: LOG_LEVEL
@@ -1032,7 +1121,7 @@ spec:
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
           value: "false"
-        image: gcr.io/snps-swip-staging/reporting-tools-portfolio-service:0.0.1436
+        image: gcr.io/snps-swip-staging/reporting-tools-portfolio-service:0.0.1440
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 5
@@ -1076,6 +1165,42 @@ spec:
           readOnly: true
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Always
       serviceAccount: auth-server
       volumes:
@@ -1097,94 +1222,6 @@ spec:
           - key: tls.crt
             path: vault_server_cert
           secretName: auth-server-tls-certificate
----
-apiVersion: autoscaling/v2beta1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: rp-issue-manager
-  namespace: ${NAMESPACE}
-spec:
-  maxReplicas: 3
-  metrics:
-  - resource:
-      name: memory
-      targetAverageUtilization: 75
-    type: Resource
-  - resource:
-      name: cpu
-      targetAverageUtilization: 75
-    type: Resource
-  minReplicas: 1
-  scaleTargetRef:
-    apiVersion: extensions/v1beta1
-    kind: Deployment
-    name: rp-issue-manager
----
-apiVersion: autoscaling/v2beta1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: rp-portfolio-service
-  namespace: ${NAMESPACE}
-spec:
-  maxReplicas: 3
-  metrics:
-  - resource:
-      name: memory
-      targetAverageUtilization: 75
-    type: Resource
-  - resource:
-      name: cpu
-      targetAverageUtilization: 75
-    type: Resource
-  minReplicas: 1
-  scaleTargetRef:
-    apiVersion: extensions/v1beta1
-    kind: Deployment
-    name: rp-portfolio-service
----
-apiVersion: autoscaling/v2beta1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: rp-report-service
-  namespace: ${NAMESPACE}
-spec:
-  maxReplicas: 3
-  metrics:
-  - resource:
-      name: memory
-      targetAverageUtilization: 75
-    type: Resource
-  - resource:
-      name: cpu
-      targetAverageUtilization: 75
-    type: Resource
-  minReplicas: 1
-  scaleTargetRef:
-    apiVersion: extensions/v1beta1
-    kind: Deployment
-    name: rp-report-service
----
-apiVersion: autoscaling/v2beta1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: rp-tools-portfolio-service
-  namespace: ${NAMESPACE}
-spec:
-  maxReplicas: 3
-  metrics:
-  - resource:
-      name: memory
-      targetAverageUtilization: 75
-    type: Resource
-  - resource:
-      name: cpu
-      targetAverageUtilization: 75
-    type: Resource
-  minReplicas: 1
-  scaleTargetRef:
-    apiVersion: extensions/v1beta1
-    kind: Deployment
-    name: rp-tools-portfolio-service
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

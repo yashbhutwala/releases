@@ -2,9 +2,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: auth-server
   name: auth-server
@@ -14,9 +14,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -26,9 +26,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -38,9 +38,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -50,9 +50,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: download-server
   name: download-server
@@ -62,9 +62,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
@@ -74,21 +74,23 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: jobs-controller-service
   name: jobs-controller-service
   namespace: ${NAMESPACE}
 ---
 apiVersion: v1
+imagePullSecrets:
+- name: ${IMAGE_PULL_SECRETS}
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -98,9 +100,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -110,9 +112,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: pericles-swagger-ui
   name: pericles-swagger-ui
@@ -122,9 +124,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -134,9 +136,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -146,9 +148,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: tools-deprecate-job
   name: tools-deprecate-job
@@ -158,9 +160,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -170,9 +172,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: tools-sync-job
   name: tools-sync-job
@@ -182,9 +184,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -194,9 +196,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -206,9 +208,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -218,9 +220,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -230,9 +232,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: web-help
   name: web-help
@@ -266,32 +268,13 @@ rules:
   - get
   - list
 ---
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: k8s-tools-config
-  namespace: ${NAMESPACE}
-rules:
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
-  - delete
----
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: Role
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: leaderElector
   name: leaderElector
@@ -333,24 +316,10 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: k8s-tools-config
-  namespace: ${NAMESPACE}
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: k8s-tools-config
-subjects:
-- kind: ServiceAccount
-  name: tools-sync-job
-  namespace: ${NAMESPACE}
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: leaderElector
   name: leaderElector
@@ -383,9 +352,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: auth-server
   name: auth-server
@@ -406,9 +375,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -429,9 +398,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -452,9 +421,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -475,9 +444,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: download-server
   name: download-server
@@ -496,9 +465,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
@@ -519,9 +488,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: jobs-controller-service
   name: jobs-controller-service
@@ -539,9 +508,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -559,9 +528,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -579,9 +548,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: pericles-swagger-ui
   name: pericles-swagger-ui
@@ -599,9 +568,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -622,9 +591,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -645,9 +614,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -665,9 +634,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -688,9 +657,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -711,9 +680,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -734,9 +703,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -754,9 +723,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: web-help
   name: web-help
@@ -774,9 +743,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: auth-server
   name: auth-server
@@ -795,9 +764,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: auth-server
       name: auth-server
@@ -891,7 +860,7 @@ spec:
               name: polaris-smtp
         - name: SMTP_SENDER_EMAIL
           value: Polaris Platform <${SMTP_SENDER_EMAIL}>
-        image: gcr.io/snps-swip-staging/swip_auth-server:1.7.14
+        image: gcr.io/snps-swip-staging/swip_auth-server:1.7.26
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -917,7 +886,7 @@ spec:
             cpu: 750m
             memory: 2Gi
           requests:
-            cpu: 500m
+            cpu: 200m
             memory: 1500Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -957,6 +926,42 @@ spec:
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://eventstore.$(POD_NAMESPACE).svc.cluster.local:2113,https://polaris-db-vault:8200/v1/sys/health?standbycode=204&uninitcode=204&
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext:
@@ -988,9 +993,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -1009,9 +1014,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: configs-service
       name: configs-service
@@ -1096,7 +1101,7 @@ spec:
           value: mongodb
         - name: MONGODB_PORT
           value: "27017"
-        image: gcr.io/snps-swip-staging/swip_configs-service:1.0.721
+        image: gcr.io/snps-swip-staging/swip_configs-service:1.0.746
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -1121,7 +1126,7 @@ spec:
             cpu: 750m
             memory: 1300Mi
           requests:
-            cpu: 500m
+            cpu: 150m
             memory: 1024Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -1138,6 +1143,42 @@ spec:
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
       serviceAccount: configs-service
@@ -1166,9 +1207,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -1187,9 +1228,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: cos-server
       name: cos-server
@@ -1297,7 +1338,7 @@ spec:
           value: /mnt/vault/key/vault_client_key
         - name: VAULT_CLIENT_CERT
           value: /mnt/vault/cert/vault_client_cert
-        image: gcr.io/snps-swip-staging/swip_cos-server:1.6.1888
+        image: gcr.io/snps-swip-staging/swip_cos-server:1.6.1916
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -1322,7 +1363,7 @@ spec:
             cpu: 750m
             memory: 2Gi
           requests:
-            cpu: 500m
+            cpu: 200m
             memory: 1500Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -1362,6 +1403,42 @@ spec:
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext:
@@ -1393,9 +1470,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -1414,9 +1491,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: desktop-metrics-service
       name: desktop-metrics-service
@@ -1510,7 +1587,7 @@ spec:
             secretKeyRef:
               key: password
               name: swip-eventstore-reader-creds
-        image: gcr.io/snps-swip-staging/swip_desktop-metrics-service:1.0.332
+        image: gcr.io/snps-swip-staging/swip_desktop-metrics-service:1.0.356
         imagePullPolicy: IfNotPresent
         name: desktop-metrics-service
         ports:
@@ -1528,7 +1605,7 @@ spec:
             cpu: 750m
             memory: 1300Mi
           requests:
-            cpu: 500m
+            cpu: 100m
             memory: 1024Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -1545,6 +1622,42 @@ spec:
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
       serviceAccount: desktop-metrics-service
@@ -1573,9 +1686,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: download-server
   name: download-server
@@ -1591,9 +1704,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: download-server
     spec:
@@ -1623,7 +1736,7 @@ spec:
             cpu: 750m
             memory: 768Mi
           requests:
-            cpu: 500m
+            cpu: 50m
             memory: 512Mi
         volumeMounts:
         - mountPath: /opt/data
@@ -1653,9 +1766,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
@@ -1674,9 +1787,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: issue-server
       name: issue-server
@@ -1790,7 +1903,7 @@ spec:
           value: /mnt/vault/key/vault_client_key
         - name: VAULT_CLIENT_CERT
           value: /mnt/vault/cert/vault_client_cert
-        image: gcr.io/snps-swip-staging/swip_issue-server:1.6.1888
+        image: gcr.io/snps-swip-staging/swip_issue-server:1.6.1916
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -1816,7 +1929,7 @@ spec:
             cpu: 750m
             memory: 1300Mi
           requests:
-            cpu: 500m
+            cpu: 150m
             memory: 1024Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -1856,6 +1969,42 @@ spec:
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext:
@@ -1887,9 +2036,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: jobs-controller-service
   name: jobs-controller-service
@@ -1908,9 +2057,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: jobs-controller-service
       name: jobs-controller-service
@@ -2009,7 +2158,7 @@ spec:
           value: controller-config-k8s.yaml
         - name: POSTGRES_DB
           value: jobs-service
-        image: gcr.io/snps-swip-staging/swip_jobs-service:1.7.845
+        image: gcr.io/snps-swip-staging/swip_jobs-service:1.7.876
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -2035,7 +2184,7 @@ spec:
             cpu: 750m
             memory: 1300Mi
           requests:
-            cpu: 500m
+            cpu: 150m
             memory: 1024Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -2052,6 +2201,42 @@ spec:
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext:
@@ -2083,9 +2268,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -2104,9 +2289,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: jobs-service
       name: jobs-service
@@ -2225,7 +2410,7 @@ spec:
           value: /opt/jobs-server/tools-config/processor_image_manifest.json
         - name: POSTGRES_DB
           value: jobs-service
-        image: gcr.io/snps-swip-staging/swip_jobs-service:1.7.845
+        image: gcr.io/snps-swip-staging/swip_jobs-service:1.7.876
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -2251,7 +2436,7 @@ spec:
             cpu: 750m
             memory: 2Gi
           requests:
-            cpu: 500m
+            cpu: 200m
             memory: 1500Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -2274,6 +2459,52 @@ spec:
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
+      - env:
+        - name: ANALYSIS_TYPE
+          value: k8s
+        image: gcr.io/snps-swip-staging/swip_loadjobs:1.0.2594
+        imagePullPolicy: IfNotPresent
+        name: load-tools-config
+        volumeMounts:
+        - mountPath: /opt/jobs-server/tools-config
+          name: tools-config
+          readOnly: false
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext:
@@ -2306,17 +2537,16 @@ spec:
           - key: license
             path: cov_analysis/license.dat
           secretName: coverity-license
-      - configMap:
-          name: tools-config
+      - emptyDir: {}
         name: tools-config
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -2335,9 +2565,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: logs-service
       name: logs-service
@@ -2404,7 +2634,7 @@ spec:
             cpu: 750m
             memory: 768Mi
           requests:
-            cpu: 500m
+            cpu: 50m
             memory: 512Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -2421,6 +2651,42 @@ spec:
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext:
@@ -2452,9 +2718,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: pericles-swagger-ui
   name: pericles-swagger-ui
@@ -2473,9 +2739,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: pericles-swagger-ui
     spec:
@@ -2498,6 +2764,42 @@ spec:
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext:
@@ -2510,9 +2812,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -2531,9 +2833,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: taxonomy-server
       name: taxonomy-server
@@ -2603,7 +2905,7 @@ spec:
           value: /mnt/vault/cert/vault_client_cert
         - name: APPLICATION_INSIGHTS_IKEY
           value: placeholder
-        image: gcr.io/snps-swip-staging/swip_taxonomy-server:1.6.1888
+        image: gcr.io/snps-swip-staging/swip_taxonomy-server:1.6.1916
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -2629,7 +2931,7 @@ spec:
             cpu: 750m
             memory: 1300Mi
           requests:
-            cpu: 500m
+            cpu: 50m
             memory: 1024Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -2646,6 +2948,42 @@ spec:
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext:
@@ -2677,9 +3015,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -2698,9 +3036,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: tds-code-analysis
       name: tds-code-analysis
@@ -2808,7 +3146,7 @@ spec:
           value: /mnt/vault/key/vault_client_key
         - name: VAULT_CLIENT_CERT
           value: /mnt/vault/cert/vault_client_cert
-        image: gcr.io/snps-swip-staging/swip_tds-code-analysis:1.8.93
+        image: gcr.io/snps-swip-staging/swip_tds-code-analysis:1.8.129
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -2834,7 +3172,7 @@ spec:
             cpu: 750m
             memory: 3Gi
           requests:
-            cpu: 500m
+            cpu: 250m
             memory: 2Gi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -2874,6 +3212,42 @@ spec:
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext:
@@ -2905,9 +3279,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -2926,9 +3300,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: tools-service
       name: tools-service
@@ -2983,7 +3357,7 @@ spec:
           value: /mnt/vault/key/vault_client_key
         - name: VAULT_CLIENT_CERT
           value: /mnt/vault/cert/vault_client_cert
-        image: gcr.io/snps-swip-staging/swip_tools-service:1.5.2433
+        image: gcr.io/snps-swip-staging/swip_tools-service:1.5.2434
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -3009,7 +3383,7 @@ spec:
             cpu: 750m
             memory: 1300Mi
           requests:
-            cpu: 500m
+            cpu: 100m
             memory: 1024Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -3026,6 +3400,42 @@ spec:
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext:
@@ -3057,9 +3467,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -3078,9 +3488,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: triage-command-handler
       name: triage-command-handler
@@ -3192,7 +3602,7 @@ spec:
             configMapKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/swip_triage-command-handler:1.6.1888
+        image: gcr.io/snps-swip-staging/swip_triage-command-handler:1.6.1916
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -3218,7 +3628,7 @@ spec:
             cpu: 750m
             memory: 1300Mi
           requests:
-            cpu: 500m
+            cpu: 100m
             memory: 1024Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -3258,6 +3668,42 @@ spec:
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext:
@@ -3289,9 +3735,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -3310,9 +3756,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: triage-query
       name: triage-query
@@ -3424,7 +3870,7 @@ spec:
             configMapKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/swip_triage-query:1.6.1888
+        image: gcr.io/snps-swip-staging/swip_triage-query:1.6.1916
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -3450,7 +3896,7 @@ spec:
             cpu: 750m
             memory: 1300Mi
           requests:
-            cpu: 500m
+            cpu: 100m
             memory: 1024Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -3490,6 +3936,42 @@ spec:
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext:
@@ -3521,9 +4003,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -3542,9 +4024,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: vinyl-server
       name: vinyl-server
@@ -3589,7 +4071,7 @@ spec:
           value: /mnt/vault/key/vault_client_key
         - name: VAULT_CLIENT_CERT
           value: /mnt/vault/cert/vault_client_cert
-        image: gcr.io/snps-swip-staging/swip_vinyl-server:1.6.1888
+        image: gcr.io/snps-swip-staging/swip_vinyl-server:1.6.1916
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -3615,7 +4097,7 @@ spec:
             cpu: 750m
             memory: 1300Mi
           requests:
-            cpu: 500m
+            cpu: 100m
             memory: 1024Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -3632,6 +4114,42 @@ spec:
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext:
@@ -3663,9 +4181,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -3684,9 +4202,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: web-core
       name: web-core
@@ -3696,7 +4214,7 @@ spec:
         - nginx
         - -g
         - daemon off;
-        image: gcr.io/snps-swip-staging/web-core:1.7.914
+        image: gcr.io/snps-swip-staging/web-core:1.7.928
         imagePullPolicy: IfNotPresent
         name: web-core
         ports:
@@ -3708,7 +4226,7 @@ spec:
             cpu: 500m
             memory: 256Mi
           requests:
-            cpu: 250m
+            cpu: 50m
             memory: 100Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -3752,6 +4270,8 @@ spec:
               fieldPath: metadata.namespace
         - name: APP_URL
           value: ${POLARIS_ROOT_DOMAIN}
+        - name: DOCS_ROOT_URL
+          value: ""
         - name: API_NAMESPACE
           value: common/v0
         - name: API_ORIGIN
@@ -3766,7 +4286,7 @@ spec:
           value: /api/logs/logging/web-core
         - name: REPORTING_URL
           value: ${REPORTING_URL}
-        image: gcr.io/snps-swip-staging/web-core:1.7.914
+        image: gcr.io/snps-swip-staging/web-core:1.7.928
         imagePullPolicy: IfNotPresent
         name: configure-web-core
         resources:
@@ -3774,7 +4294,7 @@ spec:
             cpu: 500m
             memory: 256Mi
           requests:
-            cpu: 250m
+            cpu: 50m
             memory: 100Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -3796,9 +4316,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: web-help
   name: web-help
@@ -3817,9 +4337,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: web-help
       name: web-help
@@ -3841,7 +4361,7 @@ spec:
             cpu: 500m
             memory: 256Mi
           requests:
-            cpu: 250m
+            cpu: 50m
             memory: 100Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -3905,7 +4425,7 @@ spec:
             cpu: 500m
             memory: 256Mi
           requests:
-            cpu: 250m
+            cpu: 50m
             memory: 100Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
@@ -3931,9 +4451,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: tools-deprecate-job
   name: tools-deprecate-job
@@ -3944,9 +4464,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: tools-deprecate-job
     spec:
@@ -3968,7 +4488,7 @@ spec:
           value: deprecate
         - name: DEPLOYMENT_PLATFORM
           value: on-prem
-        image: gcr.io/snps-swip-staging/swip_tools_sync:1.0.539
+        image: gcr.io/snps-swip-staging/swip_tools_sync:1.0.552
         imagePullPolicy: IfNotPresent
         name: tools-deprecate-job
         volumeMounts:
@@ -3976,6 +4496,17 @@ spec:
           name: tools-store-sync
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://download-server.$(POD_NAMESPACE).svc.cluster.local:9000/minio/health/ready
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Never
       volumes:
       - name: tools-store-sync
@@ -3990,9 +4521,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: tools-sync-job
   name: tools-sync-job
@@ -4003,9 +4534,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5128
+        chartVersion: 0.0.5344
         component: swip
-        componentVersion: 0.0.5128
+        componentVersion: 0.0.5344
         environment: ${ENVIRONMENT_NAME}
         service: tools-sync-job
     spec:
@@ -4027,27 +4558,31 @@ spec:
           value: sync
         - name: DEPLOYMENT_PLATFORM
           value: on-prem
-        - name: ANALYSIS_TYPE
-          value: k8s
-        image: gcr.io/snps-swip-staging/swip_tools_sync:1.0.539
+        image: gcr.io/snps-swip-staging/swip_tools_sync:1.0.552
         imagePullPolicy: IfNotPresent
         name: tools-sync-job
         volumeMounts:
         - mountPath: /etc/credentials
           name: tools-store-sync
-        - mountPath: /opt/data
-          name: download-server
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://download-server.$(POD_NAMESPACE).svc.cluster.local:9000/minio/health/ready
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
       restartPolicy: Never
       serviceAccount: tools-sync-job
       volumes:
       - name: tools-store-sync
         secret:
           secretName: tools-store-sync
-      - name: download-server
-        persistentVolumeClaim:
-          claimName: download-server-pv-claim
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -4061,9 +4596,9 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: swip-ingress
   name: swip-ingress
@@ -4218,9 +4753,9 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   labels:
-    chartVersion: 0.0.5128
+    chartVersion: 0.0.5344
     component: swip
-    componentVersion: 0.0.5128
+    componentVersion: 0.0.5344
     environment: ${ENVIRONMENT_NAME}
     service: download-server
   name: download-server-pv-claim
