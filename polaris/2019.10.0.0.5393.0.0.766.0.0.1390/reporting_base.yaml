@@ -74,6 +74,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    environment: ${ENVIRONMENT_NAME}
     name: report-storage
   name: report-storage
   namespace: ${NAMESPACE}
@@ -84,10 +85,13 @@ spec:
     targetPort: 9000
   selector:
     app: report-storage
+    environment: ${ENVIRONMENT_NAME}
 ---
 apiVersion: v1
 kind: Service
 metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
   name: rp-frontend
   namespace: ${NAMESPACE}
 spec:
@@ -96,12 +100,14 @@ spec:
     port: 80
     targetPort: 8080
   selector:
+    environment: ${ENVIRONMENT_NAME}
     name: rp-frontend
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
+    environment: ${ENVIRONMENT_NAME}
     name: rp-issue-manager
   name: rp-issue-manager
   namespace: ${NAMESPACE}
@@ -111,6 +117,7 @@ spec:
     port: 8080
     targetPort: 8080
   selector:
+    environment: ${ENVIRONMENT_NAME}
     name: rp-issue-manager
 status:
   loadBalancer: {}
@@ -119,6 +126,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    environment: ${ENVIRONMENT_NAME}
     name: rp-polaris-agent-service
   name: rp-polaris-agent-service
   namespace: ${NAMESPACE}
@@ -128,6 +136,7 @@ spec:
     port: 8080
     targetPort: 8080
   selector:
+    environment: ${ENVIRONMENT_NAME}
     name: rp-polaris-agent-service
 status:
   loadBalancer: {}
@@ -136,6 +145,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    environment: ${ENVIRONMENT_NAME}
     name: rp-portfolio-service
   name: rp-portfolio-service
   namespace: ${NAMESPACE}
@@ -145,6 +155,7 @@ spec:
     port: 8080
     targetPort: 8080
   selector:
+    environment: ${ENVIRONMENT_NAME}
     name: rp-portfolio-service
 status:
   loadBalancer: {}
@@ -153,6 +164,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    environment: ${ENVIRONMENT_NAME}
     name: rp-report-service
   name: rp-report-service
   namespace: ${NAMESPACE}
@@ -162,6 +174,7 @@ spec:
     port: 8080
     targetPort: 8080
   selector:
+    environment: ${ENVIRONMENT_NAME}
     name: rp-report-service
 status:
   loadBalancer: {}
@@ -170,6 +183,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    environment: ${ENVIRONMENT_NAME}
     name: rp-swagger-doc
   name: rp-swagger-doc
   namespace: ${NAMESPACE}
@@ -179,6 +193,7 @@ spec:
     port: 8080
     targetPort: 8080
   selector:
+    environment: ${ENVIRONMENT_NAME}
     name: rp-swagger-doc
 status:
   loadBalancer: {}
@@ -186,6 +201,8 @@ status:
 apiVersion: v1
 kind: Service
 metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
   name: rp-tools-portfolio-service
   namespace: ${NAMESPACE}
 spec:
@@ -194,6 +211,7 @@ spec:
     port: 8080
     targetPort: 8080
   selector:
+    environment: ${ENVIRONMENT_NAME}
     name: rp-tools-portfolio-service
 status:
   loadBalancer: {}
@@ -213,6 +231,7 @@ metadata:
 spec:
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       name: report-storage
   strategy:
     type: Recreate
@@ -220,6 +239,7 @@ spec:
     metadata:
       labels:
         app: report-storage
+        environment: ${ENVIRONMENT_NAME}
         name: report-storage
     spec:
       containers:
@@ -276,10 +296,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       name: rp-frontend
   template:
     metadata:
       labels:
+        environment: ${ENVIRONMENT_NAME}
         name: rp-frontend
     spec:
       containers:
@@ -318,10 +340,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       name: rp-issue-manager
   template:
     metadata:
       labels:
+        environment: ${ENVIRONMENT_NAME}
         name: rp-issue-manager
     spec:
       containers:
@@ -486,10 +510,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       name: rp-polaris-agent-service
   template:
     metadata:
       labels:
+        environment: ${ENVIRONMENT_NAME}
         name: rp-polaris-agent-service
     spec:
       containers:
@@ -623,10 +649,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       name: rp-portfolio-service
   template:
     metadata:
       labels:
+        environment: ${ENVIRONMENT_NAME}
         name: rp-portfolio-service
     spec:
       containers:
@@ -791,10 +819,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       name: rp-report-service
   template:
     metadata:
       labels:
+        environment: ${ENVIRONMENT_NAME}
         name: rp-report-service
     spec:
       containers:
@@ -981,10 +1011,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       name: rp-swagger-doc
   template:
     metadata:
       labels:
+        environment: ${ENVIRONMENT_NAME}
         name: rp-swagger-doc
     spec:
       containers:
@@ -1073,10 +1105,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       name: rp-tools-portfolio-service
   template:
     metadata:
       labels:
+        environment: ${ENVIRONMENT_NAME}
         name: rp-tools-portfolio-service
     spec:
       containers:

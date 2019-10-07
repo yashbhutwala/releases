@@ -1571,7 +1571,7 @@ kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-fu1tu
+  name: swip-db-ui-test-36gda
   namespace: ${NAMESPACE}
 spec:
   containers:
