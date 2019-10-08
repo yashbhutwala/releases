@@ -243,6 +243,8 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
   name: k8s-jobs-manager
   namespace: ${NAMESPACE}
 rules:
@@ -302,6 +304,8 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
   name: k8s-jobs-manager
   namespace: ${NAMESPACE}
 roleRef:
@@ -369,6 +373,7 @@ spec:
     port: 8081
     targetPort: 8081
   selector:
+    environment: ${ENVIRONMENT_NAME}
     service: auth-server
 ---
 apiVersion: v1
@@ -392,6 +397,7 @@ spec:
     port: 8081
     targetPort: 8081
   selector:
+    environment: ${ENVIRONMENT_NAME}
     service: configs-service
 ---
 apiVersion: v1
@@ -415,6 +421,7 @@ spec:
     port: 8081
     targetPort: 8081
   selector:
+    environment: ${ENVIRONMENT_NAME}
     service: cos-server
 ---
 apiVersion: v1
@@ -438,6 +445,7 @@ spec:
     port: 8081
     targetPort: 8081
   selector:
+    environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
 ---
 apiVersion: v1
@@ -458,6 +466,7 @@ spec:
     protocol: TCP
     targetPort: 9000
   selector:
+    environment: ${ENVIRONMENT_NAME}
     service: download-server
   type: ClusterIP
 ---
@@ -482,6 +491,7 @@ spec:
     port: 8081
     targetPort: 8081
   selector:
+    environment: ${ENVIRONMENT_NAME}
     service: issue-server
 ---
 apiVersion: v1
@@ -502,6 +512,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
+    environment: ${ENVIRONMENT_NAME}
     service: jobs-controller-service
 ---
 apiVersion: v1
@@ -522,6 +533,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
+    environment: ${ENVIRONMENT_NAME}
     service: jobs-service
 ---
 apiVersion: v1
@@ -542,6 +554,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
+    environment: ${ENVIRONMENT_NAME}
     service: logs-service
 ---
 apiVersion: v1
@@ -562,6 +575,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
+    environment: ${ENVIRONMENT_NAME}
     service: pericles-swagger-ui
 ---
 apiVersion: v1
@@ -585,6 +599,7 @@ spec:
     port: 8081
     targetPort: 8081
   selector:
+    environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
 ---
 apiVersion: v1
@@ -608,6 +623,7 @@ spec:
     port: 8081
     targetPort: 8081
   selector:
+    environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
 ---
 apiVersion: v1
@@ -628,6 +644,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
+    environment: ${ENVIRONMENT_NAME}
     service: tools-service
 ---
 apiVersion: v1
@@ -651,6 +668,7 @@ spec:
     port: 8081
     targetPort: 8081
   selector:
+    environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
 ---
 apiVersion: v1
@@ -674,6 +692,7 @@ spec:
     port: 8081
     targetPort: 8081
   selector:
+    environment: ${ENVIRONMENT_NAME}
     service: triage-query
 ---
 apiVersion: v1
@@ -697,6 +716,7 @@ spec:
     port: 8081
     targetPort: 8081
   selector:
+    environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
 ---
 apiVersion: v1
@@ -717,6 +737,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
+    environment: ${ENVIRONMENT_NAME}
     service: web-core
 ---
 apiVersion: v1
@@ -737,6 +758,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
+    environment: ${ENVIRONMENT_NAME}
     service: web-help
 ---
 apiVersion: extensions/v1beta1
@@ -754,6 +776,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: auth-server
   strategy:
     rollingUpdate:
@@ -1004,6 +1027,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: configs-service
   strategy:
     rollingUpdate:
@@ -1218,6 +1242,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: cos-server
   strategy:
     rollingUpdate:
@@ -1481,6 +1506,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: desktop-metrics-service
   strategy:
     rollingUpdate:
@@ -1697,6 +1723,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: download-server
   strategy:
     type: Recreate
@@ -1777,6 +1804,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: issue-server
   strategy:
     rollingUpdate:
@@ -2047,6 +2075,7 @@ spec:
   replicas: null
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: jobs-controller-service
   strategy:
     rollingUpdate:
@@ -2279,6 +2308,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: jobs-service
   strategy:
     rollingUpdate:
@@ -2555,6 +2585,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: logs-service
   strategy:
     rollingUpdate:
@@ -2729,6 +2760,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: pericles-swagger-ui
   strategy:
     rollingUpdate:
@@ -2823,6 +2855,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: taxonomy-server
   strategy:
     rollingUpdate:
@@ -3026,6 +3059,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: tds-code-analysis
   strategy:
     rollingUpdate:
@@ -3290,6 +3324,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: tools-service
   strategy:
     rollingUpdate:
@@ -3478,6 +3513,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: triage-command-handler
   strategy:
     rollingUpdate:
@@ -3746,6 +3782,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: triage-query
   strategy:
     rollingUpdate:
@@ -4014,6 +4051,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: vinyl-server
   strategy:
     rollingUpdate:
@@ -4192,6 +4230,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: web-core
   strategy:
     rollingUpdate:
@@ -4327,6 +4366,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: web-help
   strategy:
     rollingUpdate:

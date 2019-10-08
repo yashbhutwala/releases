@@ -289,6 +289,8 @@ data:
     }
 kind: ConfigMap
 metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
   name: polaris-db-consul-tests
   namespace: ${NAMESPACE}
 ---
@@ -300,6 +302,7 @@ kind: ConfigMap
 metadata:
   labels:
     app: polaris-db-vault
+    environment: ${ENVIRONMENT_NAME}
     release: swip-db
   name: polaris-db-vault-config
   namespace: ${NAMESPACE}
@@ -343,6 +346,7 @@ data:
 kind: ConfigMap
 metadata:
   labels:
+    environment: ${ENVIRONMENT_NAME}
     name: polaris-postgres-init-config
   name: polaris-postgres-init-config
   namespace: ${NAMESPACE}
@@ -359,6 +363,7 @@ kind: ConfigMap
 metadata:
   labels:
     app: postgresql
+    environment: ${ENVIRONMENT_NAME}
   name: postgresql-config
   namespace: ${NAMESPACE}
 ---
@@ -368,6 +373,8 @@ data:
   port: "2525"
 kind: ConfigMap
 metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
   name: smtp
   namespace: ${NAMESPACE}
 ---
@@ -424,6 +431,7 @@ kind: Secret
 metadata:
   labels:
     component: swip-db-consul
+    environment: ${ENVIRONMENT_NAME}
     release: swip-db
   name: polaris-db-consul-gossip-key
   namespace: ${NAMESPACE}
@@ -435,6 +443,8 @@ data:
   username: ${SMTP_USERNAME}
 kind: Secret
 metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
   name: polaris-smtp
   namespace: ${NAMESPACE}
 type: Opaque
@@ -466,6 +476,7 @@ spec:
   selector:
     app: swip
     component: eventstore
+    environment: ${ENVIRONMENT_NAME}
   type: ClusterIP
 ---
 apiVersion: v1
@@ -475,6 +486,7 @@ metadata:
     service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
   labels:
     component: swip-db-consul
+    environment: ${ENVIRONMENT_NAME}
     release: swip-db
   name: polaris-db-consul
   namespace: ${NAMESPACE}
@@ -506,12 +518,14 @@ spec:
     protocol: UDP
   selector:
     component: swip-db-consul
+    environment: ${ENVIRONMENT_NAME}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
     component: swip-db-consul
+    environment: ${ENVIRONMENT_NAME}
     release: swip-db
   name: polaris-db-consul-ui
   namespace: ${NAMESPACE}
@@ -521,6 +535,7 @@ spec:
     port: 8500
   selector:
     component: swip-db-consul
+    environment: ${ENVIRONMENT_NAME}
   type: NodePort
 ---
 apiVersion: v1
@@ -528,6 +543,7 @@ kind: Service
 metadata:
   labels:
     app: polaris-db-vault
+    environment: ${ENVIRONMENT_NAME}
     release: swip-db
   name: polaris-db-vault
   namespace: ${NAMESPACE}
@@ -539,6 +555,7 @@ spec:
     targetPort: 8200
   selector:
     app: polaris-db-vault
+    environment: ${ENVIRONMENT_NAME}
     release: swip-db
   type: ClusterIP
 ---
@@ -547,6 +564,7 @@ kind: Service
 metadata:
   labels:
     app: postgresql
+    environment: ${ENVIRONMENT_NAME}
   name: postgresql
   namespace: ${NAMESPACE}
 spec:
@@ -557,6 +575,7 @@ spec:
     targetPort: 5432
   selector:
     app: postgresql
+    environment: ${ENVIRONMENT_NAME}
 ---
 apiVersion: v1
 kind: Service
@@ -576,6 +595,7 @@ spec:
     protocol: TCP
     targetPort: 9000
   selector:
+    environment: ${ENVIRONMENT_NAME}
     service: upload-server
   type: ClusterIP
 ---
@@ -596,6 +616,7 @@ spec:
     port: 9410
   selector:
     app: vault
+    environment: ${ENVIRONMENT_NAME}
   type: ClusterIP
 ---
 apiVersion: apps/v1
@@ -616,6 +637,7 @@ metadata:
 spec:
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: vault-init
   template:
     metadata:
@@ -704,11 +726,15 @@ metadata:
   annotations: {}
   labels:
     app: polaris-db-vault
+    environment: ${ENVIRONMENT_NAME}
     release: swip-db
   name: polaris-db-vault
   namespace: ${NAMESPACE}
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      environment: ${ENVIRONMENT_NAME}
   strategy:
     rollingUpdate:
       maxUnavailable: 1
@@ -718,6 +744,7 @@ spec:
       annotations: {}
       labels:
         app: polaris-db-vault
+        environment: ${ENVIRONMENT_NAME}
         release: swip-db
     spec:
       affinity:
@@ -844,6 +871,8 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
   name: postgresql
   namespace: ${NAMESPACE}
 spec:
@@ -851,12 +880,14 @@ spec:
   selector:
     matchLabels:
       app: postgresql
+      environment: ${ENVIRONMENT_NAME}
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
         app: postgresql
+        environment: ${ENVIRONMENT_NAME}
       name: postgresql
     spec:
       containers:
@@ -907,6 +938,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: upload-server
   strategy:
     type: Recreate
@@ -967,6 +999,8 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
   name: eventstore
   namespace: ${NAMESPACE}
 spec:
@@ -1044,6 +1078,7 @@ kind: StatefulSet
 metadata:
   labels:
     component: swip-db-consul
+    environment: ${ENVIRONMENT_NAME}
     release: swip-db
   name: polaris-db-consul
   namespace: ${NAMESPACE}
@@ -1201,6 +1236,7 @@ kind: PodDisruptionBudget
 metadata:
   labels:
     component: swip-db-consul
+    environment: ${ENVIRONMENT_NAME}
     release: swip-db
   name: polaris-db-consul-pdb
   namespace: ${NAMESPACE}
@@ -1209,10 +1245,13 @@ spec:
   selector:
     matchLabels:
       component: swip-db-consul
+      environment: ${ENVIRONMENT_NAME}
 ---
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
   name: polaris-db-vault
   namespace: ${NAMESPACE}
 spec:
@@ -1220,6 +1259,7 @@ spec:
   selector:
     matchLabels:
       app: polaris-db-vault
+      environment: ${ENVIRONMENT_NAME}
       release: swip-db
 ---
 apiVersion: batch/v1
@@ -1292,12 +1332,16 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   labels:
+    environment: ${ENVIRONMENT_NAME}
     name: polaris-init-postgres
   name: polaris-init-postgres
   namespace: ${NAMESPACE}
 spec:
   backoffLimit: 4
   template:
+    metadata:
+      labels:
+        environment: ${ENVIRONMENT_NAME}
     spec:
       containers:
       - args:
@@ -1557,6 +1601,7 @@ kind: PersistentVolumeClaim
 metadata:
   labels:
     app: postgresql
+    environment: ${ENVIRONMENT_NAME}
   name: postgresql-pv-claim
   namespace: null
 spec:
@@ -1571,7 +1616,9 @@ kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
-  name: swip-db-ui-test-36gda
+  labels:
+    environment: ${ENVIRONMENT_NAME}
+  name: swip-db-ui-test-sy1ft
   namespace: ${NAMESPACE}
 spec:
   containers:
@@ -1613,6 +1660,8 @@ kind: Pod
 metadata:
   annotations:
     helm.sh/hook: test-success
+  labels:
+    environment: ${ENVIRONMENT_NAME}
   name: swip-db-vault-status-test
   namespace: ${NAMESPACE}
 spec:
