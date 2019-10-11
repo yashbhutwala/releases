@@ -2052,12 +2052,12 @@ spec:
           valueFrom:
             secretKeyRef:
               key: access_key
-              name: swip-upload-server
+              name: swip-tools-minio
         - name: SWIP_UPLOAD_SERVER_SECRET_KEY
           valueFrom:
             secretKeyRef:
               key: secret_key
-              name: swip-upload-server
+              name: swip-tools-minio
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
@@ -2289,12 +2289,12 @@ spec:
           valueFrom:
             secretKeyRef:
               key: access_key
-              name: swip-upload-server
+              name: swip-tools-minio
         - name: SWIP_UPLOAD_SERVER_SECRET_KEY
           valueFrom:
             secretKeyRef:
               key: secret_key
-              name: swip-upload-server
+              name: swip-tools-minio
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
@@ -2739,12 +2739,12 @@ spec:
           valueFrom:
             secretKeyRef:
               key: access_key
-              name: swip-upload-server
+              name: swip-tools-minio
         - name: SWIP_UPLOAD_SERVER_SECRET_KEY
           valueFrom:
             secretKeyRef:
               key: secret_key
-              name: swip-upload-server
+              name: swip-tools-minio
         - name: POSTGRES_HOST
           valueFrom:
             configMapKeyRef:
@@ -2804,12 +2804,12 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: host
-              name: polaris-smtp
+              name: smtp
         - name: SMTP_PORT
           valueFrom:
             configMapKeyRef:
               key: port
-              name: polaris-smtp
+              name: smtp
         - name: SMTP_PASSWORD
           valueFrom:
             secretKeyRef:
@@ -4778,7 +4778,6 @@ metadata:
     ingress.kubernetes.io/hsts: "true"
     ingress.kubernetes.io/ssl-redirect: "true"
     kubernetes.io/ingress.class: nginx
-    kubernetes.io~ingress.class: ${INGRESS_CLASS}
     nginx.ingress.kubernetes.io/enable-access-log: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: 1000m
     nginx.ingress.kubernetes.io/rewrite-target: /$2

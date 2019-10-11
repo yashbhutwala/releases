@@ -1369,7 +1369,7 @@ metadata:
     app: postgresql
     environment: ${ENVIRONMENT_NAME}
   name: postgresql-pv-claim
-  namespace: null
+  namespace: ${NAMESPACE}
 spec:
   accessModes:
   - ReadWriteOnce
@@ -1495,6 +1495,7 @@ data:
 kind: ConfigMap
 metadata:
   name: migrationcommands
+  namespace: ${NAMESPACE}
 ---
 apiVersion: v1
 kind: Service
@@ -1503,6 +1504,7 @@ metadata:
     app: mongodb
     release: mongodb
   name: mongodb
+  namespace: ${NAMESPACE}
 spec:
   ports:
   - name: mongodb
@@ -1520,6 +1522,7 @@ metadata:
     app: mongodb
     release: mongodb
   name: mongodb
+  namespace: ${NAMESPACE}
 spec:
   selector:
     matchLabels:
@@ -1637,6 +1640,7 @@ metadata:
     environment: ${ENVIRONMENT_NAME}
     release: mongodb
   name: mongodb
+  namespace: ${NAMESPACE}
 spec:
   accessModes:
   - ReadWriteOnce
@@ -1650,7 +1654,7 @@ metadata:
   labels:
     app: upload-minio
   name: upload-minio
-  namespace: default
+  namespace: ${NAMESPACE}
 ---
 apiVersion: v1
 kind: Service
@@ -1659,6 +1663,7 @@ metadata:
     app: upload-minio
     service: upload-server
   name: upload-server
+  namespace: ${NAMESPACE}
 spec:
   ports:
   - name: service
@@ -1677,6 +1682,7 @@ metadata:
     app: upload-minio
     service: upload-server
   name: upload-minio
+  namespace: ${NAMESPACE}
 spec:
   replicas: 1
   selector:
@@ -1688,13 +1694,10 @@ spec:
     type: Recreate
   template:
     metadata:
-      annotations:
-        checksum/config: 93e898cd531bb5586c5f150eff38c939a48e0b68a0929a6d8aacd7a7f9def5d3
-        checksum/secrets: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
       labels:
         app: upload-minio
         release: minio
-      name: minio
+      name: upload-minio
     spec:
       containers:
       - command:
@@ -1706,14 +1709,12 @@ spec:
           valueFrom:
             secretKeyRef:
               key: access_key
-              name: swip-upload-server
+              name: swip-tools-minio
         - name: MINIO_SECRET_KEY
           valueFrom:
             secretKeyRef:
               key: secret_key
-              name: swip-upload-server
-        - name: GOOGLE_APPLICATION_CREDENTIALS
-          value: /etc/credentials/gcs_key.json
+              name: swip-tools-minio
         - name: MINIO_BROWSER
           value: "off"
         image: minio/minio:RELEASE.2019-08-07T01-59-21Z
@@ -1751,9 +1752,6 @@ spec:
         volumeMounts:
         - mountPath: /opt/data
           name: upload-server
-        - mountPath: /etc/credentials
-          name: minio-user
-          readOnly: true
         - mountPath: /root/.minio/
           name: minio-config-dir
       initContainers:
@@ -1774,9 +1772,6 @@ spec:
           readOnly: false
       serviceAccountName: upload-minio
       volumes:
-      - name: minio-user
-        secret:
-          secretName: swip-upload-server
       - emptyDir: {}
         name: minio-config-dir
       - name: upload-server
@@ -1790,6 +1785,7 @@ metadata:
   labels:
     app: upload-minio
   name: upload-upload-server-pv-claim
+  namespace: ${NAMESPACE}
 spec:
   accessModes:
   - ReadWriteOnce
@@ -1803,7 +1799,7 @@ metadata:
   labels:
     app: download-minio
   name: download-minio
-  namespace: default
+  namespace: ${NAMESPACE}
 ---
 apiVersion: v1
 kind: Service
@@ -1812,6 +1808,7 @@ metadata:
     app: download-minio
     service: download-server
   name: download-server
+  namespace: ${NAMESPACE}
 spec:
   ports:
   - name: service
@@ -1830,8 +1827,9 @@ metadata:
     app: download-minio
     service: download-server
   name: download-minio
+  namespace: ${NAMESPACE}
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: download-minio
@@ -1841,19 +1839,16 @@ spec:
     type: Recreate
   template:
     metadata:
-      annotations:
-        checksum/config: 93e898cd531bb5586c5f150eff38c939a48e0b68a0929a6d8aacd7a7f9def5d3
-        checksum/secrets: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
       labels:
         app: download-minio
         release: minio
-      name: minio
+      name: download-minio
     spec:
       containers:
       - command:
         - /bin/sh
         - -ce
-        - /usr/bin/docker-entrypoint.sh minio -C /root/.minio/ gateway gcs ${GOOGLE_PROJECT}
+        - /usr/bin/docker-entrypoint.sh minio -C /root/.minio/ server /opt/data
         env:
         - name: MINIO_ACCESS_KEY
           valueFrom:
@@ -1867,13 +1862,6 @@ spec:
               name: swip-tools-minio
         - name: MINIO_BROWSER
           value: "off"
-        - name: GOOGLE_APPLICATION_CREDENTIALS
-          value: /etc/gcs-credentials/credentials.json
-        - name: GOOGLE_PROJECT
-          valueFrom:
-            configMapKeyRef:
-              key: google_project
-              name: download-server-config
         image: minio/minio:RELEASE.2019-08-07T01-59-21Z
         imagePullPolicy: IfNotPresent
         name: minio
@@ -1897,19 +1885,15 @@ spec:
             cpu: 250m
             memory: 256Mi
         volumeMounts:
-        - mountPath: /etc/gcs-credentials
-          name: gcs-credentials
-          readOnly: true
-        - mountPath: /etc/credentials
-          name: minio-user
-          readOnly: true
+        - mountPath: /opt/data
+          name: download-minio
         - mountPath: /root/.minio/
           name: minio-config-dir
       initContainers:
       - command:
         - sh
         - -c
-        - mkdir -p /opt/data/tools-store-$ENVIRONMENT_NAME
+        - mkdir -p /opt/data/tools-store-${ENVIRONMENT_NAME}
         env:
         - name: ENVIRONMENT_NAME
           value: ${ENVIRONMENT_NAME}
@@ -1917,15 +1901,27 @@ spec:
         name: bootstrap-download-server
         volumeMounts:
         - mountPath: /opt/data
-          name: download-server
+          name: download-minio
           readOnly: false
       serviceAccountName: download-minio
       volumes:
-      - name: minio-user
-        secret:
-          secretName: swip-tools-minio
       - emptyDir: {}
         name: minio-config-dir
-      - name: gcs-credentials
-        secret:
-          secretName: tools-store
+      - name: download-minio
+        persistentVolumeClaim:
+          claimName: download-minio-pv-claim
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  environment: ${ENVIRONMENT_NAME}
+  labels:
+    app: download-minio
+  name: download-minio-pv-claim
+  namespace: ${NAMESPACE}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: ${UPLOAD_SERVER_PV_SIZE}
