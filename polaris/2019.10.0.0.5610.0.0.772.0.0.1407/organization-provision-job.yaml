@@ -1,0 +1,144 @@
+---
+# Source: swip/templates/organization-provision-job.yaml
+
+apiVersion: "batch/v1"
+kind: "Job"
+metadata:
+  name: "organization-provision-job"
+  labels:  
+  environment: "${ENVIRONMENT_NAME}"
+  service: "organization-provision-job"
+  component: "swip"
+  componentVersion: "0.0.5610"
+  chart: "swip"
+  chartVersion: "0.0.5610"
+spec:
+  template:
+    metadata:
+      name: "organization-provision-job"
+      labels:        
+        environment: "${ENVIRONMENT_NAME}"
+        service: "organization-provision-job"
+        component: "swip"
+        componentVersion: "0.0.5610"
+        chart: "swip"
+        chartVersion: "0.0.5610"
+      annotations:
+        "helm.sh/hook": post-install, post-upgrade
+        "helm.sh/hook-weight": "100"
+        "helm.sh/hook-delete-policy": hook-succeeded
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 5000
+      restartPolicy: "OnFailure"
+      containers:
+      - name: "organization-provision-job"
+        image: "gcr.io/snps-swip-staging/swip_organization-provision-job:1.7.52"
+        imagePullPolicy: "IfNotPresent"
+        env:        
+        - name: LOGGING_LEVEL
+          value: "INFO"
+        - name: ESJC_LOGGING_LEVEL
+          value: "INFO"
+        - name: SWIP_ENVIRONMENT_NAME
+          value: "${ENVIRONMENT_NAME}"
+        - name: SWIP_ROOT_DOMAIN
+          value: "${POLARIS_ROOT_DOMAIN}"
+        - name: SWIP_SERVICE_NAME
+          value: "organization-provision-job"
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POLARIS_ENVIRONMENT_NAME
+          value: ${ENVIRONMENT_NAME}
+        - name: POLARIS_ROOT_DOMAIN
+          value: ${POLARIS_ROOT_DOMAIN}
+        - name: POLARIS_SERVICE_NAME
+          value: organization-provision-job
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace        
+        - name: "SWIP_VAULT_ADDRESS"
+          value: "https://polaris-db-vault:8200"
+        - name: "VAULT_CACERT"
+          value: "/mnt/vault/ca/vault_cacrt"
+        - name: "VAULT_CLIENT_KEY"
+          value: "/mnt/vault/key/vault_client_key"
+        - name: "VAULT_CLIENT_CERT"
+          value: "/mnt/vault/cert/vault_client_cert"
+        - name: "ORGANIZATION_PROVISION_AUTH_SERVICE_URL"
+          value: "http://auth-server"
+        - name: "ORGANIZATION_PROVISION_TOOLS_SERVICE_URL"
+          value: "http://tools-service"
+        - name: "REQUIRED_SERVICE_RETRY_SECONDS"
+          value: "5"
+        - name: "REQUIRED_SERVICE_RETRY_STOP_MINUTES"
+          value: "20"
+        - name: "ORGANIZATION_PROVISION_API_TOKEN_VAULT_PATH"
+          value: "secret/data/auth/public/daemon@api_token"
+        - name: "ORGANIZATION_PROVISION_LICENSE_ISSUED_BY"
+          value: "Synopsys, Inc"
+        - name: "ORGANIZATION_PROVISION_ORGANIZATION_DESCRIPTION"
+          value: "${ORG_DESCRIPTION}"
+        - name: "ORGANIZATION_PROVISION_ORGANIZATION_NAME"
+          value: "${ORG_NAME}"
+        - name: "ORGANIZATION_PROVISION_ADMIN_NAME"
+          value: "${ADMIN_NAME}"
+        - name: "ORGANIZATION_PROVISION_ADMIN_USERNAME"
+          value: "${ADMIN_USERNAME}"
+        - name: "ORGANIZATION_PROVISION_ADMIN_EMAIL"
+          value: "${ADMIN_EMAIL}"
+        - name: "ORGANIZATION_PROVISION_LICENSE_SEAT_COUNT"
+          value: "${SEAT_COUNT}"
+        - name: "ORGANIZATION_PROVISION_LICENSE_TYPE"
+          value: "${TYPE}"
+        - name: "ORGANIZATION_PROVISION_RESULTS_START_DATE"
+          value: "${RESULTS_START_DATE}"
+        - name: "ORGANIZATION_PROVISION_RESULTS_END_DATE"
+          value: "${RESULTS_END_DATE}"
+        - name: "ORGANIZATION_PROVISION_RETENTION_START_DATE"
+          value: "${RETENTION_START_DATE}"
+        - name: "ORGANIZATION_PROVISION_RETENTION_END_DATE"
+          value: "${RETENTION_END_DATE}"
+        - name: "ORGANIZATION_PROVISION_COVERITY_LICENSE"
+          valueFrom:
+            secretKeyRef:
+              name: "coverity-license"
+              key: "license"
+        volumeMounts:        
+        - name: "vault-cacert"
+          mountPath: "/mnt/vault/ca"
+          readOnly: true
+        - name: "vault-client-key"
+          mountPath: "/mnt/vault/key"
+          readOnly: true
+        - name: "vault-client-cert"
+          mountPath: "/mnt/vault/cert"
+          readOnly: true
+        resources:          
+          {}
+      volumes:      
+      - name: "vault-cacert"
+        secret:
+          secretName: "vault-ca-certificate"
+          items:
+          - key: "tls.crt"
+            path: "vault_cacrt"
+      - name: "vault-client-key"
+        secret:
+          secretName: "auth-client-tls-certificate"
+          items:
+          - key: "tls.key"
+            path: "vault_client_key"
+      - name: "vault-client-cert"
+        secret:
+          secretName: "auth-client-tls-certificate"
+          items:
+          - key: "tls.crt"
+            path: "vault_client_cert"      
+      imagePullSecrets:
+      - name: ${IMAGE_PULL_SECRETS}
+
