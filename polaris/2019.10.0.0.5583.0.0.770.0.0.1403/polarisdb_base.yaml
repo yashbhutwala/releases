@@ -1784,7 +1784,7 @@ spec:
         name: bootstrap-upload-server
         volumeMounts:
         - mountPath: /opt/data
-          name: upload-server
+          name: upload-minio
           readOnly: false
       serviceAccountName: upload-minio
       volumes:
@@ -1936,7 +1936,7 @@ spec:
         name: bootstrap-download-server
         volumeMounts:
         - mountPath: /opt/data
-          name: download-server
+          name: download-minio
           readOnly: false
       serviceAccountName: download-minio
       volumes:

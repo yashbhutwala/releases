@@ -2739,12 +2739,12 @@ spec:
           valueFrom:
             secretKeyRef:
               key: access_key
-              name: swip-upload-server
+              name: swip-tools-minio
         - name: SWIP_UPLOAD_SERVER_SECRET_KEY
           valueFrom:
             secretKeyRef:
               key: secret_key
-              name: swip-upload-server
+              name: swip-tools-minio
         - name: POSTGRES_HOST
           valueFrom:
             configMapKeyRef:
@@ -2804,12 +2804,12 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: host
-              name: polaris-smtp
+              name: smtp
         - name: SMTP_PORT
           valueFrom:
             configMapKeyRef:
               key: port
-              name: polaris-smtp
+              name: smtp
         - name: SMTP_PASSWORD
           valueFrom:
             secretKeyRef:
