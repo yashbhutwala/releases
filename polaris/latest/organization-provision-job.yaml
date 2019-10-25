@@ -9,9 +9,9 @@ metadata:
   environment: "${ENVIRONMENT_NAME}"
   service: "organization-provision-job"
   component: "swip"
-  componentVersion: "0.0.5770"
+  componentVersion: "0.0.5936"
   chart: "swip"
-  chartVersion: "0.0.5770"
+  chartVersion: "0.0.5936"
 spec:
   template:
     metadata:
@@ -20,9 +20,9 @@ spec:
         environment: "${ENVIRONMENT_NAME}"
         service: "organization-provision-job"
         component: "swip"
-        componentVersion: "0.0.5770"
+        componentVersion: "0.0.5936"
         chart: "swip"
-        chartVersion: "0.0.5770"
+        chartVersion: "0.0.5936"
       annotations:
         "helm.sh/hook": post-install, post-upgrade
         "helm.sh/hook-weight": "100"
@@ -34,7 +34,7 @@ spec:
       restartPolicy: "OnFailure"
       containers:
       - name: "organization-provision-job"
-        image: "gcr.io/snps-swip-staging/swip_organization-provision-job:1.7.65"
+        image: "gcr.io/snps-swip-staging/swip_organization-provision-job:1.7.80"
         imagePullPolicy: "IfNotPresent"
         env:        
         - name: LOGGING_LEVEL
