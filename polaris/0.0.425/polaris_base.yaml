@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -14,6 +15,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -26,6 +28,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -38,6 +41,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -50,6 +54,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -62,6 +67,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -76,6 +82,7 @@ imagePullSecrets:
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -88,6 +95,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -100,6 +108,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -112,6 +121,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -124,6 +134,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -136,6 +147,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -148,6 +160,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -160,6 +173,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -172,6 +186,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -184,6 +199,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -196,6 +212,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -208,6 +225,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -220,6 +238,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -232,6 +251,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -274,6 +294,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -321,6 +342,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -353,9 +375,41 @@ subjects:
   namespace: ${NAMESPACE}
 ---
 apiVersion: v1
+data:
+  request.json: |-
+    [
+      {
+        "secretName": "certificate-ca",
+        "configuration": {
+          "commonName": "Polaris CA",
+          "organization": ["Synopsys"],
+          "country": ["US"]
+        },
+        "type": "ca",
+        "children": [
+          {
+            "secretName": "certificate-notification-client",
+            "configuration": {
+              "commonName": "Polaris Notification Webhook"
+            },
+            "type": "client",
+            "children": null
+          }
+        ]
+      }
+    ]
+kind: ConfigMap
+metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
+  name: certificate-config
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
 kind: Service
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -380,6 +434,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -404,6 +459,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -428,6 +484,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -452,6 +509,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -476,6 +534,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -497,6 +556,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -518,6 +578,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -539,6 +600,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -563,6 +625,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -584,6 +647,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -608,6 +672,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -632,6 +697,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -653,6 +719,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -677,6 +744,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -701,6 +769,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -725,6 +794,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -746,6 +816,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -767,6 +838,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -997,6 +1069,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -1189,6 +1262,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -1407,6 +1481,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -1601,6 +1676,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -1826,6 +1902,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -2046,6 +2123,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -2312,6 +2390,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -2464,6 +2543,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -2495,8 +2575,12 @@ spec:
     spec:
       containers:
       - env:
-        - name: JAVA_OPTS
-          value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+        - name: POLARIS_CLIENT_CA
+          value: /opt/certificate/ca.crt
+        - name: POLARIS_CLIENT_CERTIFICATE
+          value: /opt/certificate/tls.crt
+        - name: POLARIS_CLIENT_PRIVATE_KEY
+          value: /opt/certificate/tls.key
         - name: LOGGING_LEVEL
           value: INFO
         - name: ESJC_LOGGING_LEVEL
@@ -2645,6 +2729,9 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
+        - mountPath: /opt/certificate
+          name: certificate
+          readOnly: true
         - mountPath: /var/run/secrets/vault/client
           name: vault-client
           readOnly: true
@@ -2709,6 +2796,9 @@ spec:
       serviceAccount: notifications-service
       terminationGracePeriodSeconds: 30
       volumes:
+      - name: certificate
+        secret:
+          secretName: certificate-notification-client
       - name: vault-client
         secret:
           secretName: auth-client-tls-certificate
@@ -2717,6 +2807,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -2812,6 +2903,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -2993,6 +3085,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -3212,6 +3305,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -3378,6 +3472,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -3601,6 +3696,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -3824,6 +3920,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -3980,6 +4077,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -4116,6 +4214,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -4247,11 +4346,54 @@ spec:
 apiVersion: batch/v1
 kind: Job
 metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
+  name: certificate-generator
+  namespace: ${NAMESPACE}
+spec:
+  template:
+    metadata:
+      labels:
+        environment: ${ENVIRONMENT_NAME}
+      name: certificate-generator
+    spec:
+      containers:
+      - args:
+        - /tmp/cert-generator/request.json
+        command:
+        - ./gen
+        env:
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        image: gcr.io/snps-swip-staging/onprem-cert-generator:latest
+        imagePullPolicy: IfNotPresent
+        name: certificate-generator
+        volumeMounts:
+        - mountPath: /tmp/cert-generator
+          name: certificate-volume
+      imagePullSecrets:
+      - name: ${IMAGE_PULL_SECRETS}
+      restartPolicy: OnFailure
+      serviceAccount: vault-init
+      volumes:
+      - configMap:
+          items:
+          - key: request.json
+            path: request.json
+          name: certificate-config
+        name: certificate-volume
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
   annotations:
     helm.sh/hook: post-upgrade,post-install
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -4322,6 +4464,7 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919
@@ -4397,6 +4540,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
   labels:
+    chart: swip
     chartVersion: 0.0.5919
     component: swip
     componentVersion: 0.0.5919

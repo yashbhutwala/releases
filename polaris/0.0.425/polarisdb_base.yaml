@@ -1048,7 +1048,7 @@ metadata:
     helm.sh/hook: test-success
   labels:
     environment: ${ENVIRONMENT_NAME}
-  name: swip-db-ui-test-0rec3
+  name: swip-db-ui-test-fn13g
   namespace: ${NAMESPACE}
 spec:
   containers:
@@ -1177,7 +1177,7 @@ spec:
             name: postgresql-config
         - secretRef:
             name: postgresql-config
-        image: registry.access.redhat.com/rhscl/postgresql-10-rhel7:1
+        image: registry.access.redhat.com/rhscl/postgresql-96-rhel7:1
         imagePullPolicy: IfNotPresent
         lifecycle:
           preStop:
@@ -1185,7 +1185,7 @@ spec:
               command:
               - sh
               - -c
-              - LD_LIBRARY_PATH=/opt/rh/rh-postgresql10/root/usr/lib64 /opt/rh/rh-postgresql10/root/usr/bin/pg_ctl
+              - LD_LIBRARY_PATH=/opt/rh/rh-postgresql96/root/usr/lib64 /opt/rh/rh-postgresql96/root/usr/bin/pg_ctl
                 -D /var/lib/pgsql/data/userdata -l logfile stop
         name: postgresql
         ports:
@@ -1195,7 +1195,7 @@ spec:
             command:
             - /bin/bash
             - -c
-            - /opt/rh/rh-postgresql10/root/usr/bin/pg_isready -h localhost
+            - /opt/rh/rh-postgresql96/root/usr/bin/pg_isready -h localhost
         volumeMounts:
         - mountPath: /var/lib/pgsql/data
           name: postgresdb
