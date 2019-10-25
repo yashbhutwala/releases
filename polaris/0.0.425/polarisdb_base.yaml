@@ -1048,7 +1048,7 @@ metadata:
     helm.sh/hook: test-success
   labels:
     environment: ${ENVIRONMENT_NAME}
-  name: swip-db-ui-test-oza2z
+  name: swip-db-ui-test-0rec3
   namespace: ${NAMESPACE}
 spec:
   containers:
