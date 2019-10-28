@@ -1069,7 +1069,7 @@ metadata:
     helm.sh/hook: test-success
   labels:
     environment: ${ENVIRONMENT_NAME}
-  name: swip-db-ui-test-m3dwn
+  name: swip-db-ui-test-5yhau
   namespace: ${NAMESPACE}
 spec:
   containers:
