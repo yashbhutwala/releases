@@ -388,7 +388,7 @@ data:
         "type": "ca",
         "children": [
           {
-            "secretName": "certificate-notification-client",
+            "secretName": "polaris-webhook-client-certs",
             "configuration": {
               "commonName": "Polaris Notification Webhook"
             },
@@ -2651,12 +2651,6 @@ spec:
             configMapKeyRef:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
-        - name: POLARIS_CLIENT_CA
-          value: /opt/certificate/ca.crt
-        - name: POLARIS_CLIENT_CERTIFICATE
-          value: /opt/certificate/tls.crt
-        - name: POLARIS_CLIENT_PRIVATE_KEY
-          value: /opt/certificate/tls.key
         - name: LOGGING_LEVEL
           value: INFO
         - name: ESJC_LOGGING_LEVEL
@@ -2805,9 +2799,6 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /opt/certificate
-          name: certificate
-          readOnly: true
         - mountPath: /var/run/secrets/vault/client
           name: vault-client
           readOnly: true
@@ -2877,9 +2868,6 @@ spec:
       serviceAccount: notifications-service
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: certificate
-        secret:
-          secretName: certificate-notification-client
       - name: vault-client
         secret:
           secretName: auth-client-tls-certificate
