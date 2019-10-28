@@ -1069,7 +1069,7 @@ metadata:
     helm.sh/hook: test-success
   labels:
     environment: ${ENVIRONMENT_NAME}
-  name: swip-db-ui-test-5yhau
+  name: swip-db-ui-test-tlek4
   namespace: ${NAMESPACE}
 spec:
   containers:
@@ -1890,6 +1890,8 @@ spec:
         image: gcr.io/snps-swip-staging/eventstore-util:latest
         imagePullPolicy: IfNotPresent
         name: eventstore-init
+      imagePullSecrets:
+      - name: ${IMAGE_PULL_SECRETS}
       initContainers:
       - args:
         - --http-readiness-check-urls=http://eventstore.$(POD_NAMESPACE).svc.cluster.local:2112/stats
