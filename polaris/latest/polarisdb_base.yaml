@@ -159,31 +159,25 @@ data:
       exit 1
     fi
 
-    if [[ "$POSTGRES_TYPE" == "internal" ]];then
-      PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U postgres << EOF
-      ALTER USER $POSTGRESQL_USER SUPERUSER;
-    EOF
-    fi
-
     echo "Creating databases if not exists..."
     PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U $POSTGRESQL_USER -d postgres << EOF
-    SELECT 'CREATE DATABASE cos' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'cos')\gexec;
-    SELECT 'CREATE DATABASE jobs-service' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'jobs-service')\gexec;
-    SELECT 'CREATE DATABASE issues' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'issues')\gexec;
-    SELECT 'CREATE DATABASE code_analysis' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'code_analysis')\gexec;
-    SELECT 'CREATE DATABASE tds_fuzz' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'tds_fuzz')\gexec;
-    SELECT 'CREATE DATABASE configs' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'configs')\gexec;
-    SELECT 'CREATE DATABASE triage_query' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'triage_query')\gexec;
-    SELECT 'CREATE DATABASE triage_command' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'triage_command')\gexec;
-    SELECT 'CREATE DATABASE desktop_metrics' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'desktop_metrics')\gexec;
-    SELECT 'CREATE DATABASE tds_csv' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'tds_csv')\gexec;
-    SELECT 'CREATE DATABASE tds_seeker' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'tds_seeker')\gexec;
-    SELECT 'CREATE DATABASE tds_sca' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'tds_sca')\gexec;
-    SELECT 'CREATE DATABASE rp-issue-manager' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'rp-issue-manager')\gexec;
-    SELECT 'CREATE DATABASE rp-portfolio' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'rp-portfolio')\gexec;
-    SELECT 'CREATE DATABASE rp-report' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'rp-report')\gexec;
-    SELECT 'CREATE DATABASE rp-tools-portfolio' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'rp-tools-portfolio')\gexec;
-    SELECT 'CREATE DATABASE notifications' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'notifications')\gexec;
+    SELECT 'CREATE DATABASE "cos"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'cos')\gexec
+    SELECT 'CREATE DATABASE "jobs-service"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'jobs-service')\gexec
+    SELECT 'CREATE DATABASE "issues"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'issues')\gexec
+    SELECT 'CREATE DATABASE "code_analysis"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'code_analysis')\gexec
+    SELECT 'CREATE DATABASE "tds_fuzz"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'tds_fuzz')\gexec
+    SELECT 'CREATE DATABASE "configs"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'configs')\gexec
+    SELECT 'CREATE DATABASE "triage_query"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'triage_query')\gexec
+    SELECT 'CREATE DATABASE "triage_command"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'triage_command')\gexec
+    SELECT 'CREATE DATABASE "desktop_metrics"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'desktop_metrics')\gexec
+    SELECT 'CREATE DATABASE "tds_csv"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'tds_csv')\gexec
+    SELECT 'CREATE DATABASE "tds_seeker"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'tds_seeker')\gexec
+    SELECT 'CREATE DATABASE "tds_sca"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'tds_sca')\gexec
+    SELECT 'CREATE DATABASE "rp-issue-manager"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'rp-issue-manager')\gexec
+    SELECT 'CREATE DATABASE "rp-portfolio"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'rp-portfolio')\gexec
+    SELECT 'CREATE DATABASE "rp-report"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'rp-report')\gexec
+    SELECT 'CREATE DATABASE "rp-tools-portfolio"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'rp-tools-portfolio')\gexec
+    SELECT 'CREATE DATABASE "notifications"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'notifications')\gexec
     EOF
 kind: ConfigMap
 metadata:
@@ -1075,7 +1069,7 @@ metadata:
     helm.sh/hook: test-success
   labels:
     environment: ${ENVIRONMENT_NAME}
-  name: swip-db-ui-test-3mnim
+  name: swip-db-ui-test-m3dwn
   namespace: ${NAMESPACE}
 spec:
   containers:

@@ -9,9 +9,9 @@ metadata:
   environment: "${ENVIRONMENT_NAME}"
   service: "organization-provision-job"
   component: "swip"
-  componentVersion: "0.0.5974"
+  componentVersion: "0.0.5977"
   chart: "swip"
-  chartVersion: "0.0.5974"
+  chartVersion: "0.0.5977"
 spec:
   template:
     metadata:
@@ -20,9 +20,9 @@ spec:
         environment: "${ENVIRONMENT_NAME}"
         service: "organization-provision-job"
         component: "swip"
-        componentVersion: "0.0.5974"
+        componentVersion: "0.0.5977"
         chart: "swip"
-        chartVersion: "0.0.5974"
+        chartVersion: "0.0.5977"
       annotations:
         "helm.sh/hook": post-install, post-upgrade
         "helm.sh/hook-weight": "100"
