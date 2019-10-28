@@ -206,6 +206,18 @@ metadata:
 ---
 apiVersion: v1
 data:
+  POSTGRES_SSL_MODE: ${POSTGRES_SSL_MODE}
+  POSTGRESQL_HOST: ${POSTGRES_HOST}
+  POSTGRESQL_PORT: "5432"
+kind: ConfigMap
+metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
+  name: postgresql-config
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+data:
   auth-client.hcl: |-
     path "secret/data/auth/public/*" {
       capabilities = ["list", "read"]
@@ -272,6 +284,21 @@ metadata:
   labels:
     environment: ${ENVIRONMENT_NAME}
   name: polaris-smtp
+  namespace: ${NAMESPACE}
+type: Opaque
+---
+apiVersion: v1
+data:
+  POSTGRESQL_ADMIN_PASSWORD: ${POSTGRES_PASSWORD}
+  POSTGRESQL_DATABASE: ${POSTGRES_USERNAME}
+  POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
+  POSTGRESQL_USER: ${POSTGRES_USERNAME}
+kind: Secret
+metadata:
+  labels:
+    app: postgresql
+    environment: ${ENVIRONMENT_NAME}
+  name: postgresql-config
   namespace: ${NAMESPACE}
 type: Opaque
 ---
@@ -1048,7 +1075,7 @@ metadata:
     helm.sh/hook: test-success
   labels:
     environment: ${ENVIRONMENT_NAME}
-  name: swip-db-ui-test-5eksb
+  name: swip-db-ui-test-3mnim
   namespace: ${NAMESPACE}
 spec:
   containers:
@@ -1106,119 +1133,6 @@ spec:
     image: vault:0.11.2
     name: swip-db-vault-status-test
   restartPolicy: Never
----
-apiVersion: v1
-data:
-  POSTGRESQL_HOST: ${POSTGRES_HOST}
-  POSTGRESQL_PORT: "5432"
-kind: ConfigMap
-metadata:
-  labels:
-    app: postgresql
-    environment: ${ENVIRONMENT_NAME}
-  name: postgresql-config
----
-apiVersion: v1
-data:
-  POSTGRESQL_ADMIN_PASSWORD: ${POSTGRES_PASSWORD}
-  POSTGRESQL_DATABASE: ${POSTGRES_USERNAME}
-  POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
-  POSTGRESQL_USER: ${POSTGRES_USERNAME}
-kind: Secret
-metadata:
-  labels:
-    app: postgresql
-    environment: ${ENVIRONMENT_NAME}
-  name: postgresql-config
-type: Opaque
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: postgresql
-    environment: ${ENVIRONMENT_NAME}
-  name: postgresql
-spec:
-  ports:
-  - name: postgresql
-    port: 5432
-    protocol: TCP
-    targetPort: 5432
-  selector:
-    app: postgresql
-    environment: ${ENVIRONMENT_NAME}
----
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  labels:
-    app: postgresql
-    environment: ${ENVIRONMENT_NAME}
-  name: postgresql
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: postgresql
-      environment: ${ENVIRONMENT_NAME}
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: postgresql
-        environment: ${ENVIRONMENT_NAME}
-      name: postgresql
-    spec:
-      containers:
-      - envFrom:
-        - configMapRef:
-            name: postgresql-config
-        - secretRef:
-            name: postgresql-config
-        image: registry.access.redhat.com/rhscl/postgresql-96-rhel7:1
-        imagePullPolicy: IfNotPresent
-        lifecycle:
-          preStop:
-            exec:
-              command:
-              - sh
-              - -c
-              - LD_LIBRARY_PATH=/opt/rh/rh-postgresql96/root/usr/lib64 /opt/rh/rh-postgresql96/root/usr/bin/pg_ctl
-                -D /var/lib/pgsql/data/userdata -l logfile stop
-        name: postgresql
-        ports:
-        - containerPort: 5432
-        readinessProbe:
-          exec:
-            command:
-            - /bin/bash
-            - -c
-            - /opt/rh/rh-postgresql96/root/usr/bin/pg_isready -h localhost
-        volumeMounts:
-        - mountPath: /var/lib/pgsql/data
-          name: postgresdb
-      securityContext:
-        fsGroup: 0
-      volumes:
-      - name: postgresdb
-        persistentVolumeClaim:
-          claimName: postgresql-pv-claim
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  labels:
-    app: postgresql
-    environment: ${ENVIRONMENT_NAME}
-  name: postgresql-pv-claim
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: ${POSTGRES_PV_SIZE}
 ---
 apiVersion: v1
 data:
@@ -1363,10 +1277,25 @@ spec:
         volumeMounts:
         - mountPath: /bitnami/mongodb/data/db
           name: data
-          subPath: null
+          subPath: mongodb
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
       initContainers:
+      - command:
+        - chown
+        - -R
+        - 1001:1001
+        - /bitnami/mongodb/data/db
+        image: docker.io/bitnami/minideb:stretch
+        imagePullPolicy: Always
+        name: volume-permissions
+        resources: {}
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - mountPath: /bitnami/mongodb/data/db
+          name: data
+          subPath: mongodb
       - args:
         - ls -lart /data/db;if [  -n "$(ls -A /data/db 2> /dev/null)" ] && [ ! -f
           /data/db/upgrade.done ]; then mongod & sleep 15;mongo /usr/local/entrypoint.js;sleep
@@ -1383,21 +1312,7 @@ spec:
           subPath: entrypoint.js
         - mountPath: /data/db
           name: data
-          subPath: null
-      - command:
-        - chown
-        - -R
-        - 1001:1001
-        - /bitnami/mongodb/data/db
-        image: docker.io/bitnami/minideb:stretch
-        imagePullPolicy: Always
-        name: volume-permissions
-        resources: {}
-        securityContext:
-          runAsUser: 0
-        volumeMounts:
-        - mountPath: /bitnami/mongodb/data/db
-          name: data
+          subPath: mongodb
       securityContext:
         fsGroup: 1001
       volumes:
@@ -1987,7 +1902,7 @@ spec:
         env:
         - name: POD_NAMESPACE
           value: ${NAMESPACE}
-        image: gcr.io/snps-swip-staging/polaris-init:latest
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
         imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: OnFailure
