@@ -1075,7 +1075,7 @@ metadata:
     helm.sh/hook: test-success
   labels:
     environment: ${ENVIRONMENT_NAME}
-  name: swip-db-ui-test-5cobc
+  name: swip-db-ui-test-5xppq
   namespace: ${NAMESPACE}
 spec:
   containers:
