@@ -206,6 +206,7 @@ metadata:
 ---
 apiVersion: v1
 data:
+  POSTGRES_SSL_MODE: ${POSTGRES_SSL_MODE}
   POSTGRESQL_HOST: ${POSTGRES_HOST}
   POSTGRESQL_PORT: "5432"
 kind: ConfigMap
@@ -288,7 +289,6 @@ type: Opaque
 ---
 apiVersion: v1
 data:
-  POSTGRES_SSL_MODE: ${POSTGRES_SSL_MODE}
   POSTGRESQL_ADMIN_PASSWORD: ${POSTGRES_PASSWORD}
   POSTGRESQL_DATABASE: ${POSTGRES_USERNAME}
   POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
@@ -1075,7 +1075,7 @@ metadata:
     helm.sh/hook: test-success
   labels:
     environment: ${ENVIRONMENT_NAME}
-  name: swip-db-ui-test-e5fx4
+  name: swip-db-ui-test-5cobc
   namespace: ${NAMESPACE}
 spec:
   containers:
