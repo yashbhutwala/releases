@@ -1069,7 +1069,7 @@ metadata:
     helm.sh/hook: test-success
   labels:
     environment: ${ENVIRONMENT_NAME}
-  name: swip-db-ui-test-tlek4
+  name: swip-db-ui-test-sl3ts
   namespace: ${NAMESPACE}
 spec:
   containers:
@@ -1836,13 +1836,17 @@ spec:
     type: RollingUpdate
   volumeClaimTemplates:
   - metadata:
+      labels:
+        app: swip
+        component: eventstore
+        environment: ${ENVIRONMENT_NAME}
       name: data
     spec:
       accessModes:
       - ReadWriteOnce
       resources:
         requests:
-          storage: 200Gi
+          storage: ${EVENTSTORE_PV_SIZE}
 ---
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
