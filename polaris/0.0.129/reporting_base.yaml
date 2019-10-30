@@ -1,0 +1,1345 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    chartVersion: 0.0.1474
+    component: reporting
+    componentVersion: 0.0.1474
+    environment: ${ENVIRONMENT_NAME}
+    service: rp-issue-manager
+  name: rp-issue-manager
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    chartVersion: 0.0.1474
+    component: reporting
+    componentVersion: 0.0.1474
+    environment: ${ENVIRONMENT_NAME}
+    service: rp-polaris-agent-service
+  name: rp-polaris-agent-service
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    chartVersion: 0.0.1474
+    component: reporting
+    componentVersion: 0.0.1474
+    environment: ${ENVIRONMENT_NAME}
+    service: rp-portfolio-service
+  name: rp-portfolio-service
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    chartVersion: 0.0.1474
+    component: reporting
+    componentVersion: 0.0.1474
+    environment: ${ENVIRONMENT_NAME}
+    service: rp-swagger-doc
+  name: rp-swagger-doc
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    chartVersion: 0.0.1474
+    component: reporting
+    componentVersion: 0.0.1474
+    environment: ${ENVIRONMENT_NAME}
+    service: rp-tools-portfolio-service
+  name: rp-tools-portfolio-service
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
+  name: rp-frontend
+  namespace: ${NAMESPACE}
+spec:
+  ports:
+  - name: "80"
+    port: 80
+    targetPort: 8080
+  selector:
+    environment: ${ENVIRONMENT_NAME}
+    name: rp-frontend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
+    name: rp-issue-manager
+  name: rp-issue-manager
+  namespace: ${NAMESPACE}
+spec:
+  ports:
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  selector:
+    environment: ${ENVIRONMENT_NAME}
+    name: rp-issue-manager
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
+    name: rp-polaris-agent-service
+  name: rp-polaris-agent-service
+  namespace: ${NAMESPACE}
+spec:
+  ports:
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  selector:
+    environment: ${ENVIRONMENT_NAME}
+    name: rp-polaris-agent-service
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
+    name: rp-portfolio-service
+  name: rp-portfolio-service
+  namespace: ${NAMESPACE}
+spec:
+  ports:
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  selector:
+    environment: ${ENVIRONMENT_NAME}
+    name: rp-portfolio-service
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
+    name: rp-swagger-doc
+  name: rp-swagger-doc
+  namespace: ${NAMESPACE}
+spec:
+  ports:
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  selector:
+    environment: ${ENVIRONMENT_NAME}
+    name: rp-swagger-doc
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
+  name: rp-tools-portfolio-service
+  namespace: ${NAMESPACE}
+spec:
+  ports:
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  selector:
+    environment: ${ENVIRONMENT_NAME}
+    name: rp-tools-portfolio-service
+status:
+  loadBalancer: {}
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    chartVersion: 0.0.1474
+    component: reporting
+    componentVersion: 0.0.1474
+    environment: ${ENVIRONMENT_NAME}
+    name: rp-frontend
+    service: rp-frontend
+  name: rp-frontend
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      environment: ${ENVIRONMENT_NAME}
+      name: rp-frontend
+  template:
+    metadata:
+      labels:
+        environment: ${ENVIRONMENT_NAME}
+        name: rp-frontend
+    spec:
+      containers:
+      - env:
+        - name: REPORTING_STANDALONE
+          value: "false"
+        image: gcr.io/snps-swip-staging/reporting-frontend-service:0.0.1057
+        imagePullPolicy: Always
+        name: rp-frontend
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 500m
+            memory: 500Mi
+          requests:
+            cpu: 250m
+            memory: 256Mi
+      imagePullSecrets:
+      - name: ${IMAGE_PULL_SECRETS}
+      restartPolicy: Always
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    chartVersion: 0.0.1474
+    component: reporting
+    componentVersion: 0.0.1474
+    environment: ${ENVIRONMENT_NAME}
+    name: rp-issue-manager
+    service: rp-issue-manager
+  name: rp-issue-manager
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      environment: ${ENVIRONMENT_NAME}
+      name: rp-issue-manager
+  template:
+    metadata:
+      labels:
+        environment: ${ENVIRONMENT_NAME}
+        name: rp-issue-manager
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        - name: SWIP_VAULT_ADDRESS
+          value: https://polaris-db-vault:8200
+        - name: VAULT_CACERT
+          value: /mnt/vault/ca/vault_cacrt
+        - name: VAULT_CLIENT_KEY
+          value: /mnt/vault/key/vault_client_key
+        - name: VAULT_CLIENT_CERT
+          value: /mnt/vault/cert/vault_client_cert
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        - name: POSTGRES_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: CONNECTION_POOL_SIZE
+          value: "10"
+        - name: LOG_LEVEL
+          value: INFO
+        - name: SPRING_PROFILE
+          value: production
+        - name: SWIP_ENVIRONMENT_NAME
+          value: ${ENVIRONMENT_NAME}
+        - name: SWIP_ROOT_DOMAIN
+          value: ${POLARIS_ROOT_DOMAIN}
+        - name: REPORTING_STANDALONE
+          value: "false"
+        image: gcr.io/snps-swip-staging/reporting-rp-issue-manager:0.0.748
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /liveness
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 150
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 3
+        name: rp-issue-manager
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /readiness
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 100
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 3
+        resources:
+          limits:
+            cpu: 750m
+            memory: 1000Mi
+          requests:
+            cpu: 500m
+            memory: 768Mi
+        volumeMounts:
+        - mountPath: /mnt/vault/ca
+          name: vault-cacert
+          readOnly: true
+        - mountPath: /mnt/vault/key
+          name: vault-client-key
+          readOnly: true
+        - mountPath: /mnt/vault/cert
+          name: vault-client-cert
+          readOnly: true
+      imagePullSecrets:
+      - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
+      restartPolicy: Always
+      volumes:
+      - name: vault-cacert
+        secret:
+          defaultMode: 420
+          items:
+          - key: tls.crt
+            path: vault_cacrt
+          secretName: vault-ca-certificate
+      - name: vault-client-key
+        secret:
+          defaultMode: 420
+          items:
+          - key: tls.key
+            path: vault_client_key
+          secretName: auth-client-tls-certificate
+      - name: vault-client-cert
+        secret:
+          defaultMode: 420
+          items:
+          - key: tls.crt
+            path: vault_client_cert
+          secretName: auth-client-tls-certificate
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    chartVersion: 0.0.1474
+    component: reporting
+    componentVersion: 0.0.1474
+    environment: ${ENVIRONMENT_NAME}
+    name: rp-polaris-agent-service
+    service: rp-polaris-agent-service
+  name: rp-polaris-agent-service
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      environment: ${ENVIRONMENT_NAME}
+      name: rp-polaris-agent-service
+  template:
+    metadata:
+      labels:
+        environment: ${ENVIRONMENT_NAME}
+        name: rp-polaris-agent-service
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        - name: SWIP_VAULT_ADDRESS
+          value: https://polaris-db-vault:8200
+        - name: VAULT_CACERT
+          value: /mnt/vault/ca/vault_cacrt
+        - name: VAULT_CLIENT_KEY
+          value: /mnt/vault/key/vault_client_key
+        - name: VAULT_CLIENT_CERT
+          value: /mnt/vault/cert/vault_client_cert
+        - name: EVENT_STORE_ADDR
+          value: eventstore.default.svc.cluster.local
+        - name: EVENT_STORE_READER_USERNAME
+          value: reader
+        - name: EVENT_STORE_READER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: swip-eventstore-reader-creds
+        - name: CONNECTION_POOL_SIZE
+          value: "10"
+        - name: LOG_LEVEL
+          value: INFO
+        - name: SPRING_PROFILE
+          value: production
+        - name: SWIP_ENVIRONMENT_NAME
+          value: ${ENVIRONMENT_NAME}
+        - name: SWIP_ROOT_DOMAIN
+          value: ${POLARIS_ROOT_DOMAIN}
+        - name: REPORTING_STANDALONE
+          value: "false"
+        image: gcr.io/snps-swip-staging/reporting-polaris-service:0.0.693
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /liveness
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 120
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 3
+        name: rp-polaris-agent-service
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /readiness
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 77
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 3
+        resources:
+          limits:
+            cpu: 750m
+            memory: 1000Mi
+          requests:
+            cpu: 500m
+            memory: 768Mi
+        volumeMounts:
+        - mountPath: /mnt/vault/ca
+          name: vault-cacert
+          readOnly: true
+        - mountPath: /mnt/vault/key
+          name: vault-client-key
+          readOnly: true
+        - mountPath: /mnt/vault/cert
+          name: vault-client-cert
+          readOnly: true
+      imagePullSecrets:
+      - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
+      restartPolicy: Always
+      volumes:
+      - name: vault-cacert
+        secret:
+          defaultMode: 420
+          items:
+          - key: tls.crt
+            path: vault_cacrt
+          secretName: vault-ca-certificate
+      - name: vault-client-key
+        secret:
+          defaultMode: 420
+          items:
+          - key: tls.key
+            path: vault_client_key
+          secretName: auth-client-tls-certificate
+      - name: vault-client-cert
+        secret:
+          defaultMode: 420
+          items:
+          - key: tls.crt
+            path: vault_client_cert
+          secretName: auth-client-tls-certificate
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    chartVersion: 0.0.1474
+    component: reporting
+    componentVersion: 0.0.1474
+    environment: ${ENVIRONMENT_NAME}
+    name: rp-portfolio-service
+    service: rp-portfolio-service
+  name: rp-portfolio-service
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      environment: ${ENVIRONMENT_NAME}
+      name: rp-portfolio-service
+  template:
+    metadata:
+      labels:
+        environment: ${ENVIRONMENT_NAME}
+        name: rp-portfolio-service
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        - name: SWIP_VAULT_ADDRESS
+          value: https://polaris-db-vault:8200
+        - name: VAULT_CACERT
+          value: /mnt/vault/ca/vault_cacrt
+        - name: VAULT_CLIENT_KEY
+          value: /mnt/vault/key/vault_client_key
+        - name: VAULT_CLIENT_CERT
+          value: /mnt/vault/cert/vault_client_cert
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        - name: POSTGRES_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: CONNECTION_POOL_SIZE
+          value: "10"
+        - name: LOG_LEVEL
+          value: INFO
+        - name: SPRING_PROFILE
+          value: production
+        - name: SWIP_ENVIRONMENT_NAME
+          value: ${ENVIRONMENT_NAME}
+        - name: SWIP_ROOT_DOMAIN
+          value: ${POLARIS_ROOT_DOMAIN}
+        - name: REPORTING_STANDALONE
+          value: "false"
+        image: gcr.io/snps-swip-staging/reporting-rp-portfolio-service:0.0.965
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /liveness
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 120
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 3
+        name: rp-portfolio-service
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /readiness
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 70
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 3
+        resources:
+          limits:
+            cpu: 750m
+            memory: 1000Mi
+          requests:
+            cpu: 500m
+            memory: 768Mi
+        volumeMounts:
+        - mountPath: /mnt/vault/ca
+          name: vault-cacert
+          readOnly: true
+        - mountPath: /mnt/vault/key
+          name: vault-client-key
+          readOnly: true
+        - mountPath: /mnt/vault/cert
+          name: vault-client-cert
+          readOnly: true
+      imagePullSecrets:
+      - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
+      restartPolicy: Always
+      volumes:
+      - name: vault-cacert
+        secret:
+          defaultMode: 420
+          items:
+          - key: tls.crt
+            path: vault_cacrt
+          secretName: vault-ca-certificate
+      - name: vault-client-key
+        secret:
+          defaultMode: 420
+          items:
+          - key: tls.key
+            path: vault_client_key
+          secretName: auth-client-tls-certificate
+      - name: vault-client-cert
+        secret:
+          defaultMode: 420
+          items:
+          - key: tls.crt
+            path: vault_client_cert
+          secretName: auth-client-tls-certificate
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    chartVersion: 0.0.1474
+    component: reporting
+    componentVersion: 0.0.1474
+    environment: ${ENVIRONMENT_NAME}
+    name: rp-swagger-doc
+    service: rp-swagger-doc
+  name: rp-swagger-doc
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      environment: ${ENVIRONMENT_NAME}
+      name: rp-swagger-doc
+  template:
+    metadata:
+      labels:
+        environment: ${ENVIRONMENT_NAME}
+        name: rp-swagger-doc
+    spec:
+      containers:
+      - env:
+        - name: SWIP_VAULT_ADDRESS
+          value: https://polaris-db-vault:8200
+        - name: VAULT_CACERT
+          value: /mnt/vault/ca/vault_cacrt
+        - name: VAULT_CLIENT_KEY
+          value: /mnt/vault/key/vault_client_key
+        - name: VAULT_CLIENT_CERT
+          value: /mnt/vault/cert/vault_client_cert
+        - name: CONNECTION_POOL_SIZE
+          value: "10"
+        - name: LOG_LEVEL
+          value: INFO
+        - name: SPRING_PROFILE
+          value: production
+        - name: SWIP_ENVIRONMENT_NAME
+          value: ${ENVIRONMENT_NAME}
+        - name: SWIP_ROOT_DOMAIN
+          value: ${POLARIS_ROOT_DOMAIN}
+        - name: REPORTING_STANDALONE
+          value: "false"
+        image: gcr.io/snps-swip-staging/reporting-swagger-doc:0.0.95
+        imagePullPolicy: Always
+        name: rp-swagger-doc
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 550m
+            memory: 1000Mi
+          requests:
+            cpu: 250m
+            memory: 768Mi
+        volumeMounts:
+        - mountPath: /mnt/vault/ca
+          name: vault-cacert
+          readOnly: true
+        - mountPath: /mnt/vault/key
+          name: vault-client-key
+          readOnly: true
+        - mountPath: /mnt/vault/cert
+          name: vault-client-cert
+          readOnly: true
+      imagePullSecrets:
+      - name: ${IMAGE_PULL_SECRETS}
+      restartPolicy: Always
+      volumes:
+      - name: vault-cacert
+        secret:
+          defaultMode: 420
+          items:
+          - key: tls.crt
+            path: vault_cacrt
+          secretName: vault-ca-certificate
+      - name: vault-client-key
+        secret:
+          defaultMode: 420
+          items:
+          - key: tls.key
+            path: vault_client_key
+          secretName: auth-client-tls-certificate
+      - name: vault-client-cert
+        secret:
+          defaultMode: 420
+          items:
+          - key: tls.crt
+            path: vault_client_cert
+          secretName: auth-client-tls-certificate
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    chartVersion: 0.0.1474
+    component: reporting
+    componentVersion: 0.0.1474
+    environment: ${ENVIRONMENT_NAME}
+    name: rp-tools-portfolio-service
+    service: rp-tools-portfolio-service
+  name: rp-tools-portfolio-service
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      environment: ${ENVIRONMENT_NAME}
+      name: rp-tools-portfolio-service
+  template:
+    metadata:
+      labels:
+        environment: ${ENVIRONMENT_NAME}
+        name: rp-tools-portfolio-service
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        - name: SWIP_VAULT_ADDRESS
+          value: https://polaris-db-vault:8200
+        - name: VAULT_CACERT
+          value: /mnt/vault/ca/vault_cacrt
+        - name: VAULT_CLIENT_KEY
+          value: /mnt/vault/key/vault_server_key
+        - name: VAULT_CLIENT_CERT
+          value: /mnt/vault/cert/vault_server_cert
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        - name: POSTGRES_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: CONNECTION_POOL_SIZE
+          value: "10"
+        - name: LOG_LEVEL
+          value: INFO
+        - name: SPRING_PROFILE
+          value: production
+        - name: SWIP_ENVIRONMENT_NAME
+          value: ${ENVIRONMENT_NAME}
+        - name: SWIP_ROOT_DOMAIN
+          value: ${POLARIS_ROOT_DOMAIN}
+        - name: REPORTING_STANDALONE
+          value: "false"
+        image: gcr.io/snps-swip-staging/reporting-tools-portfolio-service:0.0.1498
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /liveness
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 140
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 3
+        name: rp-tools-portfolio-service
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /readiness
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 90
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 3
+        resources:
+          limits:
+            cpu: 750m
+            memory: 1000Mi
+          requests:
+            cpu: 500m
+            memory: 768Mi
+        volumeMounts:
+        - mountPath: /mnt/vault/ca
+          name: vault-cacert
+          readOnly: true
+        - mountPath: /mnt/vault/key
+          name: vault-server-key
+          readOnly: true
+        - mountPath: /mnt/vault/cert
+          name: vault-server-cert
+          readOnly: true
+      imagePullSecrets:
+      - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
+      restartPolicy: Always
+      serviceAccount: auth-server
+      volumes:
+      - name: vault-cacert
+        secret:
+          items:
+          - key: tls.crt
+            path: vault_cacrt
+          secretName: vault-ca-certificate
+      - name: vault-server-key
+        secret:
+          items:
+          - key: tls.key
+            path: vault_server_key
+          secretName: auth-server-tls-certificate
+      - name: vault-server-cert
+        secret:
+          items:
+          - key: tls.crt
+            path: vault_server_cert
+          secretName: auth-server-tls-certificate
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    chartVersion: 0.0.1046
+    component: None
+    componentVersion: None
+    environment: ${ENVIRONMENT_NAME}
+    service: rp-report-service
+  name: rp-report-service
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
+    name: report-storage
+  name: report-storage
+  namespace: ${NAMESPACE}
+spec:
+  ports:
+  - port: 9000
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    app: report-storage
+    environment: ${ENVIRONMENT_NAME}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
+    name: rp-report-service
+  name: rp-report-service
+  namespace: ${NAMESPACE}
+spec:
+  ports:
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  selector:
+    environment: ${ENVIRONMENT_NAME}
+    name: rp-report-service
+status:
+  loadBalancer: {}
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    chartVersion: 0.0.1046
+    component: None
+    componentVersion: None
+    environment: ${ENVIRONMENT_NAME}
+    name: report-storage
+    service: report-storage
+  name: report-storage
+  namespace: ${NAMESPACE}
+spec:
+  selector:
+    matchLabels:
+      environment: ${ENVIRONMENT_NAME}
+      name: report-storage
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: report-storage
+        environment: ${ENVIRONMENT_NAME}
+        name: report-storage
+    spec:
+      containers:
+      - args:
+        - server
+        - /storage
+        env:
+        - name: MINIO_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: access_key
+              name: swip-tools-minio
+        - name: MINIO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: secret_key
+              name: swip-tools-minio
+        - name: MINIO_REGION
+          value: us-central1
+        image: gcr.io/snps-swip-staging/public/minio/minio:RELEASE.2019-08-07T01-59-21Z
+        name: report-storage
+        ports:
+        - containerPort: 9000
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1024Mi
+          requests:
+            cpu: 250m
+            memory: 256Mi
+        volumeMounts:
+        - mountPath: /storage
+          name: storage
+      hostname: report-storage
+      imagePullSecrets:
+      - name: ${IMAGE_PULL_SECRETS}
+      restartPolicy: Always
+      volumes:
+      - name: storage
+        persistentVolumeClaim:
+          claimName: report-storage-pv-claim
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    chartVersion: 0.0.1046
+    component: None
+    componentVersion: None
+    environment: ${ENVIRONMENT_NAME}
+    name: rp-report-service
+    service: rp-report-service
+  name: rp-report-service
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      environment: ${ENVIRONMENT_NAME}
+      name: rp-report-service
+  template:
+    metadata:
+      labels:
+        environment: ${ENVIRONMENT_NAME}
+        name: rp-report-service
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        - name: SWIP_VAULT_ADDRESS
+          value: https://polaris-db-vault:8200
+        - name: VAULT_CACERT
+          value: /mnt/vault/ca/vault_cacrt
+        - name: VAULT_CLIENT_KEY
+          value: /mnt/vault/key/vault_client_key
+        - name: VAULT_CLIENT_CERT
+          value: /mnt/vault/cert/vault_client_cert
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        - name: POSTGRES_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: CONNECTION_POOL_SIZE
+          value: "10"
+        - name: LOG_LEVEL
+          value: INFO
+        - name: SPRING_PROFILE
+          value: production
+        - name: SWIP_ENVIRONMENT_NAME
+          value: ${ENVIRONMENT_NAME}
+        - name: SWIP_ROOT_DOMAIN
+          value: ${POLARIS_ROOT_DOMAIN}
+        - name: REPORTING_STANDALONE
+          value: <nil>
+        - name: MINIO_BUCKET
+          value: reports
+        - name: MINIO_HOST
+          value: report-storage
+        - name: MINIO_PORT
+          value: "9000"
+        - name: MINIO_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: access_key
+              name: swip-tools-minio
+        - name: MINIO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: secret_key
+              name: swip-tools-minio
+        - name: MINIO_REGION
+          value: us-central1
+        image: gcr.io/snps-swip-staging/reporting-report-service:0.0.1046
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /liveness
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 120
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 3
+        name: rp-report-service
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /readiness
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 70
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 3
+        resources:
+          limits:
+            cpu: 750m
+            memory: 1500Mi
+          requests:
+            cpu: 500m
+            memory: 768Mi
+        volumeMounts:
+        - mountPath: /mnt/vault/ca
+          name: vault-cacert
+          readOnly: true
+        - mountPath: /mnt/vault/key
+          name: vault-client-key
+          readOnly: true
+        - mountPath: /mnt/vault/cert
+          name: vault-client-cert
+          readOnly: true
+      - image: gcr.io/snps-swip-staging/reporting-clamav
+        name: clamav
+        ports:
+        - containerPort: 3310
+      imagePullSecrets:
+      - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://report-storage.$(POD_NAMESPACE).svc.cluster.local:9000/minio/health/ready,http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --postgres-database=postgres
+        - --postgres-host=$(POSTGRES_HOST)
+        - --postgres-password=$(POSTGRESQL_PASSWORD)
+        - --postgres-port=$(POSTGRES_PORT)
+        - --postgres-user=$(POSTGRESQL_USER)
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRESQL_USER
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        imagePullPolicy: Always
+        name: polaris-init
+      restartPolicy: Always
+      volumes:
+      - name: vault-cacert
+        secret:
+          defaultMode: 420
+          items:
+          - key: tls.crt
+            path: vault_cacrt
+          secretName: vault-ca-certificate
+      - name: vault-client-key
+        secret:
+          defaultMode: 420
+          items:
+          - key: tls.key
+            path: vault_client_key
+          secretName: auth-client-tls-certificate
+      - name: vault-client-cert
+        secret:
+          defaultMode: 420
+          items:
+          - key: tls.crt
+            path: vault_client_cert
+          secretName: auth-client-tls-certificate
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
+    name: report-storage
+  name: report-storage-pv-claim
+  namespace: ${NAMESPACE}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: ${REPORT_STORAGE_PV_SIZE}
