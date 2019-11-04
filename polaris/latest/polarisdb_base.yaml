@@ -189,8 +189,11 @@ metadata:
 ---
 apiVersion: v1
 data:
+  SMTP_TLS_CHECK_SERVER_IDENTITY: ${SMTP_TLS_CHECK_SERVER_IDENTITY}
+  SMTP_TLS_MODE: ${SMTP_TLS_MODE}
+  SMTP_TLS_TRUSTED_HOSTS: ${SMTP_TLS_TRUSTED_HOSTS}
   host: ${SMTP_HOST}
-  port: "2525"
+  port: ${SMTP_PORT}
 kind: ConfigMap
 metadata:
   labels:
@@ -202,7 +205,7 @@ apiVersion: v1
 data:
   POSTGRES_SSL_MODE: ${POSTGRES_SSL_MODE}
   POSTGRESQL_HOST: ${POSTGRES_HOST}
-  POSTGRESQL_PORT: "5432"
+  POSTGRESQL_PORT: ${POSTGRES_PORT}
 kind: ConfigMap
 metadata:
   labels:
@@ -1069,7 +1072,7 @@ metadata:
     helm.sh/hook: test-success
   labels:
     environment: ${ENVIRONMENT_NAME}
-  name: swip-db-ui-test-sl3ts
+  name: swip-db-ui-test-5rseh
   namespace: ${NAMESPACE}
 spec:
   containers:
@@ -1412,7 +1415,7 @@ spec:
               name: swip-tools-minio
         - name: MINIO_BROWSER
           value: "off"
-        image: minio/minio:RELEASE.2019-08-07T01-59-21Z
+        image: minio/minio:RELEASE.2019-10-12T01-39-57Z
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
@@ -1569,7 +1572,7 @@ spec:
           value: /etc/credentials/gcs_key.json
         - name: MINIO_BROWSER
           value: "off"
-        image: minio/minio:RELEASE.2019-08-07T01-59-21Z
+        image: minio/minio:RELEASE.2019-10-12T01-39-57Z
         imagePullPolicy: IfNotPresent
         name: minio
         ports:
@@ -1885,6 +1888,10 @@ spec:
       - command:
         - eventstore-init
         env:
+        - name: KUBERNETES_LABELS
+          value: |-
+            environment: "${ENVIRONMENT_NAME}"
+            service: "eventstore-init"
         - name: EVENTSTORE_KUBERNETES_NAMESPACE
           value: ${NAMESPACE}
         - name: EVENTSTORE_SECRET_NAME

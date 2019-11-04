@@ -2,9 +2,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1463
+    chartVersion: 0.0.1497
     component: reporting
-    componentVersion: 0.0.1463
+    componentVersion: 0.0.1497
     environment: ${ENVIRONMENT_NAME}
     service: rp-issue-manager
   name: rp-issue-manager
@@ -14,9 +14,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1463
+    chartVersion: 0.0.1497
     component: reporting
-    componentVersion: 0.0.1463
+    componentVersion: 0.0.1497
     environment: ${ENVIRONMENT_NAME}
     service: rp-polaris-agent-service
   name: rp-polaris-agent-service
@@ -26,9 +26,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1463
+    chartVersion: 0.0.1497
     component: reporting
-    componentVersion: 0.0.1463
+    componentVersion: 0.0.1497
     environment: ${ENVIRONMENT_NAME}
     service: rp-portfolio-service
   name: rp-portfolio-service
@@ -38,9 +38,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1463
+    chartVersion: 0.0.1497
     component: reporting
-    componentVersion: 0.0.1463
+    componentVersion: 0.0.1497
     environment: ${ENVIRONMENT_NAME}
     service: rp-swagger-doc
   name: rp-swagger-doc
@@ -50,9 +50,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1463
+    chartVersion: 0.0.1497
     component: reporting
-    componentVersion: 0.0.1463
+    componentVersion: 0.0.1497
     environment: ${ENVIRONMENT_NAME}
     service: rp-tools-portfolio-service
   name: rp-tools-portfolio-service
@@ -172,9 +172,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1463
+    chartVersion: 0.0.1497
     component: reporting
-    componentVersion: 0.0.1463
+    componentVersion: 0.0.1497
     environment: ${ENVIRONMENT_NAME}
     name: rp-frontend
     service: rp-frontend
@@ -196,7 +196,7 @@ spec:
       - env:
         - name: REPORTING_STANDALONE
           value: "false"
-        image: gcr.io/snps-swip-staging/reporting-frontend-service:0.0.1055
+        image: gcr.io/snps-swip-staging/reporting-frontend-service:0.0.1069
         imagePullPolicy: Always
         name: rp-frontend
         ports:
@@ -216,9 +216,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1463
+    chartVersion: 0.0.1497
     component: reporting
-    componentVersion: 0.0.1463
+    componentVersion: 0.0.1497
     environment: ${ENVIRONMENT_NAME}
     name: rp-issue-manager
     service: rp-issue-manager
@@ -283,7 +283,7 @@ spec:
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
           value: "false"
-        image: gcr.io/snps-swip-staging/reporting-rp-issue-manager:0.0.746
+        image: gcr.io/snps-swip-staging/reporting-rp-issue-manager:0.0.756
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 5
@@ -396,9 +396,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1463
+    chartVersion: 0.0.1497
     component: reporting
-    componentVersion: 0.0.1463
+    componentVersion: 0.0.1497
     environment: ${ENVIRONMENT_NAME}
     name: rp-polaris-agent-service
     service: rp-polaris-agent-service
@@ -452,7 +452,7 @@ spec:
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
           value: "false"
-        image: gcr.io/snps-swip-staging/reporting-polaris-service:0.0.689
+        image: gcr.io/snps-swip-staging/reporting-polaris-service:0.0.694
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 5
@@ -565,9 +565,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1463
+    chartVersion: 0.0.1497
     component: reporting
-    componentVersion: 0.0.1463
+    componentVersion: 0.0.1497
     environment: ${ENVIRONMENT_NAME}
     name: rp-portfolio-service
     service: rp-portfolio-service
@@ -632,7 +632,7 @@ spec:
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
           value: "false"
-        image: gcr.io/snps-swip-staging/reporting-rp-portfolio-service:0.0.957
+        image: gcr.io/snps-swip-staging/reporting-rp-portfolio-service:0.0.968
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 5
@@ -745,9 +745,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1463
+    chartVersion: 0.0.1497
     component: reporting
-    componentVersion: 0.0.1463
+    componentVersion: 0.0.1497
     environment: ${ENVIRONMENT_NAME}
     name: rp-swagger-doc
     service: rp-swagger-doc
@@ -839,9 +839,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1463
+    chartVersion: 0.0.1497
     component: reporting
-    componentVersion: 0.0.1463
+    componentVersion: 0.0.1497
     environment: ${ENVIRONMENT_NAME}
     name: rp-tools-portfolio-service
     service: rp-tools-portfolio-service
@@ -906,7 +906,7 @@ spec:
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
           value: "false"
-        image: gcr.io/snps-swip-staging/reporting-tools-portfolio-service:0.0.1460
+        image: gcr.io/snps-swip-staging/reporting-tools-portfolio-service:0.0.1508
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 5
@@ -1017,7 +1017,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1046
+    chartVersion: 0.0.1055
     component: None
     componentVersion: None
     environment: ${ENVIRONMENT_NAME}
@@ -1065,7 +1065,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1046
+    chartVersion: 0.0.1055
     component: None
     componentVersion: None
     environment: ${ENVIRONMENT_NAME}
@@ -1131,7 +1131,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1046
+    chartVersion: 0.0.1055
     component: None
     componentVersion: None
     environment: ${ENVIRONMENT_NAME}
@@ -1166,6 +1166,16 @@ spec:
           value: /mnt/vault/key/vault_client_key
         - name: VAULT_CLIENT_CERT
           value: /mnt/vault/cert/vault_client_cert
+        - name: POSTGRES_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
         - name: POSTGRES_HOST
           valueFrom:
             configMapKeyRef:
@@ -1175,16 +1185,6 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: POSTGRESQL_PORT
-              name: postgresql-config
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              key: POSTGRESQL_PASSWORD
-              name: postgresql-config
-        - name: POSTGRES_USERNAME
-          valueFrom:
-            configMapKeyRef:
-              key: POSTGRESQL_USER
               name: postgresql-config
         - name: CONNECTION_POOL_SIZE
           value: "10"
@@ -1216,7 +1216,7 @@ spec:
               name: swip-tools-minio
         - name: MINIO_REGION
           value: us-central1
-        image: gcr.io/snps-swip-staging/reporting-report-service:0.0.1046
+        image: gcr.io/snps-swip-staging/reporting-report-service:0.0.1055
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 5
