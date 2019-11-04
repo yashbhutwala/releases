@@ -2351,7 +2351,7 @@ spec:
         - name: ANALYSIS_TYPE
           value: k8s
         - name: OPERATION_MODE
-          value: MT
+          value: ST
         - name: DEPLOYMENT_TYPE
           value: on-prem
         - name: CONNECTION_POOL_LIFETIME_MS
@@ -2453,7 +2453,7 @@ spec:
       - env:
         - name: ANALYSIS_TYPE
           value: k8s
-        image: gcr.io/snps-swip-staging/swip_loadjobs:1.0.2680
+        image: gcr.io/snps-swip-staging/swip_loadjobs:1.0.2681
         imagePullPolicy: IfNotPresent
         name: load-tools-config
         volumeMounts:
@@ -4920,3 +4920,5 @@ spec:
       requests:
         cpu: 100m
         memory: 512Mi
+  imagePullSecrets:
+      - name: ${IMAGE_PULL_SECRETS}
