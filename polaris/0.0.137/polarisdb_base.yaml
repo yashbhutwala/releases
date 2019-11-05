@@ -190,7 +190,7 @@ metadata:
 apiVersion: v1
 data:
   host: ${SMTP_HOST}
-  port: "2525"
+  port: "${SMTP_PORT}"
 kind: ConfigMap
 metadata:
   labels:
