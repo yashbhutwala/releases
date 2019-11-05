@@ -1,0 +1,109 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  chart: swip
+  chartVersion: 0.0.6228
+  component: swip
+  componentVersion: 0.0.6228
+  environment: ${ENVIRONMENT_NAME}
+  labels: null
+  name: organization-provision-job
+  service: organization-provision-job
+spec:
+  template:
+    metadata:
+      annotations:
+        helm.sh/hook: post-install, post-upgrade
+        helm.sh/hook-delete-policy: hook-succeeded
+        helm.sh/hook-weight: "100"
+      labels:
+        chart: swip
+        chartVersion: 0.0.6228
+        component: swip
+        componentVersion: 0.0.6228
+        environment: ${ENVIRONMENT_NAME}
+        service: organization-provision-job
+      name: organization-provision-job
+    spec:
+      containers:
+      - env:
+        - name: LOGGING_LEVEL
+          value: INFO
+        - name: ESJC_LOGGING_LEVEL
+          value: INFO
+        - name: SWIP_ENVIRONMENT_NAME
+          value: ${ENVIRONMENT_NAME}
+        - name: SWIP_ROOT_DOMAIN
+          value: ${POLARIS_ROOT_DOMAIN}
+        - name: SWIP_SERVICE_NAME
+          value: organization-provision-job
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POLARIS_ENVIRONMENT_NAME
+          value: ${ENVIRONMENT_NAME}
+        - name: POLARIS_ROOT_DOMAIN
+          value: ${POLARIS_ROOT_DOMAIN}
+        - name: POLARIS_SERVICE_NAME
+          value: organization-provision-job
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: SWIP_VAULT_ADDRESS
+          value: https://polaris-db-vault:8200
+        - name: VAULT_CACERT
+          value: /var/run/secrets/vault/client/ca.crt
+        - name: VAULT_CLIENT_KEY
+          value: /var/run/secrets/vault/client/tls.key
+        - name: VAULT_CLIENT_CERT
+          value: /var/run/secrets/vault/client/tls.crt
+        - name: ORGANIZATION_PROVISION_AUTH_SERVICE_URL
+          value: http://auth-server
+        - name: ORGANIZATION_PROVISION_TOOLS_SERVICE_URL
+          value: http://tools-service
+        - name: REQUIRED_SERVICE_RETRY_SECONDS
+          value: "5"
+        - name: REQUIRED_SERVICE_RETRY_STOP_MINUTES
+          value: "20"
+        - name: ORGANIZATION_PROVISION_API_TOKEN_VAULT_PATH
+          value: secret/data/auth/public/daemon@api_token
+        - name: ORGANIZATION_PROVISION_ORGANIZATION_DESCRIPTION
+          value: ${ORG_DESCRIPTION}
+        - name: ORGANIZATION_PROVISION_ORGANIZATION_NAME
+          value: ${ORG_NAME}
+        - name: ORGANIZATION_PROVISION_ADMIN_NAME
+          value: ${ADMIN_NAME}
+        - name: ORGANIZATION_PROVISION_ADMIN_USERNAME
+          value: ${ADMIN_USERNAME}
+        - name: ORGANIZATION_PROVISION_ADMIN_EMAIL
+          value: ${ADMIN_EMAIL}
+        - name: ORGANIZATION_PROVISION_COVERITY_LICENSE
+          valueFrom:
+            secretKeyRef:
+              key: license
+              name: coverity-license
+        - name: ORGANIZATION_PROVISION_SIGNED_LICENSE
+          valueFrom:
+            secretKeyRef:
+              key: polaris
+              name: organization-license
+        image: gcr.io/snps-swip-staging/swip_organization-provision-job:1.7.103
+        imagePullPolicy: IfNotPresent
+        name: organization-provision-job
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/run/secrets/vault/client
+          name: vault-client
+          readOnly: true
+      imagePullSecrets:
+      - name: ${IMAGE_PULL_SECRETS}
+      restartPolicy: OnFailure
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 5000
+      volumes:
+      - name: vault-client
+        secret:
+          secretName: auth-client-tls-certificate
