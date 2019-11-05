@@ -189,8 +189,8 @@ metadata:
 ---
 apiVersion: v1
 data:
-  host: ${SMTP_HOST}
-  port: "${SMTP_PORT}"
+  host: smtp-intercept
+  port: "25"
 kind: ConfigMap
 metadata:
   labels:
