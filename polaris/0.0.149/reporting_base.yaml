@@ -279,7 +279,6 @@ spec:
         - name: REPORTING_STANDALONE
           value: "false"
         - name: POSTGRES_SSL_MODE
-          value: disable
           valueFrom:
             configMapKeyRef:
               key: POSTGRES_SSL_MODE
@@ -633,7 +632,6 @@ spec:
         - name: REPORTING_STANDALONE
           value: "false"
         - name: POSTGRES_SSL_MODE
-          value: disable
           valueFrom:
             configMapKeyRef:
               key: POSTGRES_SSL_MODE
@@ -912,7 +910,6 @@ spec:
         - name: REPORTING_STANDALONE
           value: "false"
         - name: POSTGRES_SSL_MODE
-          value: disable
           valueFrom:
             configMapKeyRef:
               key: POSTGRES_SSL_MODE
@@ -1227,7 +1224,6 @@ spec:
         - name: MINIO_REGION
           value: us-central1
         - name: POSTGRES_SSL_MODE
-          value: disable
           valueFrom:
             configMapKeyRef:
               key: POSTGRES_SSL_MODE
