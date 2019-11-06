@@ -2081,9 +2081,9 @@ spec:
         service: jobfarmautoscaler
     spec:
       automountServiceAccountToken: true
-      containers: null
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
+      containers:
       - env:
         - name: LOGGING_LEVEL
           value: INFO
@@ -2132,9 +2132,9 @@ spec:
         - name: DEFAULT_SCAN_LIMIT
           value: "10"
         - name: WIN64_WORKER_LIMIT
-          value: <nil>
+          value: "65535"
         - name: LINUX64_WORKER_LIMIT
-          value: <nil>
+          value: "65535"
         - name: SWIP_ENVIRONMENT_NAME
           value: ${ENVIRONMENT_NAME}
         - name: ANALYSIS_TYPE
