@@ -2081,8 +2081,9 @@ spec:
         service: jobfarmautoscaler
     spec:
       automountServiceAccountToken: true
-      containers: null
       imagePullSecrets:
+      - name: ${IMAGE_PULL_SECRETS}
+      containers:
       - name: ${IMAGE_PULL_SECRETS}
       - env:
         - name: LOGGING_LEVEL
