@@ -5112,6 +5112,8 @@ metadata:
   name: smtp-intercept
   namespace: ${NAMESPACE}
 spec:
+  imagePullSecrets:
+    - name: ${IMAGE_PULL_SECRETS}
   containers:
   - env:
     - name: REAL_SMTP_HOST
@@ -5136,8 +5138,6 @@ spec:
           name: polaris-smtp
     image: gcr.io/snps-swip-staging/smtp-intercept:latest
     imagePullPolicy: Always
-    imagePullSecrets:
-    - name: ${IMAGE_PULL_SECRETS}
     name: smtp-intercept
     ports:
     - containerPort: 8080
