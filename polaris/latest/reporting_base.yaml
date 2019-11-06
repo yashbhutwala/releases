@@ -2,9 +2,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1497
+    chartVersion: 0.0.1505
     component: reporting
-    componentVersion: 0.0.1497
+    componentVersion: 0.0.1505
     environment: ${ENVIRONMENT_NAME}
     service: rp-issue-manager
   name: rp-issue-manager
@@ -14,9 +14,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1497
+    chartVersion: 0.0.1505
     component: reporting
-    componentVersion: 0.0.1497
+    componentVersion: 0.0.1505
     environment: ${ENVIRONMENT_NAME}
     service: rp-polaris-agent-service
   name: rp-polaris-agent-service
@@ -26,9 +26,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1497
+    chartVersion: 0.0.1505
     component: reporting
-    componentVersion: 0.0.1497
+    componentVersion: 0.0.1505
     environment: ${ENVIRONMENT_NAME}
     service: rp-portfolio-service
   name: rp-portfolio-service
@@ -38,9 +38,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1497
+    chartVersion: 0.0.1505
     component: reporting
-    componentVersion: 0.0.1497
+    componentVersion: 0.0.1505
     environment: ${ENVIRONMENT_NAME}
     service: rp-swagger-doc
   name: rp-swagger-doc
@@ -50,9 +50,9 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1497
+    chartVersion: 0.0.1505
     component: reporting
-    componentVersion: 0.0.1497
+    componentVersion: 0.0.1505
     environment: ${ENVIRONMENT_NAME}
     service: rp-tools-portfolio-service
   name: rp-tools-portfolio-service
@@ -172,9 +172,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1497
+    chartVersion: 0.0.1505
     component: reporting
-    componentVersion: 0.0.1497
+    componentVersion: 0.0.1505
     environment: ${ENVIRONMENT_NAME}
     name: rp-frontend
     service: rp-frontend
@@ -196,7 +196,7 @@ spec:
       - env:
         - name: REPORTING_STANDALONE
           value: "false"
-        image: gcr.io/snps-swip-staging/reporting-frontend-service:0.0.1069
+        image: gcr.io/snps-swip-staging/reporting-frontend-service:0.0.1072
         imagePullPolicy: Always
         name: rp-frontend
         ports:
@@ -216,9 +216,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1497
+    chartVersion: 0.0.1505
     component: reporting
-    componentVersion: 0.0.1497
+    componentVersion: 0.0.1505
     environment: ${ENVIRONMENT_NAME}
     name: rp-issue-manager
     service: rp-issue-manager
@@ -238,11 +238,6 @@ spec:
     spec:
       containers:
       - env:
-        - name: POSTGRES_SSL_MODE
-          valueFrom:
-            configMapKeyRef:
-              key: POSTGRES_SSL_MODE
-              name: postgresql-config
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
@@ -283,7 +278,17 @@ spec:
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
           value: "false"
-        image: gcr.io/snps-swip-staging/reporting-rp-issue-manager:0.0.756
+        - name: POSTGRES_SSL_MODE
+          value: disable
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        - name: POSTGRES_SSL_CERTIFICATE_SOURCE
+          value: file-system
+        - name: POSTGRES_SSL_TRUST_STORE_PATH
+          value: ""
+        image: gcr.io/snps-swip-staging/reporting-rp-issue-manager:0.0.760
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 5
@@ -396,9 +401,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1497
+    chartVersion: 0.0.1505
     component: reporting
-    componentVersion: 0.0.1497
+    componentVersion: 0.0.1505
     environment: ${ENVIRONMENT_NAME}
     name: rp-polaris-agent-service
     service: rp-polaris-agent-service
@@ -452,7 +457,7 @@ spec:
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
           value: "false"
-        image: gcr.io/snps-swip-staging/reporting-polaris-service:0.0.694
+        image: gcr.io/snps-swip-staging/reporting-polaris-service:0.0.706
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 5
@@ -565,9 +570,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1497
+    chartVersion: 0.0.1505
     component: reporting
-    componentVersion: 0.0.1497
+    componentVersion: 0.0.1505
     environment: ${ENVIRONMENT_NAME}
     name: rp-portfolio-service
     service: rp-portfolio-service
@@ -587,11 +592,6 @@ spec:
     spec:
       containers:
       - env:
-        - name: POSTGRES_SSL_MODE
-          valueFrom:
-            configMapKeyRef:
-              key: POSTGRES_SSL_MODE
-              name: postgresql-config
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
@@ -632,7 +632,17 @@ spec:
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
           value: "false"
-        image: gcr.io/snps-swip-staging/reporting-rp-portfolio-service:0.0.968
+        - name: POSTGRES_SSL_MODE
+          value: disable
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        - name: POSTGRES_SSL_CERTIFICATE_SOURCE
+          value: file-system
+        - name: POSTGRES_SSL_TRUST_STORE_PATH
+          value: ""
+        image: gcr.io/snps-swip-staging/reporting-rp-portfolio-service:0.0.972
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 5
@@ -745,9 +755,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1497
+    chartVersion: 0.0.1505
     component: reporting
-    componentVersion: 0.0.1497
+    componentVersion: 0.0.1505
     environment: ${ENVIRONMENT_NAME}
     name: rp-swagger-doc
     service: rp-swagger-doc
@@ -839,9 +849,9 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1497
+    chartVersion: 0.0.1505
     component: reporting
-    componentVersion: 0.0.1497
+    componentVersion: 0.0.1505
     environment: ${ENVIRONMENT_NAME}
     name: rp-tools-portfolio-service
     service: rp-tools-portfolio-service
@@ -861,11 +871,6 @@ spec:
     spec:
       containers:
       - env:
-        - name: POSTGRES_SSL_MODE
-          valueFrom:
-            configMapKeyRef:
-              key: POSTGRES_SSL_MODE
-              name: postgresql-config
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
@@ -906,7 +911,17 @@ spec:
           value: ${POLARIS_ROOT_DOMAIN}
         - name: REPORTING_STANDALONE
           value: "false"
-        image: gcr.io/snps-swip-staging/reporting-tools-portfolio-service:0.0.1508
+        - name: POSTGRES_SSL_MODE
+          value: disable
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        - name: POSTGRES_SSL_CERTIFICATE_SOURCE
+          value: file-system
+        - name: POSTGRES_SSL_TRUST_STORE_PATH
+          value: ""
+        image: gcr.io/snps-swip-staging/reporting-tools-portfolio-service:0.0.1511
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 5
@@ -1017,7 +1032,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.1055
+    chartVersion: 0.0.1063
     component: None
     componentVersion: None
     environment: ${ENVIRONMENT_NAME}
@@ -1065,7 +1080,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1055
+    chartVersion: 0.0.1063
     component: None
     componentVersion: None
     environment: ${ENVIRONMENT_NAME}
@@ -1131,7 +1146,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.1055
+    chartVersion: 0.0.1063
     component: None
     componentVersion: None
     environment: ${ENVIRONMENT_NAME}
@@ -1153,11 +1168,6 @@ spec:
     spec:
       containers:
       - env:
-        - name: POSTGRES_SSL_MODE
-          valueFrom:
-            configMapKeyRef:
-              key: POSTGRES_SSL_MODE
-              name: postgresql-config
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
@@ -1216,7 +1226,17 @@ spec:
               name: swip-tools-minio
         - name: MINIO_REGION
           value: us-central1
-        image: gcr.io/snps-swip-staging/reporting-report-service:0.0.1055
+        - name: POSTGRES_SSL_MODE
+          value: disable
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        - name: POSTGRES_SSL_CERTIFICATE_SOURCE
+          value: file-system
+        - name: POSTGRES_SSL_TRUST_STORE_PATH
+          value: ""
+        image: gcr.io/snps-swip-staging/reporting-report-service:0.0.1063
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 5

@@ -1072,7 +1072,7 @@ metadata:
     helm.sh/hook: test-success
   labels:
     environment: ${ENVIRONMENT_NAME}
-  name: swip-db-ui-test-nrp88
+  name: swip-db-ui-test-lin9t
   namespace: ${NAMESPACE}
 spec:
   containers:
@@ -1413,6 +1413,8 @@ spec:
             secretKeyRef:
               key: secret_key
               name: swip-tools-minio
+        - name: MINIO_PROMETHEUS_AUTH_TYPE
+          value: public
         - name: MINIO_BROWSER
           value: "off"
         image: minio/minio:RELEASE.2019-10-12T01-39-57Z
