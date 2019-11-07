@@ -279,7 +279,6 @@ spec:
         - name: REPORTING_STANDALONE
           value: "false"
         - name: POSTGRES_SSL_MODE
-          value: disable
           valueFrom:
             configMapKeyRef:
               key: POSTGRES_SSL_MODE
@@ -633,7 +632,6 @@ spec:
         - name: REPORTING_STANDALONE
           value: "false"
         - name: POSTGRES_SSL_MODE
-          value: disable
           valueFrom:
             configMapKeyRef:
               key: POSTGRES_SSL_MODE
@@ -912,7 +910,6 @@ spec:
         - name: REPORTING_STANDALONE
           value: "false"
         - name: POSTGRES_SSL_MODE
-          value: disable
           valueFrom:
             configMapKeyRef:
               key: POSTGRES_SSL_MODE
@@ -1176,16 +1173,6 @@ spec:
           value: /mnt/vault/key/vault_client_key
         - name: VAULT_CLIENT_CERT
           value: /mnt/vault/cert/vault_client_cert
-        - name: POSTGRES_USERNAME
-          valueFrom:
-            secretKeyRef:
-              key: POSTGRESQL_USER
-              name: postgresql-config
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              key: POSTGRESQL_PASSWORD
-              name: postgresql-config
         - name: POSTGRES_HOST
           valueFrom:
             configMapKeyRef:
@@ -1195,6 +1182,16 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        - name: POSTGRES_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_USER
               name: postgresql-config
         - name: CONNECTION_POOL_SIZE
           value: "10"
@@ -1227,7 +1224,6 @@ spec:
         - name: MINIO_REGION
           value: us-central1
         - name: POSTGRES_SSL_MODE
-          value: disable
           valueFrom:
             configMapKeyRef:
               key: POSTGRES_SSL_MODE
@@ -1286,7 +1282,7 @@ spec:
       - name: ${IMAGE_PULL_SECRETS}
       initContainers:
       - args:
-        - --http-readiness-check-urls=http://report-storage.$(POD_NAMESPACE).svc.cluster.local:9000/minio/health/ready,http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
+        - --http-readiness-check-urls=http://auth-server.$(POD_NAMESPACE).svc.cluster.local:80/readiness
         - --postgres-database=postgres
         - --postgres-host=$(POSTGRES_HOST)
         - --postgres-password=$(POSTGRESQL_PASSWORD)
