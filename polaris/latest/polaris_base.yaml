@@ -1015,23 +1015,11 @@ spec:
         - name: SMTP_SENDER_EMAIL
           value: ${SMTP_SENDER_EMAIL}
         - name: SMTP_TLS_MODE
-          value: require-tls
-          valueFrom:
-            configMapKeyRef:
-              key: SMTP_TLS_MODE
-              name: polaris-smtp
+          value: ${SMTP_TLS_MODE}
         - name: SMTP_TLS_CHECK_SERVER_IDENTITY
-          value: "true"
-          valueFrom:
-            configMapKeyRef:
-              key: SMTP_TLS_CHECK_SERVER_IDENTITY
-              name: polaris-smtp
+          value: ${SMTP_TLS_CHECK_SERVER_IDENTITY}
         - name: SMTP_TLS_TRUSTED_HOSTS
-          value: '*'
-          valueFrom:
-            configMapKeyRef:
-              key: SMTP_TLS_TRUSTED_HOSTS
-              name: polaris-smtp
+          value: ${SMTP_TLS_TRUSTED_HOSTS}
         image: gcr.io/snps-swip-staging/swip_auth-server:1.7.104
         imagePullPolicy: IfNotPresent
         livenessProbe:
@@ -2863,20 +2851,11 @@ spec:
       containers:
       - env:
         - name: SMTP_TLS_MODE
-          valueFrom:
-            configMapKeyRef:
-              key: SMTP_TLS_MODE
-              name: polaris-smtp
+          value: ${SMTP_TLS_MODE}
         - name: SMTP_TLS_CHECK_SERVER_IDENTITY
-          valueFrom:
-            configMapKeyRef:
-              key: SMTP_TLS_CHECK_SERVER_IDENTITY
-              name: polaris-smtp
+          value: ${SMTP_TLS_CHECK_SERVER_IDENTITY}
         - name: SMTP_TLS_TRUSTED_HOSTS
-          valueFrom:
-            configMapKeyRef:
-              key: SMTP_TLS_TRUSTED_HOSTS
-              name: polaris-smtp
+          value: ${SMTP_TLS_TRUSTED_HOSTS}
         - name: POSTGRES_SSL_MODE
           valueFrom:
             configMapKeyRef:

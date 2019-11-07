@@ -189,9 +189,9 @@ metadata:
 ---
 apiVersion: v1
 data:
-  SMTP_TLS_CHECK_SERVER_IDENTITY: ${SMTP_TLS_CHECK_SERVER_IDENTITY}
-  SMTP_TLS_MODE: ${SMTP_TLS_MODE}
-  SMTP_TLS_TRUSTED_HOSTS: ${SMTP_TLS_TRUSTED_HOSTS}
+  SMTP_TLS_CHECK_SERVER_IDENTITY: null
+  SMTP_TLS_MODE: null
+  SMTP_TLS_TRUSTED_HOSTS: null
   host: ${SMTP_HOST}
   port: ${SMTP_PORT}
 kind: ConfigMap
@@ -1072,7 +1072,7 @@ metadata:
     helm.sh/hook: test-success
   labels:
     environment: ${ENVIRONMENT_NAME}
-  name: swip-db-ui-test-lin9t
+  name: swip-db-ui-test-5pseq
   namespace: ${NAMESPACE}
 spec:
   containers:
