@@ -1,0 +1,1741 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: bdba-minio
+  namespace: default
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: rabbitmq
+    release: bdba
+  name: bdba-rabbitmq
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    app: rabbitmq
+    release: bdba
+  name: bdba-rabbitmq-endpoint-reader
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - endpoints
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app: rabbitmq
+    release: bdba
+  name: bdba-rabbitmq-endpoint-reader
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: bdba-rabbitmq-endpoint-reader
+subjects:
+- kind: ServiceAccount
+  name: bdba-rabbitmq
+---
+apiVersion: v1
+data:
+  fluentd.conf: |
+    <source>
+      @type  forward
+      port  24224
+      bind 0.0.0.0
+    </source>
+
+    <match webapp>
+      @type copy
+      <store>
+        @type s3
+        s3_bucket bdba-logs
+        s3_endpoint "http://bdba-minio:9000"
+        path webapp/
+        force_path_style true
+        <buffer time>
+          @type file
+          timekey_wait 1
+          timekey 1h
+          timekey_use_utc true
+          path /logs/webapp
+        </buffer>
+      </store>
+    </match>
+
+    <match updater>
+      @type copy
+      <store>
+        @type s3
+        s3_bucket bdba-logs
+        s3_endpoint "http://bdba-minio:9000"
+        path updater/
+        force_path_style true
+        <buffer time>
+          @type file
+          timekey_wait 1
+          timekey 1h
+          timekey_use_utc true
+          path /logs/updater
+        </buffer>
+      </store>
+    </match>
+
+    <match bootstrap>
+      @type copy
+      <store>
+        @type s3
+        s3_bucket bdba-logs
+        s3_endpoint "http://bdba-minio:9000"
+        path bootstrap/
+        force_path_style true
+        <buffer time>
+          @type file
+          timekey_wait 1
+          timekey 1h
+          timekey_use_utc true
+          path /logs/bootstrap
+        </buffer>
+      </store>
+    </match>
+
+    <match tasks>
+      @type copy
+      <store>
+        @type s3
+        s3_bucket bdba-logs
+        s3_endpoint "http://bdba-minio:9000"
+        path tasks/
+        force_path_style true
+        <buffer time>
+          @type file
+          timekey_wait 1
+          timekey 1h
+          timekey_use_utc true
+          path /logs/tasks
+        </buffer>
+      </store>
+    </match>
+
+    <match longjobs>
+      @type copy
+      <store>
+        @type s3
+        s3_bucket bdba-logs
+        s3_endpoint "http://bdba-minio:9000"
+        path longjobs/
+        force_path_style true
+        <buffer time>
+          @type file
+          timekey_wait 1
+          timekey 1h
+          timekey_use_utc true
+          path /logs/longjobs
+        </buffer>
+      </store>
+    </match>
+
+    <match worker>
+      @type copy
+      <store>
+        @type s3
+        s3_bucket bdba-logs
+        s3_endpoint "http://bdba-minio:9000"
+        path worker/
+        force_path_style true
+        <buffer time>
+          @type file
+          timekey_wait 1
+          timekey 1h
+          timekey_use_utc true
+          path /logs/worker
+        </buffer>
+      </store>
+    </match>
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: bdba
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: bdba
+    app.kubernetes.io/version: "1.0"
+    helm.sh/chart: bdba-0.1.0
+  name: bdba-fluentd-config
+---
+apiVersion: v1
+data:
+  initialize: |-
+    #!/bin/sh
+    set -e ; # Have script exit in the event of a failed command.
+
+    # connectToMinio
+    # Use a check-sleep-check loop to wait for Minio service to be available
+    connectToMinio() {
+      SCHEME=$1
+      ATTEMPTS=0 ; LIMIT=29 ; # Allow 30 attempts
+      set -e ; # fail if we can't read the keys.
+      ACCESS=$(cat /config/accesskey) ; SECRET=$(cat /config/secretkey) ;
+      set +e ; # The connections to minio are allowed to fail.
+      echo "Connecting to Minio server: $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT" ;
+      MC_COMMAND="mc config host add myminio $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT $ACCESS $SECRET" ;
+      $MC_COMMAND ;
+      STATUS=$? ;
+      until [ $STATUS = 0 ]
+      do
+        ATTEMPTS=`expr $ATTEMPTS + 1` ;
+        echo \"Failed attempts: $ATTEMPTS\" ;
+        if [ $ATTEMPTS -gt $LIMIT ]; then
+          exit 1 ;
+        fi ;
+        sleep 2 ; # 1 second intervals between attempts
+        $MC_COMMAND ;
+        STATUS=$? ;
+      done ;
+      set -e ; # reset `e` as active
+      return 0
+    }
+
+    # checkBucketExists ($bucket)
+    # Check if the bucket exists, by using the exit code of `mc ls`
+    checkBucketExists() {
+      BUCKET=$1
+      CMD=$(/usr/bin/mc ls myminio/$BUCKET > /dev/null 2>&1)
+      return $?
+    }
+
+    # createBucket ($bucket, $policy, $purge)
+    # Ensure bucket exists, purging if asked to
+    createBucket() {
+      BUCKET=$1
+      POLICY=$2
+      PURGE=$3
+
+      # Purge the bucket, if set & exists
+      # Since PURGE is user input, check explicitly for `true`
+      if [ $PURGE = true ]; then
+        if checkBucketExists $BUCKET ; then
+          echo "Purging bucket '$BUCKET'."
+          set +e ; # don't exit if this fails
+          /usr/bin/mc rm -r --force myminio/$BUCKET
+          set -e ; # reset `e` as active
+        else
+          echo "Bucket '$BUCKET' does not exist, skipping purge."
+        fi
+      fi
+
+      # Create the bucket if it does not exist
+      if ! checkBucketExists $BUCKET ; then
+        echo "Creating bucket '$BUCKET'"
+        /usr/bin/mc mb myminio/$BUCKET
+      else
+        echo "Bucket '$BUCKET' already exists."
+      fi
+
+      # At this point, the bucket should exist, skip checking for existence
+      # Set policy on the bucket
+      echo "Setting policy of bucket '$BUCKET' to '$POLICY'."
+      /usr/bin/mc policy set $POLICY myminio/$BUCKET
+    }
+
+    # Try connecting to Minio instance
+    scheme=http
+    connectToMinio $scheme
+kind: ConfigMap
+metadata:
+  labels:
+    app: minio
+    release: bdba
+  name: bdba-minio
+---
+apiVersion: v1
+data:
+  enabled_plugins: '[rabbitmq_management, rabbitmq_auth_backend_ldap].'
+  rabbitmq.conf: |-
+    ##username and password
+    default_user=bdba
+    default_pass=CHANGEME
+    ## Clustering
+    #      cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+    #      cluster_formation.k8s.host = kubernetes.default.svc.{{.Values.rabbitmq.rabbitmq.clustering.k8s_domain}}
+    #      cluster_formation.node_cleanup.interval = 10
+    #      cluster_formation.node_cleanup.only_log_warning = true
+    #      cluster_partition_handling = autoheal
+    # queue master locator
+    queue_master_locator=min-masters
+    # enable guest user
+    loopback_users.guest = false
+    #disk_free_limit.absolute = 50MB
+    #management.load_definitions = /app/load_definition.json
+kind: ConfigMap
+metadata:
+  labels:
+    app: rabbitmq
+    release: bdba
+  name: bdba-rabbitmq-config
+---
+apiVersion: v1
+data:
+  rabbitmq-api-check: |-
+    #!/bin/sh
+    set -e
+    URL=$1
+    EXPECTED=$2
+    ACTUAL=$(curl --silent --show-error --fail "${URL}")
+    echo "${ACTUAL}"
+    test "${EXPECTED}" = "${ACTUAL}"
+  rabbitmq-health-check: |-
+    #!/bin/sh
+    START_FLAG=/opt/bitnami/rabbitmq/var/lib/rabbitmq/.start
+    if [ -f ${START_FLAG} ]; then
+        rabbitmqctl node_health_check
+        RESULT=$?
+        if [ $RESULT -ne 0 ]; then
+          rabbitmqctl status
+          exit $?
+        fi
+        rm -f ${START_FLAG}
+        exit ${RESULT}
+    fi
+    rabbitmq-api-check $1 $2
+kind: ConfigMap
+metadata:
+  labels:
+    app: rabbitmq
+    release: bdba
+  name: bdba-rabbitmq-healthchecks
+---
+apiVersion: v1
+data:
+  AWS_ACCESS_KEY_ID: ${MINIO_ACCESS_KEY}
+  MEMCACHED: bdba-memcached:11211
+  PGDATABASE: fuzzomatic
+  PGHOST: bdba-postgresql
+  PGUSER: fuzzomatic
+  S3_ENDPOINT: http://bdba-minio:9000
+kind: ConfigMap
+metadata:
+  labels:
+    app: bdba
+    release: bdba
+  name: bdba-services-configmap
+---
+apiVersion: v1
+data:
+  fluent-bit.conf: |
+    [SERVICE]
+        Daemon       Off
+        Flush        5
+        Log_Level    info
+        Parsers_File /bdba-fluentbit/parsers.conf
+        HTTP_Server  Off
+
+    [INPUT]
+        Name         tail
+        Tag          tasks
+        Path         /app-log/celery.log
+        Parser       celery
+        DB           /app-log/celery.db
+
+    [OUTPUT]
+        Name         forward
+        Match        *
+        Host         bdba-fluentd
+  parsers.conf: |
+    [PARSER]
+        Name         celery
+        Format       regex
+        Regex        ^\[(?<logtime>[^\]]*)\] (?<level>[^\/]+)\/(?<process>[^ ]+) (?<message>.*)$
+        Time_Key     logtime
+        Time_Format  %Y-%m-%d %H:%M:%S,%L
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: bdba
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: bdba
+    app.kubernetes.io/version: "1.0"
+    helm.sh/chart: bdba-0.1.0
+  name: bdba-tasks-fluentbit-config
+---
+apiVersion: v1
+data:
+  fluent-bit.conf: |
+    [SERVICE]
+        Daemon       Off
+        Flush        5
+        Log_Level    info
+        Parsers_File /bdba-fluentbit/parsers.conf
+        HTTP_Server  Off
+
+    [INPUT]
+        Name         tail
+        Tag          longjobs
+        Path         /app-log/celery.log
+        Parser       celery
+        DB           /app-log/celery.db
+
+    [OUTPUT]
+        Name         forward
+        Match        *
+        Host         bdba-fluentd
+  parsers.conf: |
+    [PARSER]
+        Name         celery
+        Format       regex
+        Regex        ^\[(?<logtime>[^\]]*)\] (?<level>[^\/]+)\/(?<process>[^ ]+) (?<message>.*)$
+        Time_Key     logtime
+        Time_Format  %Y-%m-%d %H:%M:%S,%L
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: bdba
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: bdba
+    app.kubernetes.io/version: "1.0"
+    helm.sh/chart: bdba-0.1.0
+  name: bdba-tasks-long-fluentbit-config
+---
+apiVersion: v1
+data:
+  fluent-bit.conf: |
+    [SERVICE]
+        Daemon       Off
+        Flush        5
+        Log_Level    info
+        Parsers_File /bdba-fluentbit/parsers.conf
+        HTTP_Server  Off
+
+    [INPUT]
+        Name         tail
+        Tag          updater
+        Path         /app-log/celery.log
+        Parser       celery
+        DB           /app-log/celery.db
+
+    [INPUT]
+        Name         tail
+        Tag          bootstrap
+        Path         /app-log/webapp.log
+        Parser       python
+        DB           /app-log/webapp.db
+
+    [OUTPUT]
+        Name         forward
+        Match        *
+        Host         bdba-fluentd
+  parsers.conf: |
+    [PARSER]
+        Name         python
+        Format       regex
+        Regex        ^\[(?<logtime>[^\]]*)\] (?<level>[^ ]+) (?<module>[^ ]+) (?<message>.*)$
+        Time_Key     logtime
+        Time_Format  %Y-%m-%d %H:%M:%S,%L
+
+    [PARSER]
+        Name         celery
+        Format       regex
+        Regex        ^\[(?<logtime>[^\]]*)\] (?<level>[^\/]+)\/(?<process>[^ ]+) (?<message>.*)$
+        Time_Key     logtime
+        Time_Format  %Y-%m-%d %H:%M:%S,%L
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: bdba
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: bdba
+    app.kubernetes.io/version: "1.0"
+    helm.sh/chart: bdba-0.1.0
+  name: bdba-updater-fluentbit-config
+---
+apiVersion: v1
+data:
+  ADMIN_EMAIL: ${ADMIN_EMAIL}
+  DATA_UPDATE_UPSTREAM: https://protecode-sc.com/
+  DJANGO_LOG_FILE: /app-log/webapp.log
+  ENABLE_EMAIL: "true"
+  ENABLE_LDAP: "true"
+  ENABLE_SYSLOG: "false"
+  HIDE_LICENSES: ${HIDE_LICENSES}
+  INSECURE_COOKIES: ${INSECURE_COOKIES}
+  ROOTURL: <nil>
+  SESSION_COOKIE_AGE: ${SESSION_COOKIE_AGE}
+  TASKS_LOG_FILE: /app-log/celery.log
+kind: ConfigMap
+metadata:
+  labels:
+    app: bdba
+    release: bdba
+  name: bdba-user-configmap
+---
+apiVersion: v1
+data:
+  fluent-bit.conf: |
+    [SERVICE]
+        Daemon       Off
+        Flush        5
+        Log_Level    info
+        Parsers_File /bdba-fluentbit/parsers.conf
+        HTTP_Server  Off
+
+    [INPUT]
+        Name         tail
+        Tag          webapp
+        Path         /app-log/webapp.log
+        Parser       python
+        DB           /app-log/webapp.db
+
+    [FILTER]
+        Name record_modifier
+        Match *
+        Record hostname ${HOSTNAME}
+
+    [OUTPUT]
+        Name         forward
+        Match        *
+        Host         bdba-fluentd
+  parsers.conf: |
+    [PARSER]
+        Name         python
+        Format       regex
+        Regex        ^\[(?<logtime>[^\]]*)\] (?<level>[^ ]+) (?<module>[^ ]+) (?<message>.*)$
+        Time_Key     logtime
+        Time_Format  %Y-%m-%d %H:%M:%S,%L
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: bdba
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: bdba
+    app.kubernetes.io/version: "1.0"
+    helm.sh/chart: bdba-0.1.0
+  name: bdba-webapp-fluentbit-config
+---
+apiVersion: v1
+data:
+  fluent-bit.conf: |
+    [SERVICE]
+        Daemon       Off
+        Flush        5
+        Log_Level    info
+        Parsers_File /bdba-fluentbit/parsers.conf
+        HTTP_Server  Off
+
+    [INPUT]
+        Name         tail
+        Tag          worker
+        Path         /app-log/celery.log
+        Parser       celery
+        DB           /app-log/celery.db
+
+    [FILTER]
+        Name record_modifier
+        Match *
+        Record hostname ${HOSTNAME}
+
+    [OUTPUT]
+        Name         forward
+        Match        *
+        Host         bdba-fluentd
+  parsers.conf: |
+    [PARSER]
+        Name         celery
+        Format       regex
+        Regex        ^\[(?<logtime>[^\]]*)\] (?<level>[^\/]+)\/(?<process>[^ ]+) (?<message>.*)$
+        Time_Key     logtime
+        Time_Format  %Y-%m-%d %H:%M:%S,%L
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: bdba
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: bdba
+    app.kubernetes.io/version: "1.0"
+    helm.sh/chart: bdba-0.1.0
+  name: bdba-worker-fluentbit-config
+---
+apiVersion: v1
+data:
+  LICENSING_PASSWORD: ${LICENSING_PASSWORD}
+  LICENSING_USERNAME: ${LICENSING_USERNAME}
+kind: Secret
+metadata:
+  labels:
+    app: bdba
+    release: bdba
+  name: bdba-licensing-secrets
+type: Opaque
+---
+apiVersion: v1
+data:
+  accesskey: ${MINIO_ACCESS_KEY}
+  secretkey: ${MINIO_SECRET_KEY}
+kind: Secret
+metadata:
+  labels:
+    app: minio
+    release: bdba
+  name: bdba-minio
+type: Opaque
+---
+apiVersion: v1
+data:
+  postgresql-password: ${PGPASSWORD}
+kind: Secret
+metadata:
+  labels:
+    app: postgresql
+    release: bdba
+  name: bdba-postgresql
+type: Opaque
+---
+apiVersion: v1
+data:
+  rabbitmq-erlang-cookie: dDBDeHFjNGJselVuRWY3bURsUkZGeE5obE9ZQmJCNTY=
+  rabbitmq-password: cGVsbGVzZWM=
+kind: Secret
+metadata:
+  labels:
+    app: rabbitmq
+    release: bdba
+  name: bdba-rabbitmq
+type: Opaque
+---
+apiVersion: v1
+data:
+  AWS_SECRET_ACCESS_KEY: ${MINIO_SECRET_KEY}
+  BROKER_URL: ${BROKER_URL}
+  PGPASSWORD: ${PGPASSWORD}
+kind: Secret
+metadata:
+  labels:
+    app: bdba
+    release: bdba
+  name: bdba-services-secrets
+type: Opaque
+---
+apiVersion: v1
+data: null
+kind: Secret
+metadata:
+  labels:
+    app: bdba
+    release: bdba
+  name: bdba-user-secrets
+type: Opaque
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: bdba
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: bdba
+    app.kubernetes.io/version: "1.0"
+    helm.sh/chart: bdba-0.1.0
+  name: bdba
+spec:
+  ports:
+  - name: gunicorn
+    port: 8000
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app.kubernetes.io/instance: bdba
+    app.kubernetes.io/name: bdba-webapp
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: bdba
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: bdba
+    app.kubernetes.io/version: "1.0"
+    helm.sh/chart: bdba-0.1.0
+  name: bdba-fluentd
+spec:
+  ports:
+  - name: fluentd
+    port: 24224
+    protocol: TCP
+    targetPort: 24224
+  selector:
+    app.kubernetes.io/instance: bdba
+    app.kubernetes.io/name: bdba-fluentd
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations: {}
+  labels:
+    app: bdba-memcached
+    release: bdba
+  name: bdba-memcached
+spec:
+  clusterIP: None
+  ports:
+  - name: memcache
+    port: 11211
+    targetPort: memcache
+  selector:
+    app: bdba-memcached
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: minio
+    release: bdba
+  name: bdba-minio
+spec:
+  ports:
+  - name: service
+    port: 9000
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    app: minio
+    release: bdba
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: postgresql
+    release: bdba
+  name: bdba-postgresql
+spec:
+  ports:
+  - name: postgresql
+    port: 5432
+    targetPort: postgresql
+  selector:
+    app: postgresql
+    release: bdba
+    role: master
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: postgresql
+    release: bdba
+  name: bdba-postgresql-headless
+spec:
+  clusterIP: None
+  ports:
+  - name: postgresql
+    port: 5432
+    targetPort: postgresql
+  selector:
+    app: postgresql
+    release: bdba
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: rabbitmq
+    release: bdba
+  name: bdba-rabbitmq
+spec:
+  ports:
+  - name: epmd
+    nodePort: null
+    port: 4369
+    targetPort: epmd
+  - name: amqp
+    nodePort: null
+    port: 5672
+    targetPort: amqp
+  - name: dist
+    nodePort: null
+    port: 25672
+    targetPort: dist
+  - name: stats
+    nodePort: null
+    port: 15672
+    targetPort: stats
+  selector:
+    app: rabbitmq
+    release: bdba
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: rabbitmq
+    release: bdba
+  name: bdba-rabbitmq-headless
+spec:
+  clusterIP: None
+  ports:
+  - name: epmd
+    port: 4369
+    targetPort: epmd
+  - name: amqp
+    port: 5672
+    targetPort: amqp
+  - name: dist
+    port: 25672
+    targetPort: dist
+  - name: stats
+    port: 15672
+    targetPort: stats
+  selector:
+    app: rabbitmq
+    release: bdba
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: bdba
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: bdba
+    app.kubernetes.io/version: "1.0"
+    helm.sh/chart: bdba-0.1.0
+  name: bdba-beat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: bdba
+      app.kubernetes.io/name: bdba-beat
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: bdba
+        app.kubernetes.io/name: bdba-beat
+        release: bdba
+      name: bdba-beat
+    spec:
+      containers:
+      - args:
+        - beat
+        envFrom:
+        - configMapRef:
+            name: bdba-services-configmap
+        - configMapRef:
+            name: bdba-user-configmap
+        - secretRef:
+            name: bdba-services-secrets
+        - secretRef:
+            name: bdba-licensing-secrets
+        image: defensics-store.internal.synopsys.com:5004/appcheck-frontend:nightly
+        imagePullPolicy: Always
+        name: bdba-tasks
+        resources: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: bdba
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: bdba
+    app.kubernetes.io/version: "1.0"
+    helm.sh/chart: bdba-0.1.0
+  name: bdba-fluentd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: bdba
+      app.kubernetes.io/name: bdba-fluentd
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: bdba
+        app.kubernetes.io/name: bdba-fluentd
+        release: bdba
+      name: bdba-fluentd
+    spec:
+      containers:
+      - args:
+        - -c
+        - /bdba-fluentd/fluentd.conf
+        env:
+        - name: S3_ENDPOINT
+          valueFrom:
+            configMapKeyRef:
+              key: S3_ENDPOINT
+              name: bdba-services-configmap
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            configMapKeyRef:
+              key: AWS_ACCESS_KEY_ID
+              name: bdba-services-configmap
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_SECRET_ACCESS_KEY
+              name: bdba-services-secrets
+        image: defensics-store.internal.synopsys.com:5004/bdba-fluentd:nightly
+        imagePullPolicy: Always
+        name: bdba-fluentd
+        volumeMounts:
+        - mountPath: /logs
+          name: bdba-fluentd-logs
+        - mountPath: /bdba-fluentd/
+          name: bdba-fluentd-config
+      volumes:
+      - emptyDir: {}
+        name: bdba-fluentd-logs
+      - configMap:
+          name: bdba-fluentd-config
+        name: bdba-fluentd-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: minio
+    release: bdba
+  name: bdba-minio
+spec:
+  selector:
+    matchLabels:
+      app: minio
+      release: bdba
+  strategy:
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        checksum/config: ba62f038994c9b91847da220c6938408fb5540d73eed590d7f014511379d62c2
+        checksum/secrets: 4d4c4385bc903158dfcf8227c9bccfe0ea5266bf9552760e5c51484da2eb869d
+      labels:
+        app: minio
+        release: bdba
+      name: bdba-minio
+    spec:
+      containers:
+      - command:
+        - /bin/sh
+        - -ce
+        - /usr/bin/docker-entrypoint.sh minio -C /minio-config/ server /export
+        env:
+        - name: MINIO_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: accesskey
+              name: bdba-minio
+        - name: MINIO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: secretkey
+              name: bdba-minio
+        - name: MINIO_BROWSER
+          value: "on"
+        image: minio/minio:RELEASE.2019-08-07T01-59-21Z
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /minio/health/live
+            port: service
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: minio
+        ports:
+        - containerPort: 9000
+          name: service
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /minio/health/ready
+            port: service
+          initialDelaySeconds: 5
+          periodSeconds: 15
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          requests:
+            cpu: 250m
+            memory: 256Mi
+        volumeMounts:
+        - mountPath: /export
+          name: export
+        - mountPath: /minio-config/
+          name: minio-config-dir
+      serviceAccountName: bdba-minio
+      volumes:
+      - name: export
+        persistentVolumeClaim:
+          claimName: bdba-minio
+      - name: minio-user
+        secret:
+          secretName: bdba-minio
+      - emptyDir: {}
+        name: minio-config-dir
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: bdba
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: bdba
+    app.kubernetes.io/version: "1.0"
+    helm.sh/chart: bdba-0.1.0
+  name: bdba-tasks
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: bdba
+      app.kubernetes.io/name: bdba-tasks
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: bdba
+        app.kubernetes.io/name: bdba-tasks
+        release: bdba
+      name: bdba-tasks
+    spec:
+      containers:
+      - args:
+        - worker
+        envFrom:
+        - configMapRef:
+            name: bdba-services-configmap
+        - configMapRef:
+            name: bdba-user-configmap
+        - secretRef:
+            name: bdba-services-secrets
+        - secretRef:
+            name: bdba-licensing-secrets
+        image: defensics-store.internal.synopsys.com:5004/appcheck-frontend:nightly
+        imagePullPolicy: Always
+        name: bdba-tasks
+        resources: {}
+        volumeMounts:
+        - mountPath: /app-log
+          name: bdba-tasks-applog
+      - command:
+        - /fluent-bit/bin/fluent-bit
+        - -c
+        - /bdba-fluentbit/fluent-bit.conf
+        image: fluent/fluent-bit:1.3-debug
+        imagePullPolicy: Always
+        name: bdba-tasks-fluentbit
+        volumeMounts:
+        - mountPath: /app-log
+          name: bdba-tasks-applog
+        - mountPath: /bdba-fluentbit/
+          name: bdba-tasks-fluentbit-config
+      volumes:
+      - emptyDir: {}
+        name: bdba-tasks-applog
+      - configMap:
+          name: bdba-tasks-fluentbit-config
+        name: bdba-tasks-fluentbit-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: bdba
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: bdba
+    app.kubernetes.io/version: "1.0"
+    helm.sh/chart: bdba-0.1.0
+  name: bdba-tasks-long
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: bdba
+      app.kubernetes.io/name: bdba-tasks-long
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: bdba
+        app.kubernetes.io/name: bdba-tasks-long
+        release: bdba
+      name: bdba-tasks-long
+    spec:
+      containers:
+      - args:
+        - long
+        envFrom:
+        - configMapRef:
+            name: bdba-services-configmap
+        - configMapRef:
+            name: bdba-user-configmap
+        - secretRef:
+            name: bdba-services-secrets
+        - secretRef:
+            name: bdba-licensing-secrets
+        image: defensics-store.internal.synopsys.com:5004/appcheck-frontend:nightly
+        imagePullPolicy: Always
+        name: bdba-tasks-long
+        resources: {}
+        volumeMounts:
+        - mountPath: /app-log
+          name: bdba-tasks-long-applog
+      - command:
+        - /fluent-bit/bin/fluent-bit
+        - -c
+        - /bdba-fluentbit/fluent-bit.conf
+        image: fluent/fluent-bit:1.3-debug
+        imagePullPolicy: Always
+        name: bdba-tasks-long-fluentbit
+        volumeMounts:
+        - mountPath: /app-log
+          name: bdba-tasks-long-applog
+        - mountPath: /bdba-fluentbit/
+          name: bdba-tasks-long-fluentbit-config
+      volumes:
+      - emptyDir: {}
+        name: bdba-tasks-long-applog
+      - configMap:
+          name: bdba-tasks-long-fluentbit-config
+        name: bdba-tasks-long-fluentbit-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: bdba
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: bdba
+    app.kubernetes.io/version: "1.0"
+    helm.sh/chart: bdba-0.1.0
+  name: bdba-updater
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: bdba
+      app.kubernetes.io/name: bdba-updater
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: bdba
+        app.kubernetes.io/name: bdba-updater
+        release: bdba
+      name: bdba-updater
+    spec:
+      containers:
+      - args:
+        - update
+        envFrom:
+        - configMapRef:
+            name: bdba-services-configmap
+        - configMapRef:
+            name: bdba-user-configmap
+        - secretRef:
+            name: bdba-services-secrets
+        - secretRef:
+            name: bdba-licensing-secrets
+        image: defensics-store.internal.synopsys.com:5004/appcheck-frontend:nightly
+        imagePullPolicy: Always
+        name: bdba-updater
+        resources: {}
+        volumeMounts:
+        - mountPath: /app-log
+          name: bdba-updater-applog
+      - command:
+        - /fluent-bit/bin/fluent-bit
+        - -c
+        - /bdba-fluentbit/fluent-bit.conf
+        image: fluent/fluent-bit:1.3-debug
+        imagePullPolicy: Always
+        name: bdba-updater-fluentbit
+        volumeMounts:
+        - mountPath: /app-log
+          name: bdba-updater-applog
+        - mountPath: /bdba-fluentbit/
+          name: bdba-updater-fluentbit-config
+      volumes:
+      - emptyDir: {}
+        name: bdba-updater-applog
+      - configMap:
+          name: bdba-updater-fluentbit-config
+        name: bdba-updater-fluentbit-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: bdba
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: bdba
+    app.kubernetes.io/version: "1.0"
+    helm.sh/chart: bdba-0.1.0
+  name: bdba-webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: bdba
+      app.kubernetes.io/name: bdba-webapp
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: bdba
+        app.kubernetes.io/name: bdba-webapp
+        release: bdba
+      name: bdba-webapp
+    spec:
+      containers:
+      - args:
+        - web
+        envFrom:
+        - configMapRef:
+            name: bdba-services-configmap
+        - configMapRef:
+            name: bdba-user-configmap
+        - secretRef:
+            name: bdba-services-secrets
+        - secretRef:
+            name: bdba-licensing-secrets
+        image: defensics-store.internal.synopsys.com:5004/appcheck-frontend:nightly
+        imagePullPolicy: Always
+        name: bdba-webapp
+        resources: {}
+        volumeMounts:
+        - mountPath: /app-log
+          name: bdba-webapp-applog
+      - command:
+        - /fluent-bit/bin/fluent-bit
+        - -c
+        - /bdba-fluentbit/fluent-bit.conf
+        image: fluent/fluent-bit:1.3-debug
+        imagePullPolicy: Always
+        name: bdba-webapp-fluentbit
+        volumeMounts:
+        - mountPath: /app-log
+          name: bdba-webapp-applog
+        - mountPath: /bdba-fluentbit/
+          name: bdba-webapp-fluentbit-config
+      volumes:
+      - emptyDir: {}
+        name: bdba-webapp-applog
+      - configMap:
+          name: bdba-webapp-fluentbit-config
+        name: bdba-webapp-fluentbit-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: bdba
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: bdba
+    app.kubernetes.io/version: "1.0"
+    helm.sh/chart: bdba-0.1.0
+  name: bdba-worker
+spec:
+  replicas: ${WORKER_REPLICAS}
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: bdba
+      app.kubernetes.io/name: bdba-worker
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: bdba
+        app.kubernetes.io/name: bdba-worker
+        release: bdba
+      name: bdba-worker
+    spec:
+      containers:
+      - env:
+        - name: SKIP_FRONTEND_ANNOUNCE
+          value: "no"
+        - name: S3_ENDPOINT
+          valueFrom:
+            configMapKeyRef:
+              key: S3_ENDPOINT
+              name: bdba-services-configmap
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            configMapKeyRef:
+              key: AWS_ACCESS_KEY_ID
+              name: bdba-services-configmap
+        - name: BROKER_URL
+          valueFrom:
+            secretKeyRef:
+              key: BROKER_URL
+              name: bdba-services-secrets
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: AWS_SECRET_ACCESS_KEY
+              name: bdba-services-secrets
+        - name: TASKS_LOG_FILE
+          value: /app-log/celery.log
+        image: defensics-store.internal.synopsys.com:5004/appcheck-worker:nightly
+        imagePullPolicy: Always
+        name: bdba-worker
+        resources: {}
+        volumeMounts:
+        - mountPath: /app-log
+          name: bdba-worker-applog
+      - command:
+        - /fluent-bit/bin/fluent-bit
+        - -c
+        - /bdba-fluentbit/fluent-bit.conf
+        image: fluent/fluent-bit:1.3-debug
+        imagePullPolicy: Always
+        name: bdba-worker-fluentbit
+        volumeMounts:
+        - mountPath: /app-log
+          name: bdba-worker-applog
+        - mountPath: /bdba-fluentbit/
+          name: bdba-worker-fluentbit-config
+      volumes:
+      - emptyDir: {}
+        name: bdba-worker-applog
+      - configMap:
+          name: bdba-worker-fluentbit-config
+        name: bdba-worker-fluentbit-config
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: bdba-memcached
+    release: bdba
+  name: bdba-memcached
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bdba-memcached
+      release: bdba
+  serviceName: bdba-memcached
+  template:
+    metadata:
+      labels:
+        app: bdba-memcached
+        chart: memcached-3.1.0
+        heritage: Tiller
+        release: bdba
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app: bdba-memcached
+                release: bdba
+            topologyKey: kubernetes.io/hostname
+      containers:
+      - command:
+        - memcached
+        - -m 64
+        - -o
+        - modern
+        - -v
+        image: memcached:1.5.19-alpine
+        imagePullPolicy: ""
+        livenessProbe:
+          initialDelaySeconds: 30
+          tcpSocket:
+            port: memcache
+          timeoutSeconds: 5
+        name: bdba-memcached
+        ports:
+        - containerPort: 11211
+          name: memcache
+        readinessProbe:
+          initialDelaySeconds: 5
+          tcpSocket:
+            port: memcache
+          timeoutSeconds: 1
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+        securityContext:
+          runAsUser: 1001
+      securityContext:
+        fsGroup: 1001
+  updateStrategy:
+    type: RollingUpdate
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: postgresql
+    release: bdba
+  name: bdba-postgresql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresql
+      release: bdba
+      role: master
+  serviceName: bdba-postgresql-headless
+  template:
+    metadata:
+      labels:
+        app: postgresql
+        chart: postgresql-6.5.8
+        heritage: Tiller
+        release: bdba
+        role: master
+      name: bdba-postgresql
+    spec:
+      containers:
+      - env:
+        - name: BITNAMI_DEBUG
+          value: "false"
+        - name: POSTGRESQL_PORT_NUMBER
+          value: "5432"
+        - name: POSTGRESQL_VOLUME_DIR
+          value: /bitnami/postgresql
+        - name: PGDATA
+          value: /bitnami/postgresql/data
+        - name: POSTGRES_USER
+          value: fuzzomatic
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: postgresql-password
+              name: bdba-postgresql
+        - name: POSTGRES_DB
+          value: fuzzomatic
+        image: docker.io/bitnami/postgresql:11.5.0-debian-9-r84
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - exec pg_isready -U "fuzzomatic" -d "fuzzomatic" -h 127.0.0.1 -p 5432
+          failureThreshold: 6
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        name: bdba-postgresql
+        ports:
+        - containerPort: 5432
+          name: postgresql
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - -e
+            - |
+              pg_isready -U "fuzzomatic" -d "fuzzomatic" -h 127.0.0.1 -p 5432
+              [ -f /opt/bitnami/postgresql/tmp/.initialized ]
+          failureThreshold: 6
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        resources:
+          requests:
+            cpu: 250m
+            memory: 256Mi
+        securityContext:
+          runAsUser: 1001
+        volumeMounts:
+        - mountPath: /bitnami/postgresql
+          name: data
+          subPath: null
+      initContainers:
+      - command:
+        - /bin/sh
+        - -c
+        - |
+          mkdir -p /bitnami/postgresql/data
+          chmod 700 /bitnami/postgresql/data
+          find /bitnami/postgresql -mindepth 0 -maxdepth 1 -not -name ".snapshot" -not -name "lost+found" | \
+            xargs chown -R 1001:1001
+        image: docker.io/bitnami/minideb:stretch
+        imagePullPolicy: Always
+        name: init-chmod-data
+        resources:
+          requests:
+            cpu: 250m
+            memory: 256Mi
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - mountPath: /bitnami/postgresql
+          name: data
+          subPath: null
+      securityContext:
+        fsGroup: 1001
+      volumes: []
+  updateStrategy:
+    type: RollingUpdate
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 300Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: rabbitmq
+    release: bdba
+  name: bdba-rabbitmq
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq
+      release: bdba
+  serviceName: bdba-rabbitmq-headless
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+        chart: rabbitmq-6.11.1
+        release: bdba
+    spec:
+      containers:
+      - command:
+        - bash
+        - -ec
+        - |
+          mkdir -p /opt/bitnami/rabbitmq/.rabbitmq/
+          mkdir -p /opt/bitnami/rabbitmq/etc/rabbitmq/
+          touch /opt/bitnami/rabbitmq/var/lib/rabbitmq/.start
+          #persist the erlang cookie in both places for server and cli tools
+          echo $RABBITMQ_ERL_COOKIE > /opt/bitnami/rabbitmq/var/lib/rabbitmq/.erlang.cookie
+          cp /opt/bitnami/rabbitmq/var/lib/rabbitmq/.erlang.cookie /opt/bitnami/rabbitmq/.rabbitmq/
+          #change permission so only the user has access to the cookie file
+          chmod 600 /opt/bitnami/rabbitmq/.rabbitmq/.erlang.cookie /opt/bitnami/rabbitmq/var/lib/rabbitmq/.erlang.cookie
+          #copy the mounted configuration to both places
+          cp  /opt/bitnami/rabbitmq/conf/* /opt/bitnami/rabbitmq/etc/rabbitmq
+          # Apply resources limits
+          ulimit -n "${RABBITMQ_ULIMIT_NOFILES}"
+          #replace the default password that is generated
+          sed -i "/CHANGEME/cdefault_pass=${RABBITMQ_PASSWORD//\\/\\\\}" /opt/bitnami/rabbitmq/etc/rabbitmq/rabbitmq.conf
+          exec rabbitmq-server
+        env:
+        - name: BITNAMI_DEBUG
+          value: "false"
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: MY_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: MY_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: K8S_SERVICE_NAME
+          value: bdba-rabbitmq-headless
+        - name: K8S_ADDRESS_TYPE
+          value: hostname
+        - name: RABBITMQ_NODENAME
+          value: rabbit@$(MY_POD_NAME).$(K8S_SERVICE_NAME).$(MY_POD_NAMESPACE).svc.cluster.local
+        - name: K8S_HOSTNAME_SUFFIX
+          value: .$(K8S_SERVICE_NAME).$(MY_POD_NAMESPACE).svc.cluster.local
+        - name: RABBITMQ_LOGS
+          value: '-'
+        - name: RABBITMQ_ULIMIT_NOFILES
+          value: "65536"
+        - name: RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS
+          value: +S 2:1
+        - name: RABBITMQ_USE_LONGNAME
+          value: "true"
+        - name: RABBITMQ_ERL_COOKIE
+          valueFrom:
+            secretKeyRef:
+              key: rabbitmq-erlang-cookie
+              name: bdba-rabbitmq
+        - name: RABBITMQ_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: rabbitmq-password
+              name: bdba-rabbitmq
+        image: docker.io/bitnami/rabbitmq:3.8.1-debian-9-r0
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - rabbitmq-api-check "http://bdba:$RABBITMQ_PASSWORD@127.0.0.1:15672/api/healthchecks/node"
+              '{"status":"ok"}'
+          failureThreshold: 6
+          initialDelaySeconds: 120
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 20
+        name: rabbitmq
+        ports:
+        - containerPort: 4369
+          name: epmd
+        - containerPort: 5672
+          name: amqp
+        - containerPort: 25672
+          name: dist
+        - containerPort: 15672
+          name: stats
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - rabbitmq-health-check "http://bdba:$RABBITMQ_PASSWORD@127.0.0.1:15672/api/healthchecks/node"
+              '{"status":"ok"}'
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 20
+        volumeMounts:
+        - mountPath: /opt/bitnami/rabbitmq/conf
+          name: config-volume
+        - mountPath: /usr/local/sbin/rabbitmq-api-check
+          name: healthchecks
+          subPath: rabbitmq-api-check
+        - mountPath: /usr/local/sbin/rabbitmq-health-check
+          name: healthchecks
+          subPath: rabbitmq-health-check
+        - mountPath: /opt/bitnami/rabbitmq/var/lib/rabbitmq
+          name: data
+      securityContext:
+        fsGroup: 1001
+        runAsUser: 1001
+      serviceAccountName: bdba-rabbitmq
+      terminationGracePeriodSeconds: 10
+      volumes:
+      - configMap:
+          items:
+          - key: rabbitmq.conf
+            path: rabbitmq.conf
+          - key: enabled_plugins
+            path: enabled_plugins
+          name: bdba-rabbitmq-config
+        name: config-volume
+      - configMap:
+          items:
+          - key: rabbitmq-health-check
+            mode: 111
+            path: rabbitmq-health-check
+          - key: rabbitmq-api-check
+            mode: 111
+            path: rabbitmq-api-check
+          name: bdba-rabbitmq-healthchecks
+        name: healthchecks
+      - emptyDir: {}
+        name: data
+  updateStrategy:
+    type: RollingUpdate
+---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  annotations:
+    helm.sh/hook: post-upgrade, post-install
+    helm.sh/hook-delete-policy: before-hook-creation
+  labels:
+    app: bdba-memcached
+    release: bdba
+  name: bdba-memcached
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: bdba-memcached
+      chart: memcached-3.1.0
+      heritage: Tiller
+      release: bdba
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/proxy-request-buffering: false
+  labels:
+    app.kubernetes.io/instance: bdba
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: bdba
+    app.kubernetes.io/version: "1.0"
+    helm.sh/chart: bdba-0.1.0
+  name: bdba
+spec:
+  rules:
+  - host: ${INGRESS_HOST}
+    http:
+      paths:
+      - backend:
+          serviceName: bdba
+          servicePort: 8000
+        path: /
+  tls:
+  - hosts:
+    - ${INGRESS_HOST}
+    secretName: bdba-tls
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: minio
+    release: bdba
+  name: bdba-minio
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 300Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    helm.sh/hook: test-success
+  labels:
+    app.kubernetes.io/instance: bdba
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: bdba
+    app.kubernetes.io/version: "1.0"
+    helm.sh/chart: bdba-0.1.0
+  name: bdba-test-connection
+spec:
+  containers:
+  - args:
+    - bdba:80
+    command:
+    - wget
+    image: busybox
+    name: wget
+  restartPolicy: Never
