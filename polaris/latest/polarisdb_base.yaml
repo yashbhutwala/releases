@@ -850,7 +850,7 @@ spec:
               name: postgresql-config
         - name: POSTGRES_TYPE
           value: ${POSTGRES_TYPE}
-        image: registry.access.redhat.com/rhscl/postgresql-10-rhel7:1
+        image: registry.access.redhat.com/rhscl/postgresql-96-rhel7:1
         name: postgres-init
         volumeMounts:
         - mountPath: /tmp/postgres-init
