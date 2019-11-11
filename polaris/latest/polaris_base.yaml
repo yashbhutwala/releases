@@ -3,9 +3,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: auth-server
   name: auth-server
@@ -16,9 +16,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -29,9 +29,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -42,9 +42,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -55,9 +55,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
@@ -70,9 +70,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: jobfarmautoscaler
   name: jobfarmautoscaler
@@ -83,9 +83,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: jobs-controller-service
   name: jobs-controller-service
@@ -96,9 +96,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -109,9 +109,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -122,9 +122,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: notifications-service
   name: notifications-service
@@ -135,9 +135,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: pericles-swagger-ui
   name: pericles-swagger-ui
@@ -148,9 +148,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -161,9 +161,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -174,9 +174,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: tools-deprecate-job
   name: tools-deprecate-job
@@ -187,9 +187,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -200,9 +200,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: tools-sync-job
   name: tools-sync-job
@@ -213,9 +213,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -226,9 +226,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -239,9 +239,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -252,9 +252,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -265,9 +265,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: web-help
   name: web-help
@@ -338,9 +338,9 @@ kind: Role
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: leaderElector
   name: leaderElector
@@ -402,9 +402,9 @@ kind: RoleBinding
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: leaderElector
   name: leaderElector
@@ -469,9 +469,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: auth-server
   name: auth-server
@@ -494,9 +494,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -519,9 +519,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -544,9 +544,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -569,9 +569,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
@@ -594,9 +594,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: jobs-controller-service
   name: jobs-controller-service
@@ -616,9 +616,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -638,9 +638,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -660,9 +660,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: notifications-service
   name: notifications-service
@@ -685,9 +685,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: pericles-swagger-ui
   name: pericles-swagger-ui
@@ -707,9 +707,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -732,9 +732,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -757,9 +757,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -779,9 +779,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -804,9 +804,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -829,9 +829,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -854,9 +854,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -876,9 +876,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: web-help
   name: web-help
@@ -898,9 +898,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: auth-server
   name: auth-server
@@ -920,9 +920,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: auth-server
       name: auth-server
@@ -1020,7 +1020,7 @@ spec:
           value: ${SMTP_TLS_CHECK_SERVER_IDENTITY}
         - name: SMTP_TLS_TRUSTED_HOSTS
           value: ${SMTP_TLS_TRUSTED_HOSTS}
-        image: gcr.io/snps-swip-staging/swip_auth-server:1.7.104
+        image: gcr.io/snps-swip-staging/swip_auth-server:1.7.105
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -1140,9 +1140,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -1162,9 +1162,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: configs-service
       name: configs-service
@@ -1343,9 +1343,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -1365,9 +1365,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: cos-server
       name: cos-server
@@ -1572,9 +1572,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -1594,9 +1594,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: desktop-metrics-service
       name: desktop-metrics-service
@@ -1777,9 +1777,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
@@ -1799,9 +1799,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: issue-server
       name: issue-server
@@ -2013,9 +2013,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: jobfarmautoscaler
   name: jobfarmautoscaler
@@ -2032,9 +2032,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: jobfarmautoscaler
     spec:
@@ -2152,9 +2152,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: jobs-controller-service
   name: jobs-controller-service
@@ -2174,9 +2174,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: jobs-controller-service
       name: jobs-controller-service
@@ -2381,9 +2381,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -2403,9 +2403,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: jobs-service
       name: jobs-service
@@ -2656,9 +2656,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -2678,9 +2678,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: logs-service
       name: logs-service
@@ -2819,9 +2819,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: notifications-service
   name: notifications-service
@@ -2841,9 +2841,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: notifications-service
       name: notifications-service
@@ -3087,9 +3087,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: pericles-swagger-ui
   name: pericles-swagger-ui
@@ -3109,9 +3109,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: pericles-swagger-ui
     spec:
@@ -3194,9 +3194,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -3216,9 +3216,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: taxonomy-server
       name: taxonomy-server
@@ -3386,9 +3386,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -3408,9 +3408,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: tds-code-analysis
       name: tds-code-analysis
@@ -3616,9 +3616,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -3638,9 +3638,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: tools-service
       name: tools-service
@@ -3793,9 +3793,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -3815,9 +3815,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: triage-command-handler
       name: triage-command-handler
@@ -4027,9 +4027,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -4049,9 +4049,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: triage-query
       name: triage-query
@@ -4261,9 +4261,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -4283,9 +4283,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: vinyl-server
       name: vinyl-server
@@ -4428,9 +4428,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -4450,9 +4450,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: web-core
       name: web-core
@@ -4565,9 +4565,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: web-help
   name: web-help
@@ -4587,9 +4587,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: web-help
       name: web-help
@@ -4744,9 +4744,9 @@ metadata:
     helm.sh/hook-weight: "2"
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: tools-deprecate-job
   name: tools-deprecate-job-${VERSION}
@@ -4757,9 +4757,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: tools-deprecate-job
     spec:
@@ -4815,9 +4815,9 @@ metadata:
     helm.sh/hook-weight: "2"
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: tools-sync-job
   name: tools-sync-job-${VERSION}
@@ -4828,9 +4828,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.6266
+        chartVersion: 0.0.6267
         component: swip
-        componentVersion: 0.0.6266
+        componentVersion: 0.0.6267
         environment: ${ENVIRONMENT_NAME}
         service: tools-sync-job
     spec:
@@ -4891,9 +4891,9 @@ metadata:
     nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
   labels:
     chart: swip
-    chartVersion: 0.0.6266
+    chartVersion: 0.0.6267
     component: swip
-    componentVersion: 0.0.6266
+    componentVersion: 0.0.6267
     environment: ${ENVIRONMENT_NAME}
     service: swip-ingress
   name: swip-ingress
