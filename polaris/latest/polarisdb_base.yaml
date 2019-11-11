@@ -1798,7 +1798,9 @@ spec:
             environment: "${ENVIRONMENT_NAME}"
             service: "eventstore-init"
         - name: EVENTSTORE_KUBERNETES_NAMESPACE
-          value: ${NAMESPACE}
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
         - name: EVENTSTORE_SECRET_NAME
           value: swip-eventstore-creds
         - name: EVENTSTORE_ADDR
@@ -1813,7 +1815,9 @@ spec:
         - --http-readiness-check-urls=http://eventstore.$(POD_NAMESPACE).svc.cluster.local:2112/stats
         env:
         - name: POD_NAMESPACE
-          value: ${NAMESPACE}
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
         image: gcr.io/snps-swip-staging/polaris-init:1.0.0
         imagePullPolicy: IfNotPresent
         name: polaris-init

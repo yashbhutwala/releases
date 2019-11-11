@@ -2,9 +2,9 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   chart: swip
-  chartVersion: 0.0.6264
+  chartVersion: 0.0.6266
   component: swip
-  componentVersion: 0.0.6264
+  componentVersion: 0.0.6266
   environment: ${ENVIRONMENT_NAME}
   labels: null
   name: organization-provision-job
@@ -18,9 +18,9 @@ spec:
         helm.sh/hook-weight: "100"
       labels:
         chart: swip
-        chartVersion: 0.0.6264
+        chartVersion: 0.0.6266
         component: swip
-        componentVersion: 0.0.6264
+        componentVersion: 0.0.6266
         environment: ${ENVIRONMENT_NAME}
         service: organization-provision-job
       name: organization-provision-job
