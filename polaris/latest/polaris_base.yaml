@@ -4693,6 +4693,43 @@ spec:
       - emptyDir: {}
         name: static
 ---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
+  name: cleanup-k8s-jobs
+  namespace: ${NAMESPACE}
+spec:
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    metadata:
+      labels:
+        environment: ${ENVIRONMENT_NAME}
+    spec:
+      template:
+        metadata:
+          labels:
+            environment: ${ENVIRONMENT_NAME}
+        spec:
+          automountServiceAccountToken: true
+          containers:
+          - env:
+            - name: SWIP_ENVIRONMENT_NAME
+              value: ${ENVIRONMENT_NAME}
+            image: gcr.io/snps-swip-staging/swip_jobfarm-cleanup-k8s-jobs:latest
+            imagePullPolicy: IfNotPresent
+            name: cleanup-k8s-jobs
+          imagePullSecrets:
+          - name: ${IMAGE_PULL_SECRETS}
+          restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 5000
+          serviceAccount: jobfarmautoscaler
+  schedule: '*/5 * * * *'
+  successfulJobsHistoryLimit: 1
+---
 apiVersion: batch/v1
 kind: Job
 metadata:
