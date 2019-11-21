@@ -1,17 +1,9 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  annotations:
-    helm.sh/hook: pre-upgrade,pre-install
-    helm.sh/hook-delete-policy: before-hook-creation
-    helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.761
-    component: swip-db
-    componentVersion: 0.0.761
     environment: ${ENVIRONMENT_NAME}
-    service: eventstore-init
-  name: eventstore-init
+  name: polaris-manage-secrets
   namespace: ${NAMESPACE}
 ---
 apiVersion: v1
@@ -22,41 +14,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.761
+    chartVersion: 0.0.778
     component: swip-db
-    componentVersion: 0.0.761
-    environment: ${ENVIRONMENT_NAME}
-    service: tools-minio-secret-init
-  name: tools-minio-secret-init
-  namespace: ${NAMESPACE}
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  annotations:
-    helm.sh/hook: pre-upgrade,pre-install
-    helm.sh/hook-delete-policy: before-hook-creation
-    helm.sh/hook-weight: "0"
-  labels:
-    chartVersion: 0.0.761
-    component: swip-db
-    componentVersion: 0.0.761
-    environment: ${ENVIRONMENT_NAME}
-    service: upload-server-secret-init
-  name: upload-server-secret-init
-  namespace: ${NAMESPACE}
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  annotations:
-    helm.sh/hook: pre-upgrade,pre-install
-    helm.sh/hook-delete-policy: before-hook-creation
-    helm.sh/hook-weight: "0"
-  labels:
-    chartVersion: 0.0.761
-    component: swip-db
-    componentVersion: 0.0.761
+    componentVersion: 0.0.778
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-init
@@ -65,17 +25,9 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  annotations:
-    helm.sh/hook: pre-upgrade,pre-install
-    helm.sh/hook-delete-policy: before-hook-creation
-    helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.761
-    component: swip-db
-    componentVersion: 0.0.761
     environment: ${ENVIRONMENT_NAME}
-    service: eventstore-init
-  name: eventstore-init
+  name: polaris-manage-secrets
   namespace: ${NAMESPACE}
 rules:
 - apiGroups:
@@ -97,63 +49,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.761
+    chartVersion: 0.0.778
     component: swip-db
-    componentVersion: 0.0.761
-    environment: ${ENVIRONMENT_NAME}
-    service: tools-minio-secret-init
-  name: tools-minio-secret-init
-  namespace: ${NAMESPACE}
-rules:
-- apiGroups:
-  - ""
-  resources:
-  - secrets
-  verbs:
-  - get
-  - create
-  - update
-  - patch
-  - delete
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  annotations:
-    helm.sh/hook: pre-upgrade,pre-install
-    helm.sh/hook-delete-policy: before-hook-creation
-    helm.sh/hook-weight: "0"
-  labels:
-    chartVersion: 0.0.761
-    component: swip-db
-    componentVersion: 0.0.761
-    environment: ${ENVIRONMENT_NAME}
-    service: upload-server-secret-init
-  name: upload-server-secret-init
-  namespace: ${NAMESPACE}
-rules:
-- apiGroups:
-  - ""
-  resources:
-  - secrets
-  verbs:
-  - get
-  - create
-  - update
-  - patch
-  - delete
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  annotations:
-    helm.sh/hook: pre-upgrade,pre-install
-    helm.sh/hook-delete-policy: before-hook-creation
-    helm.sh/hook-weight: "0"
-  labels:
-    chartVersion: 0.0.761
-    component: swip-db
-    componentVersion: 0.0.761
+    componentVersion: 0.0.778
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-init
@@ -173,25 +71,17 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  annotations:
-    helm.sh/hook: post-upgrade,post-install
-    helm.sh/hook-delete-policy: before-hook-creation
-    helm.sh/hook-weight: "1"
   labels:
-    chartVersion: 0.0.761
-    component: swip-db
-    componentVersion: 0.0.761
     environment: ${ENVIRONMENT_NAME}
-    service: eventstore-init
-  name: eventstore-init
+  name: polaris-manage-secrets
   namespace: ${NAMESPACE}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: eventstore-init
+  name: polaris-manage-secrets
 subjects:
 - kind: ServiceAccount
-  name: eventstore-init
+  name: polaris-manage-secrets
   namespace: ${NAMESPACE}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -202,57 +92,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "1"
   labels:
-    chartVersion: 0.0.761
+    chartVersion: 0.0.778
     component: swip-db
-    componentVersion: 0.0.761
-    environment: ${ENVIRONMENT_NAME}
-    service: tools-minio-secret-init
-  name: tools-minio-secret-init
-  namespace: ${NAMESPACE}
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: tools-minio-secret-init
-subjects:
-- kind: ServiceAccount
-  name: tools-minio-secret-init
-  namespace: ${NAMESPACE}
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  annotations:
-    helm.sh/hook: pre-upgrade,pre-install
-    helm.sh/hook-delete-policy: before-hook-creation
-    helm.sh/hook-weight: "1"
-  labels:
-    chartVersion: 0.0.761
-    component: swip-db
-    componentVersion: 0.0.761
-    environment: ${ENVIRONMENT_NAME}
-    service: upload-server-secret-init
-  name: upload-server-secret-init
-  namespace: ${NAMESPACE}
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: upload-server-secret-init
-subjects:
-- kind: ServiceAccount
-  name: upload-server-secret-init
-  namespace: ${NAMESPACE}
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  annotations:
-    helm.sh/hook: pre-upgrade,pre-install
-    helm.sh/hook-delete-policy: before-hook-creation
-    helm.sh/hook-weight: "1"
-  labels:
-    chartVersion: 0.0.761
-    component: swip-db
-    componentVersion: 0.0.761
+    componentVersion: 0.0.778
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-init
@@ -264,32 +106,6 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: vault-init
-  namespace: ${NAMESPACE}
----
-apiVersion: v1
-data:
-  run.sh: |-
-    @test "Testing Consul cluster has quorum" {
-      for i in {0..2}; do
-        for n in {1..30}; do
-          if [ `kubectl exec polaris-db-consul-$i consul members --namespace=default | grep server | wc -l` -ge "3" ]; then
-            echo "polaris-db-consul-$i OK. consul members returning at least 3 records."
-            break
-          else
-            echo "polaris-db-consul-$i ERROR. consul members returning less than 3 records."
-          fi
-
-          if [ "$n" -ge "30" ]; then
-            echo "Failed $n times to get members from polaris-db-consul-$i"
-            exit 1
-          fi
-          sleep 10
-        done
-      done
-    }
-kind: ConfigMap
-metadata:
-  name: polaris-db-consul-tests
   namespace: ${NAMESPACE}
 ---
 apiVersion: v1
@@ -300,6 +116,7 @@ kind: ConfigMap
 metadata:
   labels:
     app: polaris-db-vault
+    environment: ${ENVIRONMENT_NAME}
     release: swip-db
   name: polaris-db-vault-config
   namespace: ${NAMESPACE}
@@ -314,72 +131,55 @@ data:
       exit 1
     fi
 
-    if [[ "$POSTGRES_TYPE" == "internal" ]];then
-      PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U postgres << EOF
-      ALTER USER $POSTGRESQL_USER SUPERUSER;
+    echo "Creating databases if not exists..."
+    PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U $POSTGRESQL_USER -d postgres << EOF
+    SELECT 'CREATE DATABASE "cos"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'cos')\gexec
+    SELECT 'CREATE DATABASE "jobs-service"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'jobs-service')\gexec
+    SELECT 'CREATE DATABASE "issues"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'issues')\gexec
+    SELECT 'CREATE DATABASE "code_analysis"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'code_analysis')\gexec
+    SELECT 'CREATE DATABASE "tds_fuzz"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'tds_fuzz')\gexec
+    SELECT 'CREATE DATABASE "configs"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'configs')\gexec
+    SELECT 'CREATE DATABASE "triage_query"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'triage_query')\gexec
+    SELECT 'CREATE DATABASE "triage_command"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'triage_command')\gexec
+    SELECT 'CREATE DATABASE "desktop_metrics"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'desktop_metrics')\gexec
+    SELECT 'CREATE DATABASE "tds_csv"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'tds_csv')\gexec
+    SELECT 'CREATE DATABASE "tds_seeker"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'tds_seeker')\gexec
+    SELECT 'CREATE DATABASE "tds_sca"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'tds_sca')\gexec
+    SELECT 'CREATE DATABASE "rp-issue-manager"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'rp-issue-manager')\gexec
+    SELECT 'CREATE DATABASE "rp-portfolio"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'rp-portfolio')\gexec
+    SELECT 'CREATE DATABASE "rp-report"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'rp-report')\gexec
+    SELECT 'CREATE DATABASE "rp-tools-portfolio"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'rp-tools-portfolio')\gexec
+    SELECT 'CREATE DATABASE "notifications"' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'notifications')\gexec
     EOF
-    fi
-
-    if [[ `PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U $POSTGRESQL_USER -c "SELECT datname FROM pg_catalog.pg_database WHERE datname='cos';" -d postgres --tuples-only | wc -l` -eq 1 ]]; then
-      echo "cos is missing. Initializing the database..."
-      PGPASSWORD=${POSTGRESQL_PASSWORD} psql -h $POSTGRES_HOST -U $POSTGRESQL_USER -d postgres << EOF
-      CREATE DATABASE cos;
-      CREATE DATABASE "jobs-service";
-      CREATE DATABASE issues;
-      CREATE DATABASE code_analysis;
-      CREATE DATABASE tds_fuzz;
-      CREATE DATABASE configs;
-      CREATE DATABASE triage_query;
-      CREATE DATABASE triage_command;
-      CREATE DATABASE desktop_metrics;
-      CREATE DATABASE tds_csv;
-      CREATE DATABASE tds_seeker;
-      CREATE DATABASE "rp-issue-manager";
-      CREATE DATABASE "rp-portfolio";
-      CREATE DATABASE "rp-report";
-      CREATE DATABASE "rp-tools-portfolio";
-    EOF
-    fi
 kind: ConfigMap
 metadata:
   labels:
+    environment: ${ENVIRONMENT_NAME}
     name: polaris-postgres-init-config
   name: polaris-postgres-init-config
   namespace: ${NAMESPACE}
 ---
 apiVersion: v1
 data:
-  host: |
-    ${SMTP_HOST}
-  port: |
-    "${SMTP_PORT}"
+  host: ${SMTP_HOST}
+  port: ${SMTP_PORT}
 kind: ConfigMap
 metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
   name: polaris-smtp
   namespace: ${NAMESPACE}
 ---
 apiVersion: v1
 data:
-  POSTGRESQL_ADMIN_PASSWORD: ${POSTGRES_PASSWORD}
-  POSTGRESQL_DATABASE: ${POSTGRES_USERNAME}
+  POSTGRES_SSL_MODE: ${POSTGRES_SSL_MODE}
   POSTGRESQL_HOST: ${POSTGRES_HOST}
-  POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
-  POSTGRESQL_PORT: "5432"
-  POSTGRESQL_USER: ${POSTGRES_USERNAME}
+  POSTGRESQL_PORT: ${POSTGRES_PORT}
 kind: ConfigMap
 metadata:
   labels:
-    app: postgresql
+    environment: ${ENVIRONMENT_NAME}
   name: postgresql-config
-  namespace: ${NAMESPACE}
----
-apiVersion: v1
-data:
-  host: ${SMTP_HOST}
-  port: "2525"
-kind: ConfigMap
-metadata:
-  name: smtp
   namespace: ${NAMESPACE}
 ---
 apiVersion: v1
@@ -420,9 +220,9 @@ data:
 kind: ConfigMap
 metadata:
   labels:
-    chartVersion: 0.0.761
+    chartVersion: 0.0.778
     component: swip-db
-    componentVersion: 0.0.761
+    componentVersion: 0.0.778
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-policies
@@ -435,6 +235,7 @@ kind: Secret
 metadata:
   labels:
     component: swip-db-consul
+    environment: ${ENVIRONMENT_NAME}
     release: swip-db
   name: polaris-db-consul-gossip-key
   namespace: ${NAMESPACE}
@@ -446,38 +247,26 @@ data:
   username: ${SMTP_USERNAME}
 kind: Secret
 metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
   name: polaris-smtp
   namespace: ${NAMESPACE}
 type: Opaque
 ---
 apiVersion: v1
-kind: Service
+data:
+  POSTGRESQL_ADMIN_PASSWORD: ${POSTGRES_PASSWORD}
+  POSTGRESQL_DATABASE: ${POSTGRES_USERNAME}
+  POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
+  POSTGRESQL_USER: ${POSTGRES_USERNAME}
+kind: Secret
 metadata:
   labels:
-    chartVersion: 0.0.761
-    component: swip-db
-    componentVersion: 0.0.761
+    app: postgresql
     environment: ${ENVIRONMENT_NAME}
-    service: eventstore
-  name: eventstore
+  name: postgresql-config
   namespace: ${NAMESPACE}
-spec:
-  clusterIP: None
-  ports:
-  - name: int-tcp
-    port: 1112
-  - name: int-http
-    port: 1113
-  - name: ext-tcp
-    port: 2112
-  - name: ext-http
-    port: 2113
-  - name: metrics
-    port: 9448
-  selector:
-    app: swip
-    component: eventstore
-  type: ClusterIP
+type: Opaque
 ---
 apiVersion: v1
 kind: Service
@@ -486,6 +275,7 @@ metadata:
     service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
   labels:
     component: swip-db-consul
+    environment: ${ENVIRONMENT_NAME}
     release: swip-db
   name: polaris-db-consul
   namespace: ${NAMESPACE}
@@ -517,12 +307,14 @@ spec:
     protocol: UDP
   selector:
     component: swip-db-consul
+    environment: ${ENVIRONMENT_NAME}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
     component: swip-db-consul
+    environment: ${ENVIRONMENT_NAME}
     release: swip-db
   name: polaris-db-consul-ui
   namespace: ${NAMESPACE}
@@ -532,6 +324,7 @@ spec:
     port: 8500
   selector:
     component: swip-db-consul
+    environment: ${ENVIRONMENT_NAME}
   type: NodePort
 ---
 apiVersion: v1
@@ -539,6 +332,7 @@ kind: Service
 metadata:
   labels:
     app: polaris-db-vault
+    environment: ${ENVIRONMENT_NAME}
     release: swip-db
   name: polaris-db-vault
   namespace: ${NAMESPACE}
@@ -550,6 +344,7 @@ spec:
     targetPort: 8200
   selector:
     app: polaris-db-vault
+    environment: ${ENVIRONMENT_NAME}
     release: swip-db
   type: ClusterIP
 ---
@@ -557,46 +352,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: postgresql
-  name: postgresql
-  namespace: ${NAMESPACE}
-spec:
-  ports:
-  - name: postgresql
-    port: 5432
-    protocol: TCP
-    targetPort: 5432
-  selector:
-    app: postgresql
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    chartVersion: 0.0.761
+    chartVersion: 0.0.778
     component: swip-db
-    componentVersion: 0.0.761
-    environment: ${ENVIRONMENT_NAME}
-    service: upload-server
-  name: upload-server
-  namespace: ${NAMESPACE}
-spec:
-  ports:
-  - name: upload-server
-    port: 9000
-    protocol: TCP
-    targetPort: 9000
-  selector:
-    service: upload-server
-  type: ClusterIP
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    chartVersion: 0.0.761
-    component: swip-db
-    componentVersion: 0.0.761
+    componentVersion: 0.0.778
     environment: ${ENVIRONMENT_NAME}
     service: vault-exporter
   name: vault-exporter
@@ -607,6 +365,7 @@ spec:
     port: 9410
   selector:
     app: vault
+    environment: ${ENVIRONMENT_NAME}
   type: ClusterIP
 ---
 apiVersion: apps/v1
@@ -617,9 +376,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "3"
   labels:
-    chartVersion: 0.0.761
+    chartVersion: 0.0.778
     component: swip-db
-    componentVersion: 0.0.761
+    componentVersion: 0.0.778
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-init
@@ -627,14 +386,15 @@ metadata:
 spec:
   selector:
     matchLabels:
+      environment: ${ENVIRONMENT_NAME}
       service: vault-init
   template:
     metadata:
       labels:
         chart: swip-db
-        chartVersion: 0.0.761
+        chartVersion: 0.0.778
         component: swip-db
-        componentVersion: 0.0.761
+        componentVersion: 0.0.778
         environment: ${ENVIRONMENT_NAME}
         service: vault-init
       name: vault-init
@@ -668,10 +428,10 @@ spec:
             environment: "${ENVIRONMENT_NAME}"
             service: "vault-init"
             component: "swip-db"
-            componentVersion: "0.0.761"
+            componentVersion: "0.0.778"
             chart: "swip-db"
-            chartVersion: "0.0.761"
-        image: gcr.io/snps-swip-staging/vault-util:0.1.13
+            chartVersion: "0.0.778"
+        image: gcr.io/snps-polaris-onprem-dev/vault-util:0.1.13
         imagePullPolicy: IfNotPresent
         name: vault-init
         volumeMounts:
@@ -715,11 +475,15 @@ metadata:
   annotations: {}
   labels:
     app: polaris-db-vault
+    environment: ${ENVIRONMENT_NAME}
     release: swip-db
   name: polaris-db-vault
   namespace: ${NAMESPACE}
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      environment: ${ENVIRONMENT_NAME}
   strategy:
     rollingUpdate:
       maxUnavailable: 1
@@ -729,6 +493,7 @@ spec:
       annotations: {}
       labels:
         app: polaris-db-vault
+        environment: ${ENVIRONMENT_NAME}
         release: swip-db
     spec:
       affinity:
@@ -794,7 +559,7 @@ spec:
           value: https://localhost:8200
         - name: VAULT_CACERT
           value: /vault/tls/ca.crt
-        image: gcr.io/snps-swip-staging/vault-util:0.1.13
+        image: gcr.io/snps-polaris-onprem-dev/vault-util:0.1.13
         name: vault-sidecar
         volumeMounts:
         - mountPath: /vault/tls
@@ -806,7 +571,7 @@ spec:
           value: https://127.0.0.1:8200
         - name: VAULT_CACERT
           value: /vault/tls/ca.crt
-        image: gcr.io/snps-swip-staging/public/grapeshot/vault_exporter:v0.1.2
+        image: gcr.io/snps-polaris-onprem-dev/public/grapeshot/vault_exporter:v0.1.2
         imagePullPolicy: IfNotPresent
         name: vault-exporter
         ports:
@@ -827,7 +592,7 @@ spec:
         - mountPath: /vault/tls
           name: vault-tls-certificate
       imagePullSecrets:
-      - name: gcr-json-key
+      - name: ${IMAGE_PULL_SECRETS}
       initContainers:
       - args:
         - --http-readiness-check-urls=http://polaris-db-consul-0.polaris-db-consul.$(POD_NAMESPACE).svc.cluster.local:8500
@@ -836,7 +601,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       volumes:
@@ -852,206 +617,12 @@ spec:
         secret:
           secretName: vault-init-secret
 ---
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: postgresql
-  namespace: ${NAMESPACE}
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: postgresql
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: postgresql
-      name: postgresql
-    spec:
-      containers:
-      - envFrom:
-        - configMapRef:
-            name: postgresql-config
-        image: registry.access.redhat.com/rhscl/postgresql-10-rhel7:1
-        imagePullPolicy: IfNotPresent
-        lifecycle:
-          preStop:
-            exec:
-              command:
-              - sh
-              - -c
-              - LD_LIBRARY_PATH=/opt/rh/rh-postgresql10/root/usr/lib64 /opt/rh/rh-postgresql10/root/usr/bin/pg_ctl
-                -D /var/lib/pgsql/data/userdata -l logfile stop
-        name: postgresql
-        ports:
-        - containerPort: 5432
-        readinessProbe:
-          exec:
-            command:
-            - /bin/bash
-            - -c
-            - /opt/rh/rh-postgresql10/root/usr/bin/pg_isready -h localhost
-        volumeMounts:
-        - mountPath: /var/lib/pgsql/data
-          name: postgresdb
-      securityContext:
-        fsGroup: 0
-      volumes:
-      - name: postgresdb
-        persistentVolumeClaim:
-          claimName: postgresql-pv-claim
----
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  labels:
-    chartVersion: 0.0.761
-    component: swip-db
-    componentVersion: 0.0.761
-    environment: ${ENVIRONMENT_NAME}
-    service: upload-server
-  name: upload-server
-  namespace: ${NAMESPACE}
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      service: upload-server
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        chart: swip-db
-        chartVersion: 0.0.761
-        component: swip-db
-        componentVersion: 0.0.761
-        environment: ${ENVIRONMENT_NAME}
-        service: upload-server
-    spec:
-      containers:
-      - args:
-        - server
-        - /opt/data
-        env:
-        - name: MINIO_BROWSER
-          value: "off"
-        - name: MINIO_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              key: access_key
-              name: swip-upload-server
-        - name: MINIO_SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              key: secret_key
-              name: swip-upload-server
-        image: gcr.io/snps-swip-staging/public/minio/minio:RELEASE.2018-09-25T21-34-43Z
-        name: upload-server
-        ports:
-        - containerPort: 9000
-        resources:
-          service: upload-server
-        volumeMounts:
-        - mountPath: /opt/data
-          name: upload-server
-      imagePullSecrets:
-      - name: ${IMAGE_PULL_SECRETS}
-      initContainers:
-      - command:
-        - sh
-        - -c
-        - mkdir -p /opt/data/${ENVIRONMENT_NAME}-uploads-bucket
-        image: gcr.io/snps-swip-staging/public/busybox:latest
-        name: bootstrap-upload-server
-        volumeMounts:
-        - mountPath: /opt/data
-          name: upload-server
-          readOnly: false
-      volumes:
-      - name: upload-server
-        persistentVolumeClaim:
-          claimName: upload-server-pv-claim
----
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: eventstore
-  namespace: ${NAMESPACE}
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      component: eventstore
-  serviceName: eventstore
-  template:
-    metadata:
-      labels:
-        app: swip
-        component: eventstore
-      name: eventstore
-    spec:
-      containers:
-      - env:
-        - name: EVENTSTORE_CLUSTER_SIZE
-          value: "3"
-        - name: EVENTSTORE_CLUSTER_DNS
-          value: eventstore
-        - name: EVENTSTORE_GOSSIP_ON_SINGLE_NODE
-          value: "True"
-        image: gcr.io/snps-swip-staging/swip_eventstore:0.0.8
-        imagePullPolicy: Always
-        name: eventstore
-        ports:
-        - containerPort: 1112
-          name: int-tcp
-        - containerPort: 1113
-          name: int-http
-        - containerPort: 2112
-          name: ext-tcp
-        - containerPort: 2113
-          name: ext-http
-        resources:
-          service: eventstore
-        volumeMounts:
-        - mountPath: /var/lib/eventstore
-          name: data
-      - env:
-        - name: EVENTSTORE_URL
-          value: http://127.0.0.1:2113
-        - name: CLUSTER_MODE
-          value: cluster
-        image: gcr.io/snps-swip-staging/public/marcinbudny/eventstore_exporter:0.5.0
-        imagePullPolicy: IfNotPresent
-        name: eventstore-exporter
-        ports:
-        - containerPort: 9448
-          name: metrics
-          protocol: TCP
-        resources: {}
-      imagePullSecrets:
-      - name: ${IMAGE_PULL_SECRETS}
-      terminationGracePeriodSeconds: 10
-  volumeClaimTemplates:
-  - metadata:
-      labels:
-        app: swip
-        component: eventstore
-      name: data
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: ${EVENTSTORE_PV_SIZE}
----
 apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
   labels:
     component: swip-db-consul
+    environment: ${ENVIRONMENT_NAME}
     release: swip-db
   name: polaris-db-consul
   namespace: ${NAMESPACE}
@@ -1060,6 +631,7 @@ spec:
   selector:
     matchLabels:
       component: swip-db-consul
+      environment: ${ENVIRONMENT_NAME}
       release: swip-db
   serviceName: polaris-db-consul
   template:
@@ -1067,6 +639,7 @@ spec:
       labels:
         chart: consul-3.4.2
         component: swip-db-consul
+        environment: ${ENVIRONMENT_NAME}
         heritage: Tiller
         release: swip-db
       name: polaris-db-consul
@@ -1190,6 +763,10 @@ spec:
     type: RollingUpdate
   volumeClaimTemplates:
   - metadata:
+      labels:
+        component: swip-db-consul
+        environment: ${ENVIRONMENT_NAME}
+        release: swip-db
       name: datadir
     spec:
       accessModes:
@@ -1203,6 +780,7 @@ kind: PodDisruptionBudget
 metadata:
   labels:
     component: swip-db-consul
+    environment: ${ENVIRONMENT_NAME}
     release: swip-db
   name: polaris-db-consul-pdb
   namespace: ${NAMESPACE}
@@ -1211,10 +789,13 @@ spec:
   selector:
     matchLabels:
       component: swip-db-consul
+      environment: ${ENVIRONMENT_NAME}
 ---
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
   name: polaris-db-vault
   namespace: ${NAMESPACE}
 spec:
@@ -1222,84 +803,23 @@ spec:
   selector:
     matchLabels:
       app: polaris-db-vault
+      environment: ${ENVIRONMENT_NAME}
       release: swip-db
 ---
 apiVersion: batch/v1
 kind: Job
 metadata:
-  annotations:
-    helm.sh/hook: post-upgrade,post-install
-    helm.sh/hook-delete-policy: before-hook-creation
-    helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.761
-    component: swip-db
-    componentVersion: 0.0.761
     environment: ${ENVIRONMENT_NAME}
-    service: eventstore-init
-  name: eventstore-init
-  namespace: ${NAMESPACE}
-spec:
-  template:
-    metadata:
-      labels:
-        chart: swip-db
-        chartVersion: 0.0.761
-        component: swip-db
-        componentVersion: 0.0.761
-        environment: ${ENVIRONMENT_NAME}
-        service: eventstore-init
-      name: eventstore-init
-    spec:
-      containers:
-      - command:
-        - eventstore-init
-        env:
-        - name: EVENTSTORE_KUBERNETES_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        - name: EVENTSTORE_SECRET_NAME
-          value: swip-eventstore-creds
-        - name: EVENTSTORE_ADDR
-          value: http://eventstore:2113
-        - name: KUBERNETES_LABELS
-          value: |-
-            environment: "${ENVIRONMENT_NAME}"
-            service: "eventstore-init"
-            component: "swip-db"
-            componentVersion: "0.0.761"
-            chart: "swip-db"
-            chartVersion: "0.0.761"
-        image: gcr.io/snps-swip-staging/eventstore-util:0.0.22
-        imagePullPolicy: IfNotPresent
-        name: eventstore-init
-      imagePullSecrets:
-      - name: ${IMAGE_PULL_SECRETS}
-      initContainers:
-      - args:
-        - --http-readiness-check-urls=http://eventstore-0.eventstore.$(POD_NAMESPACE).svc.cluster.local:2113,http://eventstore-1.eventstore.$(POD_NAMESPACE).svc.cluster.local:2113,http://eventstore-2.eventstore.$(POD_NAMESPACE).svc.cluster.local:2113
-        env:
-        - name: POD_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
-        imagePullPolicy: Always
-        name: polaris-init
-      restartPolicy: OnFailure
-      serviceAccount: eventstore-init
----
-apiVersion: batch/v1
-kind: Job
-metadata:
-  labels:
     name: polaris-init-postgres
   name: polaris-init-postgres
   namespace: ${NAMESPACE}
 spec:
   backoffLimit: 4
   template:
+    metadata:
+      labels:
+        environment: ${ENVIRONMENT_NAME}
     spec:
       containers:
       - args:
@@ -1320,17 +840,17 @@ spec:
               name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: POSTGRESQL_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
         - name: POSTGRES_TYPE
           value: ${POSTGRES_TYPE}
-        image: registry.access.redhat.com/rhscl/postgresql-10-rhel7:1
+        image: registry.access.redhat.com/rhscl/postgresql-96-rhel7:1
         name: postgres-init
         volumeMounts:
         - mountPath: /tmp/postgres-init
@@ -1357,15 +877,15 @@ spec:
               name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: POSTGRESQL_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       restartPolicy: Never
@@ -1378,14 +898,7 @@ spec:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  annotations:
-    helm.sh/hook: pre-upgrade,pre-install
-    helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation
-    helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.761
-    component: swip-db
-    componentVersion: 0.0.761
     environment: ${ENVIRONMENT_NAME}
     service: tools-minio-secret-init
   name: tools-minio-secret-init
@@ -1394,10 +907,6 @@ spec:
   template:
     metadata:
       labels:
-        chart: swip-db
-        chartVersion: 0.0.761
-        component: swip-db
-        componentVersion: 0.0.761
         environment: ${ENVIRONMENT_NAME}
         service: tools-minio-secret-init
       name: tools-minio-secret-init
@@ -1417,28 +926,21 @@ spec:
             environment: "${ENVIRONMENT_NAME}"
             service: "tools-minio-secret-init"
             component: "swip-db"
-            componentVersion: "0.0.761"
+            componentVersion: "0.0.760"
             chart: "swip-db"
-            chartVersion: "0.0.761"
-        image: gcr.io/snps-swip-staging/minio-util:0.0.9
+            chartVersion: "0.0.760"
+        image: gcr.io/snps-polaris-onprem-dev/minio-util:0.0.9
         imagePullPolicy: IfNotPresent
         name: tools-minio-secret-init
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
       restartPolicy: OnFailure
-      serviceAccount: tools-minio-secret-init
+      serviceAccount: polaris-manage-secrets
 ---
 apiVersion: batch/v1
 kind: Job
 metadata:
-  annotations:
-    helm.sh/hook: pre-upgrade,pre-install
-    helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation
-    helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.761
-    component: swip-db
-    componentVersion: 0.0.761
     environment: ${ENVIRONMENT_NAME}
     service: upload-server-secret-init
   name: upload-server-secret-init
@@ -1447,10 +949,6 @@ spec:
   template:
     metadata:
       labels:
-        chart: swip-db
-        chartVersion: 0.0.761
-        component: swip-db
-        componentVersion: 0.0.761
         environment: ${ENVIRONMENT_NAME}
         service: upload-server-secret-init
       name: upload-server-secret-init
@@ -1470,16 +968,16 @@ spec:
             environment: "${ENVIRONMENT_NAME}"
             service: "upload-server-secret-init"
             component: "swip-db"
-            componentVersion: "0.0.761"
+            componentVersion: "0.0.760"
             chart: "swip-db"
-            chartVersion: "0.0.761"
-        image: gcr.io/snps-swip-staging/minio-util:0.0.9
+            chartVersion: "0.0.760"
+        image: gcr.io/snps-polaris-onprem-dev/minio-util:0.0.9
         imagePullPolicy: IfNotPresent
         name: upload-server-secret-init
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
       restartPolicy: OnFailure
-      serviceAccount: upload-server-secret-init
+      serviceAccount: polaris-manage-secrets
 ---
 apiVersion: batch/v1
 kind: Job
@@ -1489,9 +987,9 @@ metadata:
     helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.761
+    chartVersion: 0.0.778
     component: swip-db
-    componentVersion: 0.0.761
+    componentVersion: 0.0.778
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-tls-init
@@ -1501,9 +999,9 @@ spec:
     metadata:
       labels:
         chart: swip-db
-        chartVersion: 0.0.761
+        chartVersion: 0.0.778
         component: swip-db
-        componentVersion: 0.0.761
+        componentVersion: 0.0.778
         environment: ${ENVIRONMENT_NAME}
         service: vault-init
       name: vault-tls-init
@@ -1525,110 +1023,16 @@ spec:
             environment: "${ENVIRONMENT_NAME}"
             service: "vault-init"
             component: "swip-db"
-            componentVersion: "0.0.761"
+            componentVersion: "0.0.778"
             chart: "swip-db"
-            chartVersion: "0.0.761"
-        image: gcr.io/snps-swip-staging/vault-util:0.1.13
+            chartVersion: "0.0.778"
+        image: gcr.io/snps-polaris-onprem-dev/vault-util:0.1.13
         imagePullPolicy: IfNotPresent
         name: vault-tls-init
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
       restartPolicy: OnFailure
       serviceAccount: vault-init
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  labels:
-    chartVersion: 0.0.761
-    component: swip-db
-    componentVersion: 0.0.761
-    environment: ${ENVIRONMENT_NAME}
-    service: upload-server
-  name: upload-server-pv-claim
-  namespace: ${NAMESPACE}
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: ${UPLOAD_SERVER_PV_SIZE}
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  labels:
-    app: postgresql
-  name: postgresql-pv-claim
-  namespace: null
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: ${POSTGRES_PV_SIZE}
----
-apiVersion: v1
-kind: Pod
-metadata:
-  annotations:
-    helm.sh/hook: test-success
-  name: swip-db-ui-test-mg1xh
-  namespace: ${NAMESPACE}
-spec:
-  containers:
-  - command:
-    - /tools/bats/bats
-    - -t
-    - /tests/run.sh
-    image: lachlanevenson/k8s-kubectl:v1.4.8-bash
-    name: swip-db-ui-test
-    volumeMounts:
-    - mountPath: /tests
-      name: tests
-      readOnly: true
-    - mountPath: /tools
-      name: tools
-  initContainers:
-  - command:
-    - bash
-    - -c
-    - |
-      set -ex
-      # copy bats to tools dir
-      cp -R /usr/local/libexec/ /tools/bats/
-    image: dduportal/bats:0.4.0
-    name: test-framework
-    volumeMounts:
-    - mountPath: /tools
-      name: tools
-  restartPolicy: Never
-  volumes:
-  - configMap:
-      name: polaris-db-consul-tests
-    name: tests
-  - emptyDir: {}
-    name: tools
----
-apiVersion: v1
-kind: Pod
-metadata:
-  annotations:
-    helm.sh/hook: test-success
-  name: swip-db-vault-status-test
-  namespace: ${NAMESPACE}
-spec:
-  containers:
-  - command:
-    - sh
-    - -c
-    - vault status
-    env:
-    - name: VAULT_ADDR
-      value: http://polaris-db-vault.default:8200
-    image: vault:0.11.2
-    name: swip-db-vault-status-test
-  restartPolicy: Never
 ---
 apiVersion: v1
 data:
@@ -1682,6 +1086,7 @@ data:
 kind: ConfigMap
 metadata:
   name: migrationcommands
+  namespace: ${NAMESPACE}
 ---
 apiVersion: v1
 kind: Service
@@ -1690,6 +1095,7 @@ metadata:
     app: mongodb
     release: mongodb
   name: mongodb
+  namespace: ${NAMESPACE}
 spec:
   ports:
   - name: mongodb
@@ -1707,6 +1113,7 @@ metadata:
     app: mongodb
     release: mongodb
   name: mongodb
+  namespace: ${NAMESPACE}
 spec:
   selector:
     matchLabels:
@@ -1770,27 +1177,10 @@ spec:
         volumeMounts:
         - mountPath: /bitnami/mongodb/data/db
           name: data
-          subPath: null
+          subPath: mongodb
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
       initContainers:
-      - args:
-        - ls -lart /data/db;if [  -n "$(ls -A /data/db 2> /dev/null)" ] && [ ! -f
-          /data/db/upgrade.done ]; then mongod & sleep 15;mongo /usr/local/entrypoint.js;sleep
-          10;mongod --shutdown; sleep 10;touch /data/db/upgrade.done;fi
-        command:
-        - /bin/sh
-        - -c
-        image: gcr.io/snps-swip-staging/swip_mongodb:0.0.6
-        name: mongomigration
-        volumeMounts:
-        - mountPath: /usr/local/entrypoint.js
-          name: configmapvolume
-          readOnly: true
-          subPath: entrypoint.js
-        - mountPath: /data/db
-          name: data
-          subPath: null
       - command:
         - chown
         - -R
@@ -1805,6 +1195,24 @@ spec:
         volumeMounts:
         - mountPath: /bitnami/mongodb/data/db
           name: data
+          subPath: mongodb
+      - args:
+        - ls -lart /data/db;if [  -n "$(ls -A /data/db 2> /dev/null)" ] && [ ! -f
+          /data/db/upgrade.done ]; then mongod & sleep 15;mongo /usr/local/entrypoint.js;sleep
+          10;mongod --shutdown; sleep 10;touch /data/db/upgrade.done;fi
+        command:
+        - /bin/sh
+        - -c
+        image: gcr.io/snps-polaris-onprem-dev/swip_mongodb:0.0.6
+        name: mongomigration
+        volumeMounts:
+        - mountPath: /usr/local/entrypoint.js
+          name: configmapvolume
+          readOnly: true
+          subPath: entrypoint.js
+        - mountPath: /data/db
+          name: data
+          subPath: mongodb
       securityContext:
         fsGroup: 1001
       volumes:
@@ -1821,11 +1229,597 @@ kind: PersistentVolumeClaim
 metadata:
   labels:
     app: mongodb
+    environment: ${ENVIRONMENT_NAME}
     release: mongodb
   name: mongodb
+  namespace: ${NAMESPACE}
 spec:
   accessModes:
   - ReadWriteOnce
   resources:
     requests:
       storage: ${MONGODB_PV_SIZE}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: upload-minio
+    environment: ${ENVIRONMENT_NAME}
+  name: upload-minio
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: upload-minio
+    environment: ${ENVIRONMENT_NAME}
+    service: upload-server
+  name: upload-server
+  namespace: ${NAMESPACE}
+spec:
+  ports:
+  - name: service
+    port: 9000
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    app: upload-minio
+    environment: ${ENVIRONMENT_NAME}
+    release: minio
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: upload-minio
+    environment: ${ENVIRONMENT_NAME}
+    service: upload-server
+  name: upload-minio
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: upload-minio
+      environment: ${ENVIRONMENT_NAME}
+      release: minio
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        checksum/config: 93e898cd531bb5586c5f150eff38c939a48e0b68a0929a6d8aacd7a7f9def5d3
+        checksum/secrets: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+      labels:
+        app: upload-minio
+        environment: ${ENVIRONMENT_NAME}
+        release: minio
+      name: minio
+    spec:
+      containers:
+      - command:
+        - /bin/sh
+        - -ce
+        - /usr/bin/docker-entrypoint.sh minio -C /data/ server /opt/data
+        env:
+        - name: MINIO_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: access_key
+              name: swip-tools-minio
+        - name: MINIO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: secret_key
+              name: swip-tools-minio
+        - name: MINIO_PROMETHEUS_AUTH_TYPE
+          value: public
+        - name: MINIO_BROWSER
+          value: "off"
+        image: minio/minio:RELEASE.2019-10-12T01-39-57Z
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /minio/health/live
+            port: service
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: minio
+        ports:
+        - containerPort: 9000
+          name: service
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /minio/health/ready
+            port: service
+          initialDelaySeconds: 5
+          periodSeconds: 15
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1024Mi
+          requests:
+            cpu: 250m
+            memory: 256Mi
+        volumeMounts:
+        - mountPath: /opt/data
+          name: upload-minio
+        - mountPath: /data/
+          name: minio-config-dir
+      initContainers:
+      - command:
+        - sh
+        - -c
+        - mkdir -p /opt/data/${NAMESPACE}-uploads-bucket
+        env:
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        image: busybox
+        name: bootstrap-upload-server
+        volumeMounts:
+        - mountPath: /opt/data
+          name: upload-minio
+          readOnly: false
+      serviceAccountName: upload-minio
+      volumes:
+      - name: upload-minio
+        persistentVolumeClaim:
+          claimName: upload-minio-pv-claim
+      - emptyDir: {}
+        name: minio-config-dir
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  environment: ${ENVIRONMENT_NAME}
+  labels:
+    app: upload-minio
+    environment: ${ENVIRONMENT_NAME}
+  name: upload-minio-pv-claim
+  namespace: ${NAMESPACE}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: ${UPLOAD_SERVER_PV_SIZE}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: download-minio
+    environment: ${ENVIRONMENT_NAME}
+  name: download-minio
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: download-minio
+    environment: ${ENVIRONMENT_NAME}
+    service: download-server
+  name: download-server
+  namespace: ${NAMESPACE}
+spec:
+  ports:
+  - name: service
+    port: 9000
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    app: download-minio
+    environment: ${ENVIRONMENT_NAME}
+    release: minio
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: download-minio
+    environment: ${ENVIRONMENT_NAME}
+    service: download-server
+  name: download-minio
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: download-minio
+      environment: ${ENVIRONMENT_NAME}
+      release: minio
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        checksum/config: 93e898cd531bb5586c5f150eff38c939a48e0b68a0929a6d8aacd7a7f9def5d3
+        checksum/secrets: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+      labels:
+        app: download-minio
+        environment: ${ENVIRONMENT_NAME}
+        release: minio
+      name: minio
+    spec:
+      containers:
+      - command:
+        - /bin/sh
+        - -ce
+        - /usr/bin/docker-entrypoint.sh minio -C /data/ server /opt/data
+        env:
+        - name: MINIO_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              key: access_key
+              name: swip-tools-minio
+        - name: MINIO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              key: secret_key
+              name: swip-tools-minio
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /etc/credentials/gcs_key.json
+        - name: MINIO_BROWSER
+          value: "off"
+        image: minio/minio:RELEASE.2019-10-12T01-39-57Z
+        imagePullPolicy: IfNotPresent
+        name: minio
+        ports:
+        - containerPort: 9000
+          name: service
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /minio/health/ready
+            port: service
+          initialDelaySeconds: 5
+          periodSeconds: 15
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1024Mi
+          requests:
+            cpu: 250m
+            memory: 256Mi
+        volumeMounts:
+        - mountPath: /opt/data
+          name: download-minio
+          readOnly: false
+        - mountPath: /data/
+          name: minio-config-dir
+      initContainers:
+      - command:
+        - sh
+        - -c
+        - mkdir -p /opt/data/tools-store-${ENVIRONMENT_NAME}
+        env:
+        - name: ENVIRONMENT_NAME
+          value: ${ENVIRONMENT_NAME}
+        image: busybox:latest
+        name: bootstrap-download-server
+        volumeMounts:
+        - mountPath: /opt/data
+          name: download-minio
+          readOnly: false
+      serviceAccountName: download-minio
+      volumes:
+      - name: minio-user
+        secret:
+          secretName: swip-tools-minio
+      - name: download-minio
+        persistentVolumeClaim:
+          claimName: download-minio-pv-claim
+      - emptyDir: {}
+        name: minio-config-dir
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  environment: ${ENVIRONMENT_NAME}
+  labels:
+    app: download-minio
+    environment: ${ENVIRONMENT_NAME}
+  name: download-minio-pv-claim
+  namespace: ${NAMESPACE}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: ${DOWNLOAD_SERVER_PV_SIZE}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/instance: eventstore
+    app.kubernetes.io/name: eventstore
+  name: eventstore-init
+  namespace: ${NAMESPACE}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    app.kubernetes.io/instance: eventstore
+    app.kubernetes.io/name: eventstore
+  name: eventstore-init
+  namespace: ${NAMESPACE}
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - get
+  - create
+  - update
+  - patch
+  - delete
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/instance: eventstore
+    app.kubernetes.io/name: eventstore
+  name: eventstore-init
+  namespace: ${NAMESPACE}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: eventstore-init
+subjects:
+- kind: ServiceAccount
+  name: eventstore-init
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+data:
+  EVENTSTORE_ADD_INTERFACE_PREFIXES: "False"
+  EVENTSTORE_CLUSTER_DNS: eventstore
+  EVENTSTORE_CLUSTER_GOSSIP_PORT: "2112"
+  EVENTSTORE_CLUSTER_SIZE: "3"
+  EVENTSTORE_EXT_HTTP_PORT: "2113"
+  EVENTSTORE_EXT_HTTP_PREFIXES: http://*:2113/
+  EVENTSTORE_EXT_TCP_HEARTBEAT_INTERVAL: "3000"
+  EVENTSTORE_EXT_TCP_HEARTBEAT_TIMEOUT: "6000"
+  EVENTSTORE_EXT_TCP_PORT: "1113"
+  EVENTSTORE_GOSSIP_ALLOWED_DIFFERENCE_MS: "600000"
+  EVENTSTORE_GOSSIP_INTERVAL_MS: "2000"
+  EVENTSTORE_GOSSIP_ON_SINGLE_NODE: "False"
+  EVENTSTORE_GOSSIP_TIMEOUT_MS: "4000"
+  EVENTSTORE_INT_HTTP_PORT: "2112"
+  EVENTSTORE_INT_HTTP_PREFIXES: http://*:2112/
+  EVENTSTORE_INT_TCP_HEARTBEAT_INTERVAL: "1500"
+  EVENTSTORE_INT_TCP_HEARTBEAT_TIMEOUT: "3000"
+  EVENTSTORE_INT_TCP_PORT: "1112"
+  EVENTSTORE_RUN_PROJECTIONS: All
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/component: database
+    app.kubernetes.io/instance: eventstore
+    app.kubernetes.io/name: eventstore
+    helm.sh/chart: eventstore-0.2.5
+  name: eventstore-env
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: database
+    app.kubernetes.io/instance: eventstore
+    app.kubernetes.io/name: eventstore
+    helm.sh/chart: eventstore-0.2.5
+  name: eventstore
+  namespace: ${NAMESPACE}
+spec:
+  clusterIP: None
+  ports:
+  - name: metrics
+    port: 9448
+  - name: ext-tcp-port
+    port: 1113
+    protocol: TCP
+    targetPort: 1113
+  - name: ext-http-port
+    port: 2113
+    protocol: TCP
+    targetPort: 2113
+  selector:
+    app.kubernetes.io/instance: eventstore
+    app.kubernetes.io/name: eventstore
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app.kubernetes.io/component: database
+    app.kubernetes.io/instance: eventstore
+    app.kubernetes.io/name: eventstore
+    helm.sh/chart: eventstore-0.2.5
+  name: eventstore
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: eventstore
+      app.kubernetes.io/name: eventstore
+      component: eventstore
+      environment: ${ENVIRONMENT_NAME}
+  serviceName: eventstore
+  template:
+    metadata:
+      annotations:
+        checksum/config: 984b3227b8f6c9b65af9674e7ef6516c4c91fe9804e0e15a9bff2137ddf4fbc8
+      labels:
+        app: swip
+        app.kubernetes.io/component: database
+        app.kubernetes.io/instance: eventstore
+        app.kubernetes.io/name: eventstore
+        component: eventstore
+        environment: ${ENVIRONMENT_NAME}
+      name: eventstore
+    spec:
+      affinity: {}
+      containers:
+      - env:
+        - name: EVENTSTORE_URL
+          value: http://127.0.0.1:2113
+        - name: CLUSTER_MODE
+          value: cluster
+        image: marcinbudny/eventstore_exporter:0.5.0
+        imagePullPolicy: IfNotPresent
+        name: eventstore-exporter
+        ports:
+        - containerPort: 9448
+          name: metrics
+          protocol: TCP
+      - env:
+        - name: EVENTSTORE_INT_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: EVENTSTORE_EXT_IP
+          value: 0.0.0.0
+        - name: EVENTSTORE_EXT_IP_ADVERTISE_AS
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        envFrom:
+        - configMapRef:
+            name: eventstore-env
+        image: eventstore/eventstore:release-5.0.2
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /stats
+            port: 2113
+          initialDelaySeconds: 15
+          periodSeconds: 15
+          timeoutSeconds: 5
+        name: eventstore
+        ports:
+        - containerPort: 1112
+        - containerPort: 1113
+        - containerPort: 2112
+        - containerPort: 2113
+        readinessProbe:
+          httpGet:
+            path: /stats
+            port: 2113
+          initialDelaySeconds: 15
+          periodSeconds: 15
+          timeoutSeconds: 5
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/eventstore
+          name: data
+      nodeSelector: {}
+      terminationGracePeriodSeconds: 10
+      tolerations: []
+      volumes: []
+  updateStrategy:
+    type: RollingUpdate
+  volumeClaimTemplates:
+  - metadata:
+      labels:
+        app: swip
+        component: eventstore
+        environment: ${ENVIRONMENT_NAME}
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: ${EVENTSTORE_PV_SIZE}
+---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  labels:
+    app.kubernetes.io/component: database
+    app.kubernetes.io/instance: eventstore
+    app.kubernetes.io/name: eventstore
+    helm.sh/chart: eventstore-0.2.5
+  name: eventstore
+  namespace: ${NAMESPACE}
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: eventstore
+      app.kubernetes.io/name: eventstore
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  labels:
+    app.kubernetes.io/instance: eventstore
+    app.kubernetes.io/name: eventstore
+  name: eventstore-init
+  namespace: ${NAMESPACE}
+spec:
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: eventstore
+        app.kubernetes.io/name: eventstore
+      name: eventstore-init
+    spec:
+      containers:
+      - command:
+        - eventstore-init
+        env:
+        - name: KUBERNETES_LABELS
+          value: |-
+            environment: "${ENVIRONMENT_NAME}"
+            service: "eventstore-init"
+        - name: EVENTSTORE_KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: EVENTSTORE_SECRET_NAME
+          value: swip-eventstore-creds
+        - name: EVENTSTORE_ADDR
+          value: http://eventstore:2113
+        image: gcr.io/snps-polaris-onprem-dev/eventstore-util:latest
+        imagePullPolicy: IfNotPresent
+        name: eventstore-init
+      imagePullSecrets:
+      - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - args:
+        - --http-readiness-check-urls=http://eventstore.$(POD_NAMESPACE).svc.cluster.local:2112/stats
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
+        imagePullPolicy: IfNotPresent
+        name: polaris-init
+      restartPolicy: OnFailure
+      serviceAccount: eventstore-init

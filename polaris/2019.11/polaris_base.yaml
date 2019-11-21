@@ -2,9 +2,10 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: auth-server
   name: auth-server
@@ -14,9 +15,10 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -26,9 +28,10 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -38,9 +41,10 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -50,24 +54,13 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
-  namespace: ${NAMESPACE}
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  labels:
-    chartVersion: 0.0.5613
-    component: swip
-    componentVersion: 0.0.5613
-    environment: ${ENVIRONMENT_NAME}
-    service: jobs-controller-service
-  name: jobs-controller-service
   namespace: ${NAMESPACE}
 ---
 apiVersion: v1
@@ -76,9 +69,36 @@ imagePullSecrets:
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
+    environment: ${ENVIRONMENT_NAME}
+    service: jobfarmautoscaler
+  name: jobfarmautoscaler
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    chart: swip
+    chartVersion: 0.0.6268
+    component: swip
+    componentVersion: 0.0.6268
+    environment: ${ENVIRONMENT_NAME}
+    service: jobs-controller-service
+  name: jobs-controller-service
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    chart: swip
+    chartVersion: 0.0.6268
+    component: swip
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -88,9 +108,10 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -100,9 +121,10 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: notifications-service
   name: notifications-service
@@ -112,9 +134,10 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: pericles-swagger-ui
   name: pericles-swagger-ui
@@ -124,9 +147,10 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -136,9 +160,10 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -148,9 +173,10 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: tools-deprecate-job
   name: tools-deprecate-job
@@ -160,9 +186,10 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -172,9 +199,10 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: tools-sync-job
   name: tools-sync-job
@@ -184,9 +212,10 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -196,9 +225,10 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -208,9 +238,10 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -220,9 +251,10 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -232,13 +264,44 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: web-help
   name: web-help
   namespace: ${NAMESPACE}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
+  name: ${ENVIRONMENT_NAME}-gatekeeper-manager
+  namespace: ${NAMESPACE}
+rules:
+- apiGroups:
+  - batch
+  - extensions
+  resources:
+  - jobs
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - pods/log
+  verbs:
+  - get
+  - list
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -270,13 +333,14 @@ rules:
   - get
   - list
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: leaderElector
   name: leaderElector
@@ -306,6 +370,22 @@ kind: RoleBinding
 metadata:
   labels:
     environment: ${ENVIRONMENT_NAME}
+  name: ${ENVIRONMENT_NAME}-gatekeeper-manager
+  namespace: ${NAMESPACE}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: ${ENVIRONMENT_NAME}-gatekeeper-manager
+subjects:
+- kind: ServiceAccount
+  name: jobfarmautoscaler
+  namespace: ${NAMESPACE}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
   name: k8s-jobs-manager
   namespace: ${NAMESPACE}
 roleRef:
@@ -321,9 +401,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: leaderElector
   name: leaderElector
@@ -353,12 +434,44 @@ subjects:
   namespace: ${NAMESPACE}
 ---
 apiVersion: v1
+data:
+  request.json: |-
+    [
+      {
+        "secretName": "certificate-ca",
+        "configuration": {
+          "commonName": "Polaris CA",
+          "organization": ["Synopsys"],
+          "country": ["US"]
+        },
+        "type": "ca",
+        "children": [
+          {
+            "secretName": "polaris-webhook-client-certs",
+            "configuration": {
+              "commonName": "Polaris Notification Webhook"
+            },
+            "type": "client",
+            "children": null
+          }
+        ]
+      }
+    ]
+kind: ConfigMap
+metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
+  name: certificate-config
+  namespace: ${NAMESPACE}
+---
+apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: auth-server
   name: auth-server
@@ -380,9 +493,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -404,9 +518,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -428,9 +543,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -452,9 +568,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
@@ -476,9 +593,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: jobs-controller-service
   name: jobs-controller-service
@@ -497,9 +615,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -518,9 +637,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -539,9 +659,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: notifications-service
   name: notifications-service
@@ -563,9 +684,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: pericles-swagger-ui
   name: pericles-swagger-ui
@@ -584,9 +706,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -608,9 +731,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -632,9 +756,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -653,9 +778,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -677,9 +803,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -701,9 +828,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -725,9 +853,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -746,9 +875,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: web-help
   name: web-help
@@ -763,13 +893,14 @@ spec:
     environment: ${ENVIRONMENT_NAME}
     service: web-help
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: auth-server
   name: auth-server
@@ -789,17 +920,15 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: auth-server
       name: auth-server
     spec:
       containers:
       - env:
-        - name: JAVA_OPTS
-          value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
         - name: LOGGING_LEVEL
           value: INFO
         - name: ESJC_LOGGING_LEVEL
@@ -858,11 +987,11 @@ spec:
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
-          value: /mnt/vault/ca/vault_cacrt
+          value: /var/run/secrets/vault/server/ca.crt
         - name: VAULT_CLIENT_KEY
-          value: /mnt/vault/key/vault_server_key
+          value: /var/run/secrets/vault/server/tls.key
         - name: VAULT_CLIENT_CERT
-          value: /mnt/vault/cert/vault_server_cert
+          value: /var/run/secrets/vault/server/tls.crt
         - name: SMTP_HOST
           valueFrom:
             configMapKeyRef:
@@ -885,7 +1014,13 @@ spec:
               name: polaris-smtp
         - name: SMTP_SENDER_EMAIL
           value: ${SMTP_SENDER_EMAIL}
-        image: gcr.io/snps-swip-staging/swip_auth-server:1.7.52
+        - name: SMTP_TLS_MODE
+          value: ${SMTP_TLS_MODE}
+        - name: SMTP_TLS_CHECK_SERVER_IDENTITY
+          value: ${SMTP_TLS_CHECK_SERVER_IDENTITY}
+        - name: SMTP_TLS_TRUSTED_HOSTS
+          value: ${SMTP_TLS_TRUSTED_HOSTS}
+        image: gcr.io/snps-polaris-onprem-dev/swip_auth-server:1.7.105
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -918,14 +1053,8 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /mnt/vault/ca
-          name: vault-cacert
-          readOnly: true
-        - mountPath: /mnt/vault/key
-          name: vault-server-key
-          readOnly: true
-        - mountPath: /mnt/vault/cert
-          name: vault-server-cert
+        - mountPath: /var/run/secrets/vault/server
+          name: vault-server
           readOnly: true
       - args:
         - --election=auth-server
@@ -978,15 +1107,20 @@ spec:
               name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: POSTGRESQL_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       restartPolicy: Always
@@ -997,32 +1131,18 @@ spec:
       serviceAccount: auth-server
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: vault-cacert
+      - name: vault-server
         secret:
-          items:
-          - key: tls.crt
-            path: vault_cacrt
-          secretName: vault-ca-certificate
-      - name: vault-server-key
-        secret:
-          items:
-          - key: tls.key
-            path: vault_server_key
-          secretName: auth-server-tls-certificate
-      - name: vault-server-cert
-        secret:
-          items:
-          - key: tls.crt
-            path: vault_server_cert
           secretName: auth-server-tls-certificate
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -1042,17 +1162,20 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: configs-service
       name: configs-service
     spec:
       containers:
       - env:
-        - name: JAVA_OPTS
-          value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
         - name: LOGGING_LEVEL
           value: INFO
         - name: ESJC_LOGGING_LEVEL
@@ -1120,16 +1243,16 @@ spec:
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
-          value: /mnt/vault/ca/vault_cacrt
+          value: /var/run/secrets/vault/client/ca.crt
         - name: VAULT_CLIENT_KEY
-          value: /mnt/vault/key/vault_client_key
+          value: /var/run/secrets/vault/client/tls.key
         - name: VAULT_CLIENT_CERT
-          value: /mnt/vault/cert/vault_client_cert
+          value: /var/run/secrets/vault/client/tls.crt
         - name: MONGODB_HOST
           value: mongodb
         - name: MONGODB_PORT
           value: "27017"
-        image: gcr.io/snps-swip-staging/swip_configs-service:1.0.787
+        image: gcr.io/snps-polaris-onprem-dev/swip_configs-service:1.0.869
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -1159,14 +1282,8 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /mnt/vault/ca
-          name: vault-cacert
-          readOnly: true
-        - mountPath: /mnt/vault/key
-          name: vault-client-key
-          readOnly: true
-        - mountPath: /mnt/vault/cert
-          name: vault-client-cert
+        - mountPath: /var/run/secrets/vault/client
+          name: vault-client
           readOnly: true
       dnsPolicy: ClusterFirst
       imagePullSecrets:
@@ -1196,15 +1313,20 @@ spec:
               name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: POSTGRESQL_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       restartPolicy: Always
@@ -1212,32 +1334,18 @@ spec:
       serviceAccount: configs-service
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: vault-cacert
+      - name: vault-client
         secret:
-          items:
-          - key: tls.crt
-            path: vault_cacrt
-          secretName: vault-ca-certificate
-      - name: vault-client-key
-        secret:
-          items:
-          - key: tls.key
-            path: vault_client_key
-          secretName: auth-client-tls-certificate
-      - name: vault-client-cert
-        secret:
-          items:
-          - key: tls.crt
-            path: vault_client_cert
           secretName: auth-client-tls-certificate
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -1257,17 +1365,20 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: cos-server
       name: cos-server
     spec:
       containers:
       - env:
-        - name: JAVA_OPTS
-          value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
         - name: LOGGING_LEVEL
           value: INFO
         - name: ESJC_LOGGING_LEVEL
@@ -1362,12 +1473,12 @@ spec:
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
-          value: /mnt/vault/ca/vault_cacrt
+          value: /var/run/secrets/vault/client/ca.crt
         - name: VAULT_CLIENT_KEY
-          value: /mnt/vault/key/vault_client_key
+          value: /var/run/secrets/vault/client/tls.key
         - name: VAULT_CLIENT_CERT
-          value: /mnt/vault/cert/vault_client_cert
-        image: gcr.io/snps-swip-staging/swip_cos-server:1.6.1962
+          value: /var/run/secrets/vault/client/tls.crt
+        image: gcr.io/snps-polaris-onprem-dev/swip_cos-server:1.6.2046
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -1397,38 +1508,9 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /mnt/vault/ca
-          name: vault-cacert
+        - mountPath: /var/run/secrets/vault/client
+          name: vault-client
           readOnly: true
-        - mountPath: /mnt/vault/key
-          name: vault-client-key
-          readOnly: true
-        - mountPath: /mnt/vault/cert
-          name: vault-client-cert
-          readOnly: true
-      - args:
-        - --election=cos-server
-        - --election-namespace=$(LEADER_ELECTOR_NAMESPACE)
-        - --http=0.0.0.0:4040
-        env:
-        - name: LEADER_ELECTOR_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        image: k8s.gcr.io/leader-elector:0.5
-        imagePullPolicy: Always
-        name: leader-election
-        ports:
-        - containerPort: 4040
-          name: http
-          protocol: TCP
-        resources:
-          limits:
-            cpu: 100m
-            memory: 256Mi
-          requests:
-            cpu: 50m
-            memory: 50Mi
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
@@ -1457,15 +1539,20 @@ spec:
               name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: POSTGRESQL_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       restartPolicy: Always
@@ -1476,32 +1563,18 @@ spec:
       serviceAccount: cos-server
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: vault-cacert
+      - name: vault-client
         secret:
-          items:
-          - key: tls.crt
-            path: vault_cacrt
-          secretName: vault-ca-certificate
-      - name: vault-client-key
-        secret:
-          items:
-          - key: tls.key
-            path: vault_client_key
-          secretName: auth-client-tls-certificate
-      - name: vault-client-cert
-        secret:
-          items:
-          - key: tls.crt
-            path: vault_client_cert
           secretName: auth-client-tls-certificate
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -1521,17 +1594,20 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: desktop-metrics-service
       name: desktop-metrics-service
     spec:
       containers:
       - env:
-        - name: JAVA_OPTS
-          value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
         - name: LOGGING_LEVEL
           value: INFO
         - name: ESJC_LOGGING_LEVEL
@@ -1599,11 +1675,11 @@ spec:
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
-          value: /mnt/vault/ca/vault_cacrt
+          value: /var/run/secrets/vault/client/ca.crt
         - name: VAULT_CLIENT_KEY
-          value: /mnt/vault/key/vault_client_key
+          value: /var/run/secrets/vault/client/tls.key
         - name: VAULT_CLIENT_CERT
-          value: /mnt/vault/cert/vault_client_cert
+          value: /var/run/secrets/vault/client/tls.crt
         - name: EVENT_STORE_NAMESPACE
           valueFrom:
             fieldRef:
@@ -1617,7 +1693,7 @@ spec:
             secretKeyRef:
               key: password
               name: swip-eventstore-reader-creds
-        image: gcr.io/snps-swip-staging/swip_desktop-metrics-service:1.0.390
+        image: gcr.io/snps-polaris-onprem-dev/swip_desktop-metrics-service:1.0.464
         imagePullPolicy: IfNotPresent
         name: desktop-metrics-service
         ports:
@@ -1640,14 +1716,8 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /mnt/vault/ca
-          name: vault-cacert
-          readOnly: true
-        - mountPath: /mnt/vault/key
-          name: vault-client-key
-          readOnly: true
-        - mountPath: /mnt/vault/cert
-          name: vault-client-cert
+        - mountPath: /var/run/secrets/vault/client
+          name: vault-client
           readOnly: true
       dnsPolicy: ClusterFirst
       imagePullSecrets:
@@ -1677,15 +1747,20 @@ spec:
               name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: POSTGRESQL_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       restartPolicy: Always
@@ -1693,32 +1768,18 @@ spec:
       serviceAccount: desktop-metrics-service
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: vault-cacert
+      - name: vault-client
         secret:
-          items:
-          - key: tls.crt
-            path: vault_cacrt
-          secretName: vault-ca-certificate
-      - name: vault-client-key
-        secret:
-          items:
-          - key: tls.key
-            path: vault_client_key
-          secretName: auth-client-tls-certificate
-      - name: vault-client-cert
-        secret:
-          items:
-          - key: tls.crt
-            path: vault_client_cert
           secretName: auth-client-tls-certificate
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
@@ -1738,17 +1799,20 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: issue-server
       name: issue-server
     spec:
       containers:
       - env:
-        - name: JAVA_OPTS
-          value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
         - name: TDS_LOOKUP
           value: 10b78709-8156-447e-ac28-8669e461f0c9:code-analysis:Coverity
         - name: LOGGING_LEVEL
@@ -1849,12 +1913,12 @@ spec:
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
-          value: /mnt/vault/ca/vault_cacrt
+          value: /var/run/secrets/vault/client/ca.crt
         - name: VAULT_CLIENT_KEY
-          value: /mnt/vault/key/vault_client_key
+          value: /var/run/secrets/vault/client/tls.key
         - name: VAULT_CLIENT_CERT
-          value: /mnt/vault/cert/vault_client_cert
-        image: gcr.io/snps-swip-staging/swip_issue-server:1.6.1962
+          value: /var/run/secrets/vault/client/tls.crt
+        image: gcr.io/snps-polaris-onprem-dev/swip_issue-server:1.6.2046
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -1878,45 +1942,16 @@ spec:
         resources:
           limits:
             cpu: 750m
-            memory: 1300Mi
+            memory: 3000Mi
           requests:
             cpu: 150m
             memory: 1024Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /mnt/vault/ca
-          name: vault-cacert
+        - mountPath: /var/run/secrets/vault/client
+          name: vault-client
           readOnly: true
-        - mountPath: /mnt/vault/key
-          name: vault-client-key
-          readOnly: true
-        - mountPath: /mnt/vault/cert
-          name: vault-client-cert
-          readOnly: true
-      - args:
-        - --election=issue-server
-        - --election-namespace=$(LEADER_ELECTOR_NAMESPACE)
-        - --http=0.0.0.0:4040
-        env:
-        - name: LEADER_ELECTOR_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        image: k8s.gcr.io/leader-elector:0.5
-        imagePullPolicy: Always
-        name: leader-election
-        ports:
-        - containerPort: 4040
-          name: http
-          protocol: TCP
-        resources:
-          limits:
-            cpu: 100m
-            memory: 256Mi
-          requests:
-            cpu: 50m
-            memory: 50Mi
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
@@ -1945,15 +1980,20 @@ spec:
               name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: POSTGRESQL_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       restartPolicy: Always
@@ -1964,32 +2004,157 @@ spec:
       serviceAccount: issue-server
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: vault-cacert
+      - name: vault-client
         secret:
-          items:
-          - key: tls.crt
-            path: vault_cacrt
-          secretName: vault-ca-certificate
-      - name: vault-client-key
-        secret:
-          items:
-          - key: tls.key
-            path: vault_client_key
-          secretName: auth-client-tls-certificate
-      - name: vault-client-cert
-        secret:
-          items:
-          - key: tls.crt
-            path: vault_client_cert
           secretName: auth-client-tls-certificate
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
+    environment: ${ENVIRONMENT_NAME}
+    service: jobfarmautoscaler
+  name: jobfarmautoscaler
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      environment: ${ENVIRONMENT_NAME}
+      service: jobfarmautoscaler
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        chart: swip
+        chartVersion: 0.0.6268
+        component: swip
+        componentVersion: 0.0.6268
+        environment: ${ENVIRONMENT_NAME}
+        service: jobfarmautoscaler
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - env:
+        - name: LOGGING_LEVEL
+          value: INFO
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: PGHOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_HOST
+              name: postgresql-config
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: PGPORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRESQL_PORT
+              name: postgresql-config
+        - name: CLOUDSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_PASSWORD
+              name: postgresql-config
+        - name: CLOUDSQL_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: PGUSER
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRESQL_USER
+              name: postgresql-config
+        - name: POSTGRES_DB
+          value: jobs-service
+        - name: DEFAULT_SCAN_LIMIT
+          value: "10"
+        - name: WIN64_WORKER_LIMIT
+          value: "65535"
+        - name: LINUX64_WORKER_LIMIT
+          value: "65535"
+        - name: SWIP_ENVIRONMENT_NAME
+          value: ${ENVIRONMENT_NAME}
+        - name: ANALYSIS_TYPE
+          value: k8s
+        - name: OPERATION_MODE
+          value: MT
+        - name: DEPLOYMENT_TYPE
+          value: on-prem
+        - name: TOOL_LICENSE_FILE
+          value: /opt/gatekeeper/license/cov_analysis/license.dat
+        - name: TOOLS_CONFIG
+          value: /opt/jobs-server/tools-config/processor_image_manifest.json
+        image: gcr.io/snps-polaris-onprem-dev/swip_jobfarm-gatekeeper:1.0.177
+        imagePullPolicy: IfNotPresent
+        name: jobfarm-gatekeeper
+        resources:
+          limits:
+            cpu: 750m
+            memory: 768Mi
+          requests:
+            cpu: 500m
+            memory: 512Mi
+        volumeMounts:
+        - mountPath: /opt/gatekeeper/license
+          name: coverity-license
+          readOnly: true
+        - mountPath: /opt/jobs-server/tools-config
+          name: tools-config
+          readOnly: true
+      imagePullSecrets:
+      - name: ${IMAGE_PULL_SECRETS}
+      initContainers:
+      - env:
+        - name: ANALYSIS_TYPE
+          value: k8s
+        image: gcr.io/snps-polaris-onprem-dev/swip_loadjobs:1.0.2701
+        imagePullPolicy: IfNotPresent
+        name: load-tools-config
+        volumeMounts:
+        - mountPath: /opt/jobs-server/tools-config
+          name: tools-config
+          readOnly: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 5000
+      serviceAccount: jobfarmautoscaler
+      volumes:
+      - name: coverity-license
+        secret:
+          items:
+          - key: license
+            path: cov_analysis/license.dat
+          secretName: coverity-license
+      - emptyDir: {}
+        name: tools-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    chart: swip
+    chartVersion: 0.0.6268
+    component: swip
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: jobs-controller-service
   name: jobs-controller-service
@@ -2009,17 +2174,20 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: jobs-controller-service
       name: jobs-controller-service
     spec:
       containers:
       - env:
-        - name: JAVA_OPTS
-          value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
         - name: LOGGING_LEVEL
           value: INFO
         - name: ESJC_LOGGING_LEVEL
@@ -2061,11 +2229,11 @@ spec:
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
-          value: /mnt/vault/ca/vault_cacrt
+          value: /var/run/secrets/vault/client/ca.crt
         - name: VAULT_CLIENT_KEY
-          value: /mnt/vault/key/vault_client_key
+          value: /var/run/secrets/vault/client/tls.key
         - name: VAULT_CLIENT_CERT
-          value: /mnt/vault/cert/vault_client_cert
+          value: /var/run/secrets/vault/client/tls.crt
         - name: POSTGRES_HOST
           valueFrom:
             configMapKeyRef:
@@ -2110,12 +2278,20 @@ spec:
           value: controller-config-k8s.yaml
         - name: POSTGRES_DB
           value: jobs-service
-        image: gcr.io/snps-swip-staging/swip_jobs-service:1.7.915
+        - name: DEPLOYMENT_TYPE
+          value: on-prem
+        - name: CONNECTION_POOL_LIFETIME_MS
+          value: "30000"
+        - name: CONNECTION_POOL_MIN_SIZE
+          value: "5"
+        - name: CONNECTION_POOL_MAX_SIZE
+          value: "15"
+        image: gcr.io/snps-polaris-onprem-dev/swip_jobs-service:1.7.1012
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
           httpGet:
-            path: /version
+            path: /liveness
             port: 8080
           initialDelaySeconds: 300
           periodSeconds: 30
@@ -2127,7 +2303,7 @@ spec:
         readinessProbe:
           failureThreshold: 4
           httpGet:
-            path: /healthcheck
+            path: /readiness
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 30
@@ -2141,14 +2317,8 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /mnt/vault/ca
-          name: vault-cacert
-          readOnly: true
-        - mountPath: /mnt/vault/key
-          name: vault-client-key
-          readOnly: true
-        - mountPath: /mnt/vault/cert
-          name: vault-client-cert
+        - mountPath: /var/run/secrets/vault/client
+          name: vault-client
           readOnly: true
       dnsPolicy: ClusterFirst
       imagePullSecrets:
@@ -2178,15 +2348,20 @@ spec:
               name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: POSTGRESQL_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       restartPolicy: Always
@@ -2197,32 +2372,18 @@ spec:
       serviceAccount: jobs-controller-service
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: vault-cacert
+      - name: vault-client
         secret:
-          items:
-          - key: tls.crt
-            path: vault_cacrt
-          secretName: vault-ca-certificate
-      - name: vault-client-key
-        secret:
-          items:
-          - key: tls.key
-            path: vault_client_key
-          secretName: auth-client-tls-certificate
-      - name: vault-client-cert
-        secret:
-          items:
-          - key: tls.crt
-            path: vault_client_cert
           secretName: auth-client-tls-certificate
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -2242,17 +2403,20 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: jobs-service
       name: jobs-service
     spec:
       containers:
       - env:
-        - name: JAVA_OPTS
-          value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
         - name: SWIP_UPLOAD_DESCRIPTOR_EXPIRATION_PERIOD
           value: 3h
         - name: CLI_FILE_UPLOAD_SIZE_LIMIT
@@ -2298,11 +2462,11 @@ spec:
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
-          value: /mnt/vault/ca/vault_cacrt
+          value: /var/run/secrets/vault/client/ca.crt
         - name: VAULT_CLIENT_KEY
-          value: /mnt/vault/key/vault_client_key
+          value: /var/run/secrets/vault/client/tls.key
         - name: VAULT_CLIENT_CERT
-          value: /mnt/vault/cert/vault_client_cert
+          value: /var/run/secrets/vault/client/tls.crt
         - name: NOMAD_ADDR
           value: https://nomad:4646
         - name: NOMAD_CACERT
@@ -2357,18 +2521,28 @@ spec:
           value: polaris-infra-nginx-internal-ingress-controller
         - name: ANALYSIS_TYPE
           value: k8s
+        - name: OPERATION_MODE
+          value: MT
+        - name: DEPLOYMENT_TYPE
+          value: on-prem
+        - name: CONNECTION_POOL_LIFETIME_MS
+          value: "30000"
+        - name: CONNECTION_POOL_MIN_SIZE
+          value: "5"
+        - name: CONNECTION_POOL_MAX_SIZE
+          value: "15"
         - name: CONFIG
           value: config-k8s.yaml
         - name: TOOLS_CONFIG
           value: /opt/jobs-server/tools-config/processor_image_manifest.json
         - name: POSTGRES_DB
           value: jobs-service
-        image: gcr.io/snps-swip-staging/swip_jobs-service:1.7.915
+        image: gcr.io/snps-polaris-onprem-dev/swip_jobs-service:1.7.1012
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
           httpGet:
-            path: /version
+            path: /liveness
             port: 8080
           initialDelaySeconds: 300
           periodSeconds: 30
@@ -2380,7 +2554,7 @@ spec:
         readinessProbe:
           failureThreshold: 4
           httpGet:
-            path: /healthcheck
+            path: /readiness
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 30
@@ -2394,14 +2568,8 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /mnt/vault/ca
-          name: vault-cacert
-          readOnly: true
-        - mountPath: /mnt/vault/key
-          name: vault-client-key
-          readOnly: true
-        - mountPath: /mnt/vault/cert
-          name: vault-client-cert
+        - mountPath: /var/run/secrets/vault/client
+          name: vault-client
           readOnly: true
         - mountPath: /opt/jobs-server/license
           name: coverity-license
@@ -2437,21 +2605,26 @@ spec:
               name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: POSTGRESQL_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       - env:
         - name: ANALYSIS_TYPE
           value: k8s
-        image: gcr.io/snps-swip-staging/swip_loadjobs:1.0.2621
+        image: gcr.io/snps-polaris-onprem-dev/swip_loadjobs:1.0.2701
         imagePullPolicy: IfNotPresent
         name: load-tools-config
         volumeMounts:
@@ -2466,23 +2639,8 @@ spec:
       serviceAccount: jobs-service
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: vault-cacert
+      - name: vault-client
         secret:
-          items:
-          - key: tls.crt
-            path: vault_cacrt
-          secretName: vault-ca-certificate
-      - name: vault-client-key
-        secret:
-          items:
-          - key: tls.key
-            path: vault_client_key
-          secretName: auth-client-tls-certificate
-      - name: vault-client-cert
-        secret:
-          items:
-          - key: tls.crt
-            path: vault_client_cert
           secretName: auth-client-tls-certificate
       - name: coverity-license
         secret:
@@ -2493,13 +2651,14 @@ spec:
       - emptyDir: {}
         name: tools-config
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -2519,17 +2678,20 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: logs-service
       name: logs-service
     spec:
       containers:
       - env:
-        - name: JAVA_OPTS
-          value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
         - name: LOGGING_LEVEL
           value: INFO
         - name: ESJC_LOGGING_LEVEL
@@ -2557,12 +2719,12 @@ spec:
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
-          value: /mnt/vault/ca/vault_cacrt
+          value: /var/run/secrets/vault/client/ca.crt
         - name: VAULT_CLIENT_KEY
-          value: /mnt/vault/key/vault_client_key
+          value: /var/run/secrets/vault/client/tls.key
         - name: VAULT_CLIENT_CERT
-          value: /mnt/vault/cert/vault_client_cert
-        image: gcr.io/snps-swip-staging/swip_logs-service:1.5.2347
+          value: /var/run/secrets/vault/client/tls.crt
+        image: gcr.io/snps-polaris-onprem-dev/swip_logs-service:1.5.2350
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -2593,14 +2755,8 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /mnt/vault/ca
-          name: vault-cacert
-          readOnly: true
-        - mountPath: /mnt/vault/key
-          name: vault-client-key
-          readOnly: true
-        - mountPath: /mnt/vault/cert
-          name: vault-client-cert
+        - mountPath: /var/run/secrets/vault/client
+          name: vault-client
           readOnly: true
       dnsPolicy: ClusterFirst
       imagePullSecrets:
@@ -2630,15 +2786,20 @@ spec:
               name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: POSTGRESQL_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       restartPolicy: Always
@@ -2649,32 +2810,18 @@ spec:
       serviceAccount: logs-service
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: vault-cacert
+      - name: vault-client
         secret:
-          items:
-          - key: tls.crt
-            path: vault_cacrt
-          secretName: vault-ca-certificate
-      - name: vault-client-key
-        secret:
-          items:
-          - key: tls.key
-            path: vault_client_key
-          secretName: auth-client-tls-certificate
-      - name: vault-client-cert
-        secret:
-          items:
-          - key: tls.crt
-            path: vault_client_cert
           secretName: auth-client-tls-certificate
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: notifications-service
   name: notifications-service
@@ -2694,17 +2841,26 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: notifications-service
       name: notifications-service
     spec:
       containers:
       - env:
-        - name: JAVA_OPTS
-          value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+        - name: SMTP_TLS_MODE
+          value: ${SMTP_TLS_MODE}
+        - name: SMTP_TLS_CHECK_SERVER_IDENTITY
+          value: ${SMTP_TLS_CHECK_SERVER_IDENTITY}
+        - name: SMTP_TLS_TRUSTED_HOSTS
+          value: ${SMTP_TLS_TRUSTED_HOSTS}
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
         - name: LOGGING_LEVEL
           value: INFO
         - name: ESJC_LOGGING_LEVEL
@@ -2795,21 +2951,21 @@ spec:
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
-          value: /mnt/vault/ca/vault_cacrt
+          value: /var/run/secrets/vault/client/ca.crt
         - name: VAULT_CLIENT_KEY
-          value: /mnt/vault/key/vault_client_key
+          value: /var/run/secrets/vault/client/tls.key
         - name: VAULT_CLIENT_CERT
-          value: /mnt/vault/cert/vault_client_cert
+          value: /var/run/secrets/vault/client/tls.crt
         - name: SMTP_HOST
           valueFrom:
             configMapKeyRef:
               key: host
-              name: smtp
+              name: polaris-smtp
         - name: SMTP_PORT
           valueFrom:
             configMapKeyRef:
               key: port
-              name: smtp
+              name: polaris-smtp
         - name: SMTP_PASSWORD
           valueFrom:
             secretKeyRef:
@@ -2822,7 +2978,7 @@ spec:
               name: polaris-smtp
         - name: SMTP_SENDER_EMAIL
           value: ${SMTP_SENDER_EMAIL}
-        image: gcr.io/snps-swip-staging/swip_notifications-service:1.5.30
+        image: gcr.io/snps-polaris-onprem-dev/swip_notifications-service:1.5.74
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -2853,14 +3009,11 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /mnt/vault/ca
-          name: vault-cacert
+        - mountPath: /var/run/secrets/vault/client
+          name: vault-client
           readOnly: true
-        - mountPath: /mnt/vault/key
-          name: vault-client-key
-          readOnly: true
-        - mountPath: /mnt/vault/cert
-          name: vault-client-cert
+        - mountPath: /var/run/secrets/webhookclient
+          name: webhookclient
           readOnly: true
       dnsPolicy: ClusterFirst
       imagePullSecrets:
@@ -2890,15 +3043,20 @@ spec:
               name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: POSTGRESQL_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       restartPolicy: Always
@@ -2909,32 +3067,29 @@ spec:
       serviceAccount: notifications-service
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: vault-cacert
+      - name: webhookclient
         secret:
+          defaultMode: 420
           items:
           - key: tls.crt
-            path: vault_cacrt
-          secretName: vault-ca-certificate
-      - name: vault-client-key
-        secret:
-          items:
+            path: tls.crt
           - key: tls.key
-            path: vault_client_key
-          secretName: auth-client-tls-certificate
-      - name: vault-client-cert
+            path: tls.key
+          - key: ca.crt
+            path: public/ca.crt
+          secretName: polaris-webhook-client-certs
+      - name: vault-client
         secret:
-          items:
-          - key: tls.crt
-            path: vault_client_cert
           secretName: auth-client-tls-certificate
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: pericles-swagger-ui
   name: pericles-swagger-ui
@@ -2954,14 +3109,20 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: pericles-swagger-ui
     spec:
       containers:
-      - image: gcr.io/snps-swip-staging/pericles-swagger-ui:0.0.19
+      - env:
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-polaris-onprem-dev/pericles-swagger-ui:0.0.19
         imagePullPolicy: IfNotPresent
         name: pericles-swagger-ui
         ports:
@@ -3004,15 +3165,20 @@ spec:
               name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: POSTGRESQL_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       restartPolicy: Always
@@ -3023,13 +3189,14 @@ spec:
       serviceAccount: pericles-swagger-ui
       terminationGracePeriodSeconds: 30
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -3049,17 +3216,20 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: taxonomy-server
       name: taxonomy-server
     spec:
       containers:
       - env:
-        - name: JAVA_OPTS
-          value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
         - name: LOGGING_LEVEL
           value: INFO
         - name: ESJC_LOGGING_LEVEL
@@ -3114,14 +3284,14 @@ spec:
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
-          value: /mnt/vault/ca/vault_cacrt
+          value: /var/run/secrets/vault/client/ca.crt
         - name: VAULT_CLIENT_KEY
-          value: /mnt/vault/key/vault_client_key
+          value: /var/run/secrets/vault/client/tls.key
         - name: VAULT_CLIENT_CERT
-          value: /mnt/vault/cert/vault_client_cert
+          value: /var/run/secrets/vault/client/tls.crt
         - name: APPLICATION_INSIGHTS_IKEY
           value: placeholder
-        image: gcr.io/snps-swip-staging/swip_taxonomy-server:1.6.1962
+        image: gcr.io/snps-polaris-onprem-dev/swip_taxonomy-server:1.6.2046
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -3152,14 +3322,8 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /mnt/vault/ca
-          name: vault-cacert
-          readOnly: true
-        - mountPath: /mnt/vault/key
-          name: vault-client-key
-          readOnly: true
-        - mountPath: /mnt/vault/cert
-          name: vault-client-cert
+        - mountPath: /var/run/secrets/vault/client
+          name: vault-client
           readOnly: true
       dnsPolicy: ClusterFirst
       imagePullSecrets:
@@ -3189,15 +3353,20 @@ spec:
               name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: POSTGRESQL_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       restartPolicy: Always
@@ -3208,32 +3377,18 @@ spec:
       serviceAccount: taxonomy-server
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: vault-cacert
+      - name: vault-client
         secret:
-          items:
-          - key: tls.crt
-            path: vault_cacrt
-          secretName: vault-ca-certificate
-      - name: vault-client-key
-        secret:
-          items:
-          - key: tls.key
-            path: vault_client_key
-          secretName: auth-client-tls-certificate
-      - name: vault-client-cert
-        secret:
-          items:
-          - key: tls.crt
-            path: vault_client_cert
           secretName: auth-client-tls-certificate
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -3253,17 +3408,20 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: tds-code-analysis
       name: tds-code-analysis
     spec:
       containers:
       - env:
-        - name: JAVA_OPTS
-          value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
         - name: LOGGING_LEVEL
           value: INFO
         - name: ESJC_LOGGING_LEVEL
@@ -3358,12 +3516,12 @@ spec:
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
-          value: /mnt/vault/ca/vault_cacrt
+          value: /var/run/secrets/vault/client/ca.crt
         - name: VAULT_CLIENT_KEY
-          value: /mnt/vault/key/vault_client_key
+          value: /var/run/secrets/vault/client/tls.key
         - name: VAULT_CLIENT_CERT
-          value: /mnt/vault/cert/vault_client_cert
-        image: gcr.io/snps-swip-staging/swip_tds-code-analysis:1.8.164
+          value: /var/run/secrets/vault/client/tls.crt
+        image: gcr.io/snps-polaris-onprem-dev/swip_tds-code-analysis:1.8.240
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -3394,38 +3552,9 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /mnt/vault/ca
-          name: vault-cacert
+        - mountPath: /var/run/secrets/vault/client
+          name: vault-client
           readOnly: true
-        - mountPath: /mnt/vault/key
-          name: vault-client-key
-          readOnly: true
-        - mountPath: /mnt/vault/cert
-          name: vault-client-cert
-          readOnly: true
-      - args:
-        - --election=tds-code-analysis
-        - --election-namespace=$(LEADER_ELECTOR_NAMESPACE)
-        - --http=0.0.0.0:4040
-        env:
-        - name: LEADER_ELECTOR_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        image: k8s.gcr.io/leader-elector:0.5
-        imagePullPolicy: Always
-        name: leader-election
-        ports:
-        - containerPort: 4040
-          name: http
-          protocol: TCP
-        resources:
-          limits:
-            cpu: 100m
-            memory: 256Mi
-          requests:
-            cpu: 50m
-            memory: 50Mi
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
@@ -3454,15 +3583,20 @@ spec:
               name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: POSTGRESQL_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       restartPolicy: Always
@@ -3473,32 +3607,18 @@ spec:
       serviceAccount: tds-code-analysis
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: vault-cacert
+      - name: vault-client
         secret:
-          items:
-          - key: tls.crt
-            path: vault_cacrt
-          secretName: vault-ca-certificate
-      - name: vault-client-key
-        secret:
-          items:
-          - key: tls.key
-            path: vault_client_key
-          secretName: tds-code-analysis-tls-certificate
-      - name: vault-client-cert
-        secret:
-          items:
-          - key: tls.crt
-            path: vault_client_cert
           secretName: tds-code-analysis-tls-certificate
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -3518,17 +3638,20 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: tools-service
       name: tools-service
     spec:
       containers:
       - env:
-        - name: JAVA_OPTS
-          value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
         - name: LOGGING_LEVEL
           value: INFO
         - name: ESJC_LOGGING_LEVEL
@@ -3570,12 +3693,12 @@ spec:
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
-          value: /mnt/vault/ca/vault_cacrt
+          value: /var/run/secrets/vault/client/ca.crt
         - name: VAULT_CLIENT_KEY
-          value: /mnt/vault/key/vault_client_key
+          value: /var/run/secrets/vault/client/tls.key
         - name: VAULT_CLIENT_CERT
-          value: /mnt/vault/cert/vault_client_cert
-        image: gcr.io/snps-swip-staging/swip_tools-service:1.5.2436
+          value: /var/run/secrets/vault/client/tls.crt
+        image: gcr.io/snps-polaris-onprem-dev/swip_tools-service:1.5.2448
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -3606,14 +3729,8 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /mnt/vault/ca
-          name: vault-cacert
-          readOnly: true
-        - mountPath: /mnt/vault/key
-          name: vault-client-key
-          readOnly: true
-        - mountPath: /mnt/vault/cert
-          name: vault-client-cert
+        - mountPath: /var/run/secrets/vault/client
+          name: vault-client
           readOnly: true
       dnsPolicy: ClusterFirst
       imagePullSecrets:
@@ -3643,15 +3760,20 @@ spec:
               name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: POSTGRESQL_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       restartPolicy: Always
@@ -3662,32 +3784,18 @@ spec:
       serviceAccount: tools-service
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: vault-cacert
+      - name: vault-client
         secret:
-          items:
-          - key: tls.crt
-            path: vault_cacrt
-          secretName: vault-ca-certificate
-      - name: vault-client-key
-        secret:
-          items:
-          - key: tls.key
-            path: vault_client_key
-          secretName: auth-client-tls-certificate
-      - name: vault-client-cert
-        secret:
-          items:
-          - key: tls.crt
-            path: vault_client_cert
           secretName: auth-client-tls-certificate
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -3707,17 +3815,20 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: triage-command-handler
       name: triage-command-handler
     spec:
       containers:
       - env:
-        - name: JAVA_OPTS
-          value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
         - name: LOGGING_LEVEL
           value: INFO
         - name: ESJC_LOGGING_LEVEL
@@ -3776,11 +3887,11 @@ spec:
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
-          value: /mnt/vault/ca/vault_cacrt
+          value: /var/run/secrets/vault/client/ca.crt
         - name: VAULT_CLIENT_KEY
-          value: /mnt/vault/key/vault_client_key
+          value: /var/run/secrets/vault/client/tls.key
         - name: VAULT_CLIENT_CERT
-          value: /mnt/vault/cert/vault_client_cert
+          value: /var/run/secrets/vault/client/tls.crt
         - name: POSTGRES_HOST
           valueFrom:
             configMapKeyRef:
@@ -3821,7 +3932,7 @@ spec:
             secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/swip_triage-command-handler:1.6.1962
+        image: gcr.io/snps-polaris-onprem-dev/swip_triage-command-handler:1.6.2046
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -3852,38 +3963,9 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /mnt/vault/ca
-          name: vault-cacert
+        - mountPath: /var/run/secrets/vault/client
+          name: vault-client
           readOnly: true
-        - mountPath: /mnt/vault/key
-          name: vault-client-key
-          readOnly: true
-        - mountPath: /mnt/vault/cert
-          name: vault-client-cert
-          readOnly: true
-      - args:
-        - --election=triage-command-handler
-        - --election-namespace=$(LEADER_ELECTOR_NAMESPACE)
-        - --http=0.0.0.0:4040
-        env:
-        - name: LEADER_ELECTOR_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        image: k8s.gcr.io/leader-elector:0.5
-        imagePullPolicy: Always
-        name: leader-election
-        ports:
-        - containerPort: 4040
-          name: http
-          protocol: TCP
-        resources:
-          limits:
-            cpu: 100m
-            memory: 256Mi
-          requests:
-            cpu: 50m
-            memory: 50Mi
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
@@ -3912,15 +3994,20 @@ spec:
               name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: POSTGRESQL_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       restartPolicy: Always
@@ -3931,32 +4018,18 @@ spec:
       serviceAccount: triage-command-handler
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: vault-cacert
+      - name: vault-client
         secret:
-          items:
-          - key: tls.crt
-            path: vault_cacrt
-          secretName: vault-ca-certificate
-      - name: vault-client-key
-        secret:
-          items:
-          - key: tls.key
-            path: vault_client_key
-          secretName: auth-client-tls-certificate
-      - name: vault-client-cert
-        secret:
-          items:
-          - key: tls.crt
-            path: vault_client_cert
           secretName: auth-client-tls-certificate
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -3976,17 +4049,20 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: triage-query
       name: triage-query
     spec:
       containers:
       - env:
-        - name: JAVA_OPTS
-          value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
         - name: LOGGING_LEVEL
           value: INFO
         - name: ESJC_LOGGING_LEVEL
@@ -4045,11 +4121,11 @@ spec:
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
-          value: /mnt/vault/ca/vault_cacrt
+          value: /var/run/secrets/vault/client/ca.crt
         - name: VAULT_CLIENT_KEY
-          value: /mnt/vault/key/vault_client_key
+          value: /var/run/secrets/vault/client/tls.key
         - name: VAULT_CLIENT_CERT
-          value: /mnt/vault/cert/vault_client_cert
+          value: /var/run/secrets/vault/client/tls.crt
         - name: POSTGRES_HOST
           valueFrom:
             configMapKeyRef:
@@ -4090,7 +4166,7 @@ spec:
             secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/swip_triage-query:1.6.1962
+        image: gcr.io/snps-polaris-onprem-dev/swip_triage-query:1.6.2046
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -4121,38 +4197,9 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /mnt/vault/ca
-          name: vault-cacert
+        - mountPath: /var/run/secrets/vault/client
+          name: vault-client
           readOnly: true
-        - mountPath: /mnt/vault/key
-          name: vault-client-key
-          readOnly: true
-        - mountPath: /mnt/vault/cert
-          name: vault-client-cert
-          readOnly: true
-      - args:
-        - --election=triage-query
-        - --election-namespace=$(LEADER_ELECTOR_NAMESPACE)
-        - --http=0.0.0.0:4040
-        env:
-        - name: LEADER_ELECTOR_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        image: k8s.gcr.io/leader-elector:0.5
-        imagePullPolicy: Always
-        name: leader-election
-        ports:
-        - containerPort: 4040
-          name: http
-          protocol: TCP
-        resources:
-          limits:
-            cpu: 100m
-            memory: 256Mi
-          requests:
-            cpu: 50m
-            memory: 50Mi
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
@@ -4181,15 +4228,20 @@ spec:
               name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: POSTGRESQL_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       restartPolicy: Always
@@ -4200,32 +4252,18 @@ spec:
       serviceAccount: triage-query
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: vault-cacert
+      - name: vault-client
         secret:
-          items:
-          - key: tls.crt
-            path: vault_cacrt
-          secretName: vault-ca-certificate
-      - name: vault-client-key
-        secret:
-          items:
-          - key: tls.key
-            path: vault_client_key
-          secretName: auth-client-tls-certificate
-      - name: vault-client-cert
-        secret:
-          items:
-          - key: tls.crt
-            path: vault_client_cert
           secretName: auth-client-tls-certificate
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -4245,17 +4283,20 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: vinyl-server
       name: vinyl-server
     spec:
       containers:
       - env:
-        - name: JAVA_OPTS
-          value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
         - name: LOGGING_LEVEL
           value: INFO
         - name: ESJC_LOGGING_LEVEL
@@ -4287,12 +4328,12 @@ spec:
         - name: SWIP_VAULT_ADDRESS
           value: https://polaris-db-vault:8200
         - name: VAULT_CACERT
-          value: /mnt/vault/ca/vault_cacrt
+          value: /var/run/secrets/vault/client/ca.crt
         - name: VAULT_CLIENT_KEY
-          value: /mnt/vault/key/vault_client_key
+          value: /var/run/secrets/vault/client/tls.key
         - name: VAULT_CLIENT_CERT
-          value: /mnt/vault/cert/vault_client_cert
-        image: gcr.io/snps-swip-staging/swip_vinyl-server:1.6.1962
+          value: /var/run/secrets/vault/client/tls.crt
+        image: gcr.io/snps-polaris-onprem-dev/swip_vinyl-server:1.6.2046
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
@@ -4323,14 +4364,8 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /mnt/vault/ca
-          name: vault-cacert
-          readOnly: true
-        - mountPath: /mnt/vault/key
-          name: vault-client-key
-          readOnly: true
-        - mountPath: /mnt/vault/cert
-          name: vault-client-cert
+        - mountPath: /var/run/secrets/vault/client
+          name: vault-client
           readOnly: true
       dnsPolicy: ClusterFirst
       imagePullSecrets:
@@ -4360,15 +4395,20 @@ spec:
               name: postgresql-config
         - name: POSTGRESQL_USER
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_USER
               name: postgresql-config
         - name: POSTGRESQL_PASSWORD
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        - name: POSTGRES_SSL_MODE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_SSL_MODE
+              name: postgresql-config
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       restartPolicy: Always
@@ -4379,32 +4419,18 @@ spec:
       serviceAccount: vinyl-server
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: vault-cacert
+      - name: vault-client
         secret:
-          items:
-          - key: tls.crt
-            path: vault_cacrt
-          secretName: vault-ca-certificate
-      - name: vault-client-key
-        secret:
-          items:
-          - key: tls.key
-            path: vault_client_key
-          secretName: auth-client-tls-certificate
-      - name: vault-client-cert
-        secret:
-          items:
-          - key: tls.crt
-            path: vault_client_cert
           secretName: auth-client-tls-certificate
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -4424,9 +4450,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: web-core
       name: web-core
@@ -4436,7 +4462,7 @@ spec:
         - nginx
         - -g
         - daemon off;
-        image: gcr.io/snps-swip-staging/web-core:1.7.937
+        image: gcr.io/snps-polaris-onprem-dev/web-core:1.7.975
         imagePullPolicy: IfNotPresent
         name: web-core
         ports:
@@ -4508,7 +4534,7 @@ spec:
           value: /api/logs/logging/web-core
         - name: REPORTING_URL
           value: ${REPORTING_URL}
-        image: gcr.io/snps-swip-staging/web-core:1.7.937
+        image: gcr.io/snps-polaris-onprem-dev/web-core:1.7.975
         imagePullPolicy: IfNotPresent
         name: configure-web-core
         resources:
@@ -4534,13 +4560,14 @@ spec:
       - emptyDir: {}
         name: static
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: web-help
   name: web-help
@@ -4560,9 +4587,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: web-help
       name: web-help
@@ -4572,7 +4599,7 @@ spec:
         - nginx
         - -g
         - daemon off;
-        image: gcr.io/snps-swip-staging/web-help:1.9.156
+        image: gcr.io/snps-polaris-onprem-dev/web-help:1.9.172
         imagePullPolicy: IfNotPresent
         name: web-help
         ports:
@@ -4636,7 +4663,7 @@ spec:
           value: access_token_exp_sec
         - name: LOG_ORIGIN
           value: /api/logs/logging/web-help
-        image: gcr.io/snps-swip-staging/web-help:1.9.156
+        image: gcr.io/snps-polaris-onprem-dev/web-help:1.9.172
         imagePullPolicy: IfNotPresent
         name: configure-web-help
         ports:
@@ -4666,6 +4693,85 @@ spec:
       - emptyDir: {}
         name: static
 ---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
+  name: cleanup-k8s-jobs
+  namespace: ${NAMESPACE}
+spec:
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    metadata:
+      labels:
+        environment: ${ENVIRONMENT_NAME}
+    spec:
+      template:
+        metadata:
+          labels:
+            environment: ${ENVIRONMENT_NAME}
+        spec:
+          automountServiceAccountToken: true
+          containers:
+          - env:
+            - name: SWIP_ENVIRONMENT_NAME
+              value: ${ENVIRONMENT_NAME}
+            image: gcr.io/snps-polaris-onprem-dev/swip_jobfarm-cleanup-k8s-jobs:latest
+            imagePullPolicy: IfNotPresent
+            name: cleanup-k8s-jobs
+          imagePullSecrets:
+          - name: ${IMAGE_PULL_SECRETS}
+          restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 5000
+          serviceAccount: jobfarmautoscaler
+  schedule: '*/5 * * * *'
+  successfulJobsHistoryLimit: 1
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  labels:
+    environment: ${ENVIRONMENT_NAME}
+  name: certificate-generator
+  namespace: ${NAMESPACE}
+spec:
+  template:
+    metadata:
+      labels:
+        environment: ${ENVIRONMENT_NAME}
+      name: certificate-generator
+    spec:
+      containers:
+      - args:
+        - /tmp/cert-generator/request.json
+        command:
+        - ./gen
+        env:
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        image: gcr.io/snps-polaris-onprem-dev/onprem-cert-generator:latest
+        imagePullPolicy: IfNotPresent
+        name: certificate-generator
+        volumeMounts:
+        - mountPath: /tmp/cert-generator
+          name: certificate-volume
+      imagePullSecrets:
+      - name: ${IMAGE_PULL_SECRETS}
+      restartPolicy: OnFailure
+      serviceAccount: vault-init
+      volumes:
+      - configMap:
+          items:
+          - key: request.json
+            path: request.json
+          name: certificate-config
+        name: certificate-volume
+---
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -4674,12 +4780,13 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: tools-deprecate-job
-  name: tools-deprecate-job
+  name: tools-deprecate-job-${VERSION}
   namespace: ${NAMESPACE}
 spec:
   backoffLimit: 0
@@ -4687,9 +4794,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: tools-deprecate-job
     spec:
@@ -4711,7 +4818,7 @@ spec:
           value: deprecate
         - name: DEPLOYMENT_PLATFORM
           value: on-prem
-        image: gcr.io/snps-swip-staging/swip_tools_sync:1.0.559
+        image: gcr.io/snps-polaris-onprem-dev/swip_tools_sync:1.0.585
         imagePullPolicy: IfNotPresent
         name: tools-deprecate-job
         volumeMounts:
@@ -4727,7 +4834,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       restartPolicy: Never
@@ -4744,12 +4851,13 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: tools-sync-job
-  name: tools-sync-job
+  name: tools-sync-job-${VERSION}
   namespace: ${NAMESPACE}
 spec:
   backoffLimit: 0
@@ -4757,9 +4865,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.5613
+        chartVersion: 0.0.6268
         component: swip
-        componentVersion: 0.0.5613
+        componentVersion: 0.0.6268
         environment: ${ENVIRONMENT_NAME}
         service: tools-sync-job
     spec:
@@ -4781,7 +4889,9 @@ spec:
           value: sync
         - name: DEPLOYMENT_PLATFORM
           value: on-prem
-        image: gcr.io/snps-swip-staging/swip_tools_sync:1.0.559
+        - name: GCLOUD_BUCKET
+          value: tools-store-master-onprem
+        image: gcr.io/snps-polaris-onprem-dev/swip_tools_sync_onprem:1.0.585
         imagePullPolicy: IfNotPresent
         name: tools-sync-job
         volumeMounts:
@@ -4797,7 +4907,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: gcr.io/snps-swip-staging/polaris-init:1.0.0
+        image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
         imagePullPolicy: Always
         name: polaris-init
       restartPolicy: Never
@@ -4807,7 +4917,7 @@ spec:
         secret:
           secretName: tools-store-sync
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   annotations:
@@ -4819,9 +4929,10 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
   labels:
-    chartVersion: 0.0.5613
+    chart: swip
+    chartVersion: 0.0.6268
     component: swip
-    componentVersion: 0.0.5613
+    componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
     service: swip-ingress
   name: swip-ingress
