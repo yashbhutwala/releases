@@ -1274,7 +1274,7 @@ spec:
         - mountPath: /mnt/vault/cert
           name: vault-client-cert
           readOnly: true
-      - image: gcr.io/snps-polaris-onprem-dev/reporting-clamav
+      - image: gcr.io/snps-polaris-onprem-dev/reporting-clamav:latest
         name: clamav
         ports:
         - containerPort: 3310

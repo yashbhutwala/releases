@@ -1,12 +1,12 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  chart: swip
-  chartVersion: 0.0.6268
-  component: swip
-  componentVersion: 0.0.6268
-  environment: ${ENVIRONMENT_NAME}
-  labels: null
+  labels:
+    chart: swip
+    chartVersion: 0.0.6268
+    component: swip
+    componentVersion: 0.0.6268
+    environment: ${ENVIRONMENT_NAME}
   name: organization-provision-job
   service: organization-provision-job
 spec:

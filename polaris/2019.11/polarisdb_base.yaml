@@ -523,7 +523,7 @@ spec:
           value: info
         - name: VAULT_CACERT
           value: /vault/tls/ca.crt
-        image: vault:0.11.2
+        image: docker.io/vault:0.11.2
         imagePullPolicy: IfNotPresent
         livenessProbe:
           tcpSocket:
@@ -712,7 +712,7 @@ spec:
               fieldPath: metadata.namespace
         - name: DNSPORT
           value: "8600"
-        image: consul:1.0.0
+        image: docker.io/consul:1.0.0
         imagePullPolicy: Always
         livenessProbe:
           exec:
@@ -1367,7 +1367,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: busybox
+        image: docker.io/busybox:1
         name: bootstrap-upload-server
         volumeMounts:
         - mountPath: /opt/data
@@ -1513,7 +1513,7 @@ spec:
         env:
         - name: ENVIRONMENT_NAME
           value: ${ENVIRONMENT_NAME}
-        image: busybox:latest
+        image: docker.io/busybox:1
         name: bootstrap-download-server
         volumeMounts:
         - mountPath: /opt/data
