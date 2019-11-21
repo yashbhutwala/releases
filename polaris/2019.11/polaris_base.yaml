@@ -4890,7 +4890,7 @@ spec:
         - name: DEPLOYMENT_PLATFORM
           value: on-prem
         - name: GCLOUD_BUCKET
-          value: tools-store-master-onprem
+          value: gs://tools-store-master-onprem
         image: gcr.io/snps-polaris-onprem-dev/swip_tools_sync_onprem:1.0.585
         imagePullPolicy: IfNotPresent
         name: tools-sync-job
