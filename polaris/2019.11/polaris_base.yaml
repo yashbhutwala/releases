@@ -1020,7 +1020,7 @@ spec:
           value: ${SMTP_TLS_CHECK_SERVER_IDENTITY}
         - name: SMTP_TLS_TRUSTED_HOSTS
           value: ${SMTP_TLS_TRUSTED_HOSTS}
-        image: gcr.io/snps-polaris-onprem-dev/swip_auth-server:1.7.105
+        image: gcr.io/snps-polaris-onprem-dev/swip_auth-server-onprem:1.7.105
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 4
