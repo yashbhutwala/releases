@@ -2126,7 +2126,7 @@ spec:
       - env:
         - name: ANALYSIS_TYPE
           value: k8s
-        image: gcr.io/snps-polaris-onprem-dev/swip_loadjobs:1.0.2701
+        image: gcr.io/snps-polaris-onprem-dev/swip_loadjobs_onprem:1.0.2701
         imagePullPolicy: IfNotPresent
         name: load-tools-config
         volumeMounts:

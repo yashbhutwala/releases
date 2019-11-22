@@ -7,8 +7,8 @@ metadata:
     component: swip
     componentVersion: 0.0.6268
     environment: ${ENVIRONMENT_NAME}
+    service: organization-provision-job
   name: organization-provision-job
-  service: organization-provision-job
 spec:
   template:
     metadata:
