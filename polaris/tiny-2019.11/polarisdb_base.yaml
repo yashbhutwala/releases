@@ -348,26 +348,6 @@ spec:
     release: swip-db
   type: ClusterIP
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    chartVersion: 0.0.778
-    component: swip-db
-    componentVersion: 0.0.778
-    environment: ${ENVIRONMENT_NAME}
-    service: vault-exporter
-  name: vault-exporter
-  namespace: ${NAMESPACE}
-spec:
-  ports:
-  - name: http
-    port: 9410
-  selector:
-    app: vault
-    environment: ${ENVIRONMENT_NAME}
-  type: ClusterIP
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -566,31 +546,6 @@ spec:
           name: vault-tls-certificate
         - mountPath: /vault/init
           name: vault-init-secret
-      - env:
-        - name: VAULT_ADDR
-          value: https://127.0.0.1:8200
-        - name: VAULT_CACERT
-          value: /vault/tls/ca.crt
-        image: gcr.io/snps-polaris-onprem-dev/public/grapeshot/vault_exporter:v0.1.2
-        imagePullPolicy: IfNotPresent
-        name: vault-exporter
-        ports:
-        - containerPort: 9410
-          name: cluster-address
-          protocol: TCP
-        resources:
-          limits:
-            cpu: 200m
-            memory: 384Mi
-          requests:
-            cpu: 100m
-            memory: 200Mi
-        securityContext:
-          procMount: Default
-          readOnlyRootFilesystem: true
-        volumeMounts:
-        - mountPath: /vault/tls
-          name: vault-tls-certificate
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
       initContainers:
@@ -1651,18 +1606,6 @@ spec:
     spec:
       affinity: {}
       containers:
-      - env:
-        - name: EVENTSTORE_URL
-          value: http://127.0.0.1:2113
-        - name: CLUSTER_MODE
-          value: cluster
-        image: marcinbudny/eventstore_exporter:0.5.0
-        imagePullPolicy: IfNotPresent
-        name: eventstore-exporter
-        ports:
-        - containerPort: 9448
-          name: metrics
-          protocol: TCP
       - env:
         - name: EVENTSTORE_INT_IP
           valueFrom:
