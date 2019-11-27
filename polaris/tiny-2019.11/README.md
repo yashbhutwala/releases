@@ -6,6 +6,7 @@
 4. remove 'rollingUpdate: null' from minio (both upload and download server)
 5. do not deploy reporting
 6. remove `vault-exporter` and `eventstore-exporter` containers
+7. update eventstore readiness check to check on port `2113`
 
 Use command:
 

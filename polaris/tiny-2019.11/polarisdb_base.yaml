@@ -1705,7 +1705,7 @@ spec:
       - name: ${IMAGE_PULL_SECRETS}
       initContainers:
       - args:
-        - --http-readiness-check-urls=http://eventstore.$(POD_NAMESPACE).svc.cluster.local:2112/stats
+        - --http-readiness-check-urls=http://eventstore.$(POD_NAMESPACE).svc.cluster.local:2113/stats
         env:
         - name: POD_NAMESPACE
           valueFrom:
