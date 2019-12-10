@@ -4,25 +4,28 @@ This configuration is meant for developers looking for a tiny Polaris Platform o
 
 So, you can run production equivalent Polaris on your laptop.
 
-1. do not deploy reporting
-2. change `eventstore` statefulset replicas from 3 -> 1 and also EVENTSTORE_CLUSTER_SIZE
-3. remove `pericles-swagger-ui` and `notifications-service` deployments from "CORE"
-4. remove `jobfarmautoscaler`, `jobs-controller-service` deployments and `cleanup-k8s-jobs` cronjob from "JOBFARM"
-5. remove `configs-service`, `logs-service`, and `tools-service` deployments from "ANALYSIS SUPPORT"
-6. remove `desktop-metrics` deployment
-7. remove `download-minio` deployment
-8. remove `tools-sync-job`, and `tools-deprecate-job` jobs (cannot delete `tools-minio-secret-init` job because it's used for `upload-server`)
-9. remove `vault-exporter` and `eventstore-exporter` containers
-10. remove podDisruptionBudgets
-11. remove 'rollingUpdate: null' from minio (both upload and download server)
-12. update eventstore readiness check to check on port `2113`
+[x] do not deploy reporting
+[x] remove `pericles-swagger-ui` and `notifications-service` deployments from "CORE"
+[x] remove `jobfarmautoscaler`, `jobs-controller-service` deployments and `cleanup-k8s-jobs` cronjob from "JOBFARM"
+[x] remove `configs-service`, `logs-service`, and `tools-service` deployments from "ANALYSIS SUPPORT"
+[x] remove `desktop-metrics` deployment
+[x] remove `download-minio` deployment
+[x] remove `tools-sync-job`, and `tools-deprecate-job` jobs (cannot delete `tools-minio-secret-init` job because it's used for `upload-server`)
+[x] remove `vault-exporter` and `eventstore-exporter` containers
+[x] remove podDisruptionBudgets
+[x] remove 'rollingUpdate: null' from minio (both upload and download server)
+[x] update eventstore readiness check to check on port `2113`
 
-Use command:
+Not implemented ideas:
+[ ] change `eventstore` statefulset replicas from 3 -> 1 and also `EVENTSTORE_CLUSTER_SIZE` (used to work, but now it doesn't because auth-server requires eventstore to be a cluster)
+[ ] minimize CPU and MEM requirements (specifically MEM for all containers)
+
+Usage:
 
 To create cluster
 
 ```bash
-kind -v 10 create cluster --image kindest/node:v1.14.9
+kind -v 10 create cluster --image kindest/node:v1.14.9 --config ~/kind-hacks/kind-multi-worker-cluster.yml
 # use rancher's local-path-storage for dynamic volume provisioning
 kubectl apply -f "https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.11/deploy/local-path-storage.yaml"
 kubectl patch storageclass "local-path" -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
