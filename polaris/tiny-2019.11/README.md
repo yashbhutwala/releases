@@ -11,10 +11,11 @@ So, you can run production equivalent Polaris on your laptop.
 5. remove `configs-service`, `logs-service`, and `tools-service` deployments from "ANALYSIS SUPPORT"
 6. remove `desktop-metrics` deployment
 7. remove `download-minio` deployment
-7. remove `vault-exporter` and `eventstore-exporter` containers
-8. remove podDisruptionBudgets
-9. remove 'rollingUpdate: null' from minio (both upload and download server)
-10. update eventstore readiness check to check on port `2113`
+8. remove `tools-sync-job`, and `tools-deprecate-job` jobs (cannot delete `tools-minio-secret-init` job because it's used for `upload-server`)
+9. remove `vault-exporter` and `eventstore-exporter` containers
+10. remove podDisruptionBudgets
+11. remove 'rollingUpdate: null' from minio (both upload and download server)
+12. update eventstore readiness check to check on port `2113`
 
 Use command:
 
