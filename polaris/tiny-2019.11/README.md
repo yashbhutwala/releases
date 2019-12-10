@@ -1,14 +1,19 @@
 # kustomized from 2019.11 yamls
 
-1. edited postgres deployment's mountpath to /var/lib/postgresql/data
+1. do not deploy reporting
 2. change eventstore replicas from 3 -> 1 and also EVENTSTORE_CLUSTER_SIZE
-3. remove podDisruptionBudgets
-4. remove 'rollingUpdate: null' from minio (both upload and download server)
-5. do not deploy reporting
-6. remove `vault-exporter` and `eventstore-exporter` containers
-7. update eventstore readiness check to check on port `2113`
+3. remove `vault-exporter` and `eventstore-exporter` containers
+4. remove podDisruptionBudgets
+5. remove 'rollingUpdate: null' from minio (both upload and download server)
+6. update eventstore readiness check to check on port `2113`
 
 Use command:
+
+To create cluster
+
+```bash
+kind -v 10 create cluster --kubeconfig ~/.kube/kind-kubeconfigs --image kindest/node:v1.14.9 --config ~/kind-hacks/kind-multi-worker-cluster.yml
+```
 
 ```bash
 kubectl create ns $NAMESPACE
