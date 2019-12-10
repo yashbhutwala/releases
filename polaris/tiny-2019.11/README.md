@@ -1,18 +1,30 @@
 # kustomized from 2019.11 yamls
 
+This configuration is meant for developers looking for a tiny Polaris Platform only deployment.  It removes Coverity specific pods, as well as other unnecessary pods in order to run the platform, as well as other production reduntant infrastructure.
+
+So, you can run production equivalent Polaris on your laptop.
+
 1. do not deploy reporting
 2. change eventstore replicas from 3 -> 1 and also EVENTSTORE_CLUSTER_SIZE
-3. remove `vault-exporter` and `eventstore-exporter` containers
-4. remove podDisruptionBudgets
-5. remove 'rollingUpdate: null' from minio (both upload and download server)
-6. update eventstore readiness check to check on port `2113`
+3. remove `pericles-swagger-ui` and `notifications-service` deployments from "CORE"
+4. remove `jobfarmautoscaler` deployment and `cleanup-k8s-jobs` cronjob from "JOBFARM"
+5. remove `configs-service`, `logs-service`, and `tools-service` deployments from "ANALYSIS SUPPORT"
+6. remove `desktop-metrics` deployment
+7. remove `vault-exporter` and `eventstore-exporter` containers
+8. remove podDisruptionBudgets
+9. remove 'rollingUpdate: null' from minio (both upload and download server)
+10. update eventstore readiness check to check on port `2113`
 
 Use command:
 
 To create cluster
 
 ```bash
-kind -v 10 create cluster --kubeconfig ~/.kube/kind-kubeconfigs --image kindest/node:v1.14.9 --config ~/kind-hacks/kind-multi-worker-cluster.yml
+kind -v 10 create cluster --kubeconfig ~/.kube/kind-kubeconfigs --image kindest/node:v1.14.9
+# use rancher's local-path-storage for dynamic volume provisioning
+kubectl apply -f "https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.11/deploy/local-path-storage.yaml"
+kubectl patch storageclass "local-path" -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+kubectl delete storageclass standard
 ```
 
 ```bash
