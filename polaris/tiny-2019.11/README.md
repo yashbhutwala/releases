@@ -18,7 +18,16 @@ So, you can run production equivalent Polaris on your laptop.
 
 Not implemented ideas:
 
-- [ ] change `eventstore` statefulset replicas from 3 -> 1 and also `EVENTSTORE_CLUSTER_SIZE` (used to work, but now it doesn't because auth-server requires eventstore to be a more than singel node cluster; Scott says this should be configurable)
+- [ ] change `eventstore` statefulset replicas from 3 -> 1 and also `EVENTSTORE_CLUSTER_SIZE` (used to work, but now it doesn't because auth-server requires eventstore to be a more than singel node cluster; Scott says this should be configurable) [won't do because it requires the java config.yaml to be made as a configMap and be overwritten to /opt/auth-service/config.yaml in all containers which use eventstore, specifically with this]
+
+```yaml
+eventStoreConfiguration:
+  connection:
+    # replace the line below with COMMENTED line for clients to treate Eventstore as a single node
+    class: "com.synopsys.pericles.eventstore.configuration.EventStoreConfiguration$ClusterUsingDnsConnection"
+    # class: "com.synopsys.pericles.eventstore.configuration.EventStoreConfiguration$SingleNodeConnection"
+```
+
 - [ ] replace `tds-code-analysis` with a minimal `csv-tds`
 - [ ] minimize CPU and MEM requirements (specifically MEM for all containers)
 - [ ] Right now, `tools-sync-job` is actually tools-download-job and `tools-deprecate-job` is actually tools-delete-job, they can be made into one
