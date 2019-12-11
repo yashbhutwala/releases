@@ -6,7 +6,7 @@ So, you can run production equivalent Polaris on your laptop.
 
 - [x] do not deploy reporting
 - [x] remove `pericles-swagger-ui` and `notifications-service` deployments from "CORE"
-- [x] remove `jobfarmautoscaler`, `jobs-controller-service` deployments and `cleanup-k8s-jobs` cronjob from "JOBFARM"
+- [x] remove `jobfarmautoscaler`, `jobs-controller-service`, `jobs-service` deployments and `cleanup-k8s-jobs` cronjob from "JOBFARM"
 - [x] remove `configs-service`, `logs-service`, and `tools-service` deployments from "ANALYSIS SUPPORT"
 - [x] remove `desktop-metrics` deployment
 - [x] remove `download-minio` deployment
@@ -18,8 +18,10 @@ So, you can run production equivalent Polaris on your laptop.
 
 Not implemented ideas:
 
-- [ ] change `eventstore` statefulset replicas from 3 -> 1 and also `EVENTSTORE_CLUSTER_SIZE` (used to work, but now it doesn't because auth-server requires eventstore to be a cluster)
+- [ ] change `eventstore` statefulset replicas from 3 -> 1 and also `EVENTSTORE_CLUSTER_SIZE` (used to work, but now it doesn't because auth-server requires eventstore to be a more than singel node cluster; Scott says this should be configurable)
+- [ ] replace `tds-code-analysis` with a minimal `csv-tds`
 - [ ] minimize CPU and MEM requirements (specifically MEM for all containers)
+- [ ] Right now, `tools-sync-job` is actually tools-download-job and `tools-deprecate-job` is actually tools-delete-job, they can be made into one
 
 ## Usage
 
