@@ -69,6 +69,10 @@ kind create cluster --image kindest/node:v1.14.9 --config kind-multi-worker-clus
 
 # use rancher's local-path-storage for dynamic volume provisioning (note: this will no longer be needed in k8s>=1.16 as it is the default for kind)
 kubectl apply -f "https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.11/deploy/local-path-storage.yaml" && kubectl patch storageclass "local-path" -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}' && kubectl delete storageclass standard
+
+# deploy the ingress-nginx controller with NodePort
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml && kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/baremetal/service-nodeport.yaml
+
 ```
 
 **Here is an example of synopsysctl command to use.  You will need the `GCP_SERVICE_ACCOUNT_PATH`, `COVERITY_LICENSE_PATH` and `POLARIS_LICENSE_PATH`.  You can read more details about synopsysctl and on-prem polaris here**
@@ -119,3 +123,30 @@ kubectl create ns $NAMESPACE
   --downloadserver-size "1Gi" \
   --yaml-url "https://raw.githubusercontent.com/yashbhutwala/releases/yb-custom"
 ```
+
+Give it ~5-10 mins, and all pods should be running and you can use `kubectl port-forward` for forwarding any of the pods to a localhost port.
+
+## Post Install Steps
+
+These steps are for you to access the Polaris UI on localhost using your FQDN.  Note, if you know what you service you wanna talk to, you can already do this without these steps :)
+
+```bash
+# use alpine/socat:latest to forward ingress NodePort to localhost:443
+export KIND_CLUSTER_NAME="kind"
+for port in 80 443
+do
+    node_port=$(kubectl get service -n ingress-nginx ingress-nginx -o=jsonpath="{.spec.ports[?(@.port == ${port})].nodePort}")
+
+    docker run -d --name ${KIND_CLUSTER_NAME}-kind-proxy-${port} \
+      --publish 127.0.0.1:${port}:${port} \
+      --link ${KIND_CLUSTER_NAME}-control-plane:target \
+      alpine/socat -dd \
+      tcp-listen:${port},fork,reuseaddr tcp-connect:target:${node_port}
+done
+
+# Edit /etc/hosts
+sudo vi /etc/hosts
+127.0.0.1  <REPLACE WITH FQDN USED EARLIER>
+```
+
+Now you can go to your FQDN and access your local instance of Polaris.  Happy Hacking!s
