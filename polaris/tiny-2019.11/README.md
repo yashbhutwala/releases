@@ -75,7 +75,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/mast
 
 ```
 
-**Here is an example of synopsysctl command to use.  You will need the `GCP_SERVICE_ACCOUNT_PATH`, `COVERITY_LICENSE_PATH` and `POLARIS_LICENSE_PATH`.  You can read more details about synopsysctl and on-prem polaris here**
+**Here is an example of synopsysctl command to use.  You will need the `GCP_SERVICE_ACCOUNT_PATH` and `POLARIS_LICENSE_PATH`. `COVERITY_LICENSE_PATH` is not needed, but to get synopsysctl to pass, simply pass an empty file (`touch coverity-license.xml`).  Also, an actual SMTP server is not needed (unless you are testing the email parts, which I highly doubt you are), just pass synopsysctl valid fields. You can read more details about synopsysctl and on-prem polaris here**
 
 - [Synopsysctl command line parameters list; you can also use `synopsysctl create polaris --help`](https://sig-confluence.internal.synopsys.com/display/DD/Installing+with+synopsysctl+CLI)
 
@@ -147,6 +147,19 @@ done
 # Edit /etc/hosts
 sudo vi /etc/hosts
 127.0.0.1  <REPLACE WITH FQDN USED EARLIER>
+
+# You can use default admin credentials, here is the script
+
+#!/bin/bash
+
+# [USAGE]: ./owner_credentials.sh [NAMESPACE]
+
+POD_NAME=$(kubectl get pods -n $1 -o name | grep -m 1 polaris-db-vault | cut -d'/' -f2)
+kubectl exec -it -n $1 $POD_NAME sh << EOF
+export VAULT_TOKEN=$(kubectl get secret -n $1 vault-init-secret -o json | jq -r '.data["root_token"]' | base64 --decode)
+vault kv get secret/auth/private/admin
+EOF
+
 ```
 
 Now you can go to your FQDN and access your local instance of Polaris.  Happy Hacking!s
