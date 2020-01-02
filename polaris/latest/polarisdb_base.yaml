@@ -14,9 +14,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.778
+    chartVersion: 0.0.790
     component: swip-db
-    componentVersion: 0.0.778
+    componentVersion: 0.0.790
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-init
@@ -49,9 +49,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "0"
   labels:
-    chartVersion: 0.0.778
+    chartVersion: 0.0.790
     component: swip-db
-    componentVersion: 0.0.778
+    componentVersion: 0.0.790
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-init
@@ -92,9 +92,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "1"
   labels:
-    chartVersion: 0.0.778
+    chartVersion: 0.0.790
     component: swip-db
-    componentVersion: 0.0.778
+    componentVersion: 0.0.790
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-init
@@ -188,7 +188,10 @@ data:
     path "secret/data/auth/public/*" {
       capabilities = ["list", "read"]
     }
-    path "secret/metadata/auth/*" {
+    path "secret/metadata/auth/public/*" {
+      capabilities = ["list", "read"]
+    }
+    path "secret/data/migratorLog" {
       capabilities = ["list", "read"]
     }
   auth-server.hcl: |-
@@ -207,22 +210,35 @@ data:
     path "secret/undelete/auth/*" {
       capabilities = ["create", "read", "update", "delete", "list"]
     }
+    path "secret/data/migratorLog" {
+      capabilities = ["list", "read"]
+    }
   tds-code-analysis.hcl: |-
     path "secret/data/auth/public/*" {
+      capabilities = ["list", "read"]
+    }
+    path "secret/data/migratorLog" {
       capabilities = ["list", "read"]
     }
     path "secret/data/codeanalysis/*" {
       capabilities = ["create", "read", "update", "delete", "list"]
     }
-    path "secret/metadata/auth/*" {
+    path "secret/metadata/auth/public/*" {
       capabilities = ["list", "read"]
+    }
+  vault-migrator.hcl: |-
+    path "secret/metadata/*" {
+      capabilities = ["create", "read", "update", "list"]
+    }
+    path "secret/data/*" {
+      capabilities = ["create", "read", "update", "list"]
     }
 kind: ConfigMap
 metadata:
   labels:
-    chartVersion: 0.0.778
+    chartVersion: 0.0.790
     component: swip-db
-    componentVersion: 0.0.778
+    componentVersion: 0.0.790
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-policies
@@ -352,9 +368,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    chartVersion: 0.0.778
+    chartVersion: 0.0.790
     component: swip-db
-    componentVersion: 0.0.778
+    componentVersion: 0.0.790
     environment: ${ENVIRONMENT_NAME}
     service: vault-exporter
   name: vault-exporter
@@ -376,9 +392,9 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "3"
   labels:
-    chartVersion: 0.0.778
+    chartVersion: 0.0.790
     component: swip-db
-    componentVersion: 0.0.778
+    componentVersion: 0.0.790
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-init
@@ -392,9 +408,9 @@ spec:
     metadata:
       labels:
         chart: swip-db
-        chartVersion: 0.0.778
+        chartVersion: 0.0.790
         component: swip-db
-        componentVersion: 0.0.778
+        componentVersion: 0.0.790
         environment: ${ENVIRONMENT_NAME}
         service: vault-init
       name: vault-init
@@ -423,14 +439,16 @@ spec:
           value: /auth-client-tls-certificate/tls.crt
         - name: TDS_CODE_ANALYSIS_VAULT_CLIENT_CERTIFICATE
           value: /tds-code-analysis-tls-certificate/tls.crt
+        - name: VAULT_MIGRATOR_VAULT_CLIENT_CERTIFICATE
+          value: /vault-migrator-tls-certificate/tls.crt
         - name: KUBERNETES_LABELS
           value: |-
             environment: "${ENVIRONMENT_NAME}"
             service: "vault-init"
             component: "swip-db"
-            componentVersion: "0.0.778"
+            componentVersion: "0.0.790"
             chart: "swip-db"
-            chartVersion: "0.0.778"
+            chartVersion: "0.0.790"
         image: gcr.io/snps-swip-staging/vault-util:0.1.13
         imagePullPolicy: IfNotPresent
         name: vault-init
@@ -443,6 +461,8 @@ spec:
           name: auth-client-tls-certificate
         - mountPath: /tds-code-analysis-tls-certificate
           name: tds-code-analysis-tls-certificate
+        - mountPath: /vault-migrator-tls-certificate
+          name: vault-migrator-tls-certificate
         - mountPath: /vault/policies
           name: vault-policy-configs
       imagePullSecrets:
@@ -468,6 +488,9 @@ spec:
       - name: tds-code-analysis-tls-certificate
         secret:
           secretName: tds-code-analysis-tls-certificate
+      - name: vault-migrator-tls-certificate
+        secret:
+          secretName: vault-migrator-tls-certificate
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -490,7 +513,8 @@ spec:
     type: RollingUpdate
   template:
     metadata:
-      annotations: {}
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         app: polaris-db-vault
         environment: ${ENVIRONMENT_NAME}
@@ -987,9 +1011,9 @@ metadata:
     helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation
     helm.sh/hook-weight: "2"
   labels:
-    chartVersion: 0.0.778
+    chartVersion: 0.0.790
     component: swip-db
-    componentVersion: 0.0.778
+    componentVersion: 0.0.790
     environment: ${ENVIRONMENT_NAME}
     service: vault-init
   name: vault-tls-init
@@ -999,9 +1023,9 @@ spec:
     metadata:
       labels:
         chart: swip-db
-        chartVersion: 0.0.778
+        chartVersion: 0.0.790
         component: swip-db
-        componentVersion: 0.0.778
+        componentVersion: 0.0.790
         environment: ${ENVIRONMENT_NAME}
         service: vault-init
       name: vault-tls-init
@@ -1017,15 +1041,15 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: VAULT_CLIENT_CERTIFICATES
-          value: auth-server,auth-client,tds-code-analysis
+          value: auth-server,auth-client,tds-code-analysis,vault-migrator
         - name: KUBERNETES_LABELS
           value: |-
             environment: "${ENVIRONMENT_NAME}"
             service: "vault-init"
             component: "swip-db"
-            componentVersion: "0.0.778"
+            componentVersion: "0.0.790"
             chart: "swip-db"
-            chartVersion: "0.0.778"
+            chartVersion: "0.0.790"
         image: gcr.io/snps-swip-staging/vault-util:0.1.13
         imagePullPolicy: IfNotPresent
         name: vault-tls-init
@@ -1270,7 +1294,7 @@ spec:
     release: minio
   type: ClusterIP
 ---
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
@@ -1287,13 +1311,13 @@ spec:
       environment: ${ENVIRONMENT_NAME}
       release: minio
   strategy:
-    rollingUpdate: null
     type: Recreate
   template:
     metadata:
       annotations:
         checksum/config: 93e898cd531bb5586c5f150eff38c939a48e0b68a0929a6d8aacd7a7f9def5d3
         checksum/secrets: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         app: upload-minio
         environment: ${ENVIRONMENT_NAME}
@@ -1367,7 +1391,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: busybox
+        image: docker.io/busybox:1
         name: bootstrap-upload-server
         volumeMounts:
         - mountPath: /opt/data
@@ -1427,7 +1451,7 @@ spec:
     release: minio
   type: ClusterIP
 ---
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
@@ -1444,13 +1468,13 @@ spec:
       environment: ${ENVIRONMENT_NAME}
       release: minio
   strategy:
-    rollingUpdate: null
     type: Recreate
   template:
     metadata:
       annotations:
         checksum/config: 93e898cd531bb5586c5f150eff38c939a48e0b68a0929a6d8aacd7a7f9def5d3
         checksum/secrets: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         app: download-minio
         environment: ${ENVIRONMENT_NAME}
@@ -1513,7 +1537,7 @@ spec:
         env:
         - name: ENVIRONMENT_NAME
           value: ${ENVIRONMENT_NAME}
-        image: busybox:latest
+        image: docker.io/busybox:1
         name: bootstrap-download-server
         volumeMounts:
         - mountPath: /opt/data
@@ -1682,7 +1706,16 @@ spec:
         environment: ${ENVIRONMENT_NAME}
       name: eventstore
     spec:
-      affinity: {}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/component
+                operator: In
+                values:
+                - eventstore
+            topologyKey: kubernetes.io/hostname
       containers:
       - env:
         - name: EVENTSTORE_URL
@@ -1812,7 +1845,7 @@ spec:
       - name: ${IMAGE_PULL_SECRETS}
       initContainers:
       - args:
-        - --http-readiness-check-urls=http://eventstore.$(POD_NAMESPACE).svc.cluster.local:2112/stats
+        - --http-readiness-check-urls=http://eventstore.$(POD_NAMESPACE).svc.cluster.local:2113/stats
         env:
         - name: POD_NAMESPACE
           valueFrom:

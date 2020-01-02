@@ -1,10 +1,10 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  chart: swip
-  chartVersion: 0.0.6268
-  component: swip
-  componentVersion: 0.0.6268
+  chart: polaris-jobs
+  chartVersion: 0.0.43
+  component: polaris-jobs
+  componentVersion: 0.0.43
   environment: ${ENVIRONMENT_NAME}
   labels: null
   name: organization-provision-job
@@ -17,10 +17,10 @@ spec:
         helm.sh/hook-delete-policy: hook-succeeded
         helm.sh/hook-weight: "100"
       labels:
-        chart: swip
-        chartVersion: 0.0.6268
-        component: swip
-        componentVersion: 0.0.6268
+        chart: polaris-jobs
+        chartVersion: 0.0.43
+        component: polaris-jobs
+        componentVersion: 0.0.43
         environment: ${ENVIRONMENT_NAME}
         service: organization-provision-job
       name: organization-provision-job
@@ -52,9 +52,9 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: SWIP_VAULT_ADDRESS
-          value: https://polaris-db-vault:8200
+          value: https://vault:8200
         - name: VAULT_CACERT
-          value: /var/run/secrets/vault/client/ca.crt
+          value: /var/run/secrets/vault/ca/ca.crt
         - name: VAULT_CLIENT_KEY
           value: /var/run/secrets/vault/client/tls.key
         - name: VAULT_CLIENT_CERT
@@ -70,15 +70,30 @@ spec:
         - name: ORGANIZATION_PROVISION_API_TOKEN_VAULT_PATH
           value: secret/data/auth/public/daemon@api_token
         - name: ORGANIZATION_PROVISION_ORGANIZATION_DESCRIPTION
-          value: ${ORG_DESCRIPTION}
+          valueFrom:
+            secretKeyRef:
+              key: organization_name
+              name: polaris-environment-config
         - name: ORGANIZATION_PROVISION_ORGANIZATION_NAME
-          value: ${ORG_NAME}
+          valueFrom:
+            configMapKeyRef:
+              key: name
+              name: polaris-environment-config
         - name: ORGANIZATION_PROVISION_ADMIN_NAME
-          value: ${ADMIN_NAME}
+          valueFrom:
+            secretKeyRef:
+              key: admin_name
+              name: polaris-environment-config
         - name: ORGANIZATION_PROVISION_ADMIN_USERNAME
-          value: ${ADMIN_USERNAME}
+          valueFrom:
+            secretKeyRef:
+              key: admin_username
+              name: polaris-environment-config
         - name: ORGANIZATION_PROVISION_ADMIN_EMAIL
-          value: ${ADMIN_EMAIL}
+          valueFrom:
+            secretKeyRef:
+              key: admin_email
+              name: polaris-environment-config
         - name: ORGANIZATION_PROVISION_COVERITY_LICENSE
           valueFrom:
             secretKeyRef:
@@ -89,13 +104,16 @@ spec:
             secretKeyRef:
               key: polaris
               name: organization-license
-        image: gcr.io/snps-swip-staging/swip_organization-provision-job:1.7.105
+        image: gcr.io/snps-swip-staging/polaris-organization-provision-job:1.0.23649
         imagePullPolicy: IfNotPresent
         name: organization-provision-job
         resources: {}
         volumeMounts:
         - mountPath: /var/run/secrets/vault/client
           name: vault-client
+          readOnly: true
+        - mountPath: /var/run/secrets/vault/ca
+          name: vault-server-ca
           readOnly: true
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
@@ -106,4 +124,8 @@ spec:
       volumes:
       - name: vault-client
         secret:
-          secretName: auth-client-tls-certificate
+          secretName: vault-read-only
+      - name: vault-server-ca
+        secret:
+          defaultMode: 420
+          secretName: vault-tls-certificate-new
