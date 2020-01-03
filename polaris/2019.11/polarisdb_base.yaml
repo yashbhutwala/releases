@@ -602,7 +602,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       volumes:
       - configMap:
@@ -713,7 +713,7 @@ spec:
         - name: DNSPORT
           value: "8600"
         image: docker.io/consul:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         livenessProbe:
           exec:
             command:
@@ -886,7 +886,7 @@ spec:
               key: POSTGRESQL_PASSWORD
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Never
       volumes:
@@ -1187,7 +1187,7 @@ spec:
         - 1001:1001
         - /bitnami/mongodb/data/db
         image: docker.io/bitnami/minideb:stretch
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: volume-permissions
         resources: {}
         securityContext:

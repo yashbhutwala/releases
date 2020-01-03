@@ -1066,7 +1066,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         image: k8s.gcr.io/leader-elector:0.5
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: leader-election
         ports:
         - containerPort: 4040
@@ -1121,7 +1121,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -1327,7 +1327,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -1553,7 +1553,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -1761,7 +1761,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -1994,7 +1994,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -2362,7 +2362,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -2619,7 +2619,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       - env:
         - name: ANALYSIS_TYPE
@@ -2800,7 +2800,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -3057,7 +3057,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -3179,7 +3179,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -3367,7 +3367,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -3597,7 +3597,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -3774,7 +3774,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -4008,7 +4008,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -4242,7 +4242,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -4409,7 +4409,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -4835,7 +4835,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Never
       volumes:
@@ -4908,7 +4908,7 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Never
       serviceAccount: tools-sync-job

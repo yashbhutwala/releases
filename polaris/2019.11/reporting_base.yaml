@@ -197,7 +197,7 @@ spec:
         - name: REPORTING_STANDALONE
           value: "false"
         image: gcr.io/snps-polaris-onprem-dev/reporting-frontend-service:0.0.1071
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: rp-frontend
         ports:
         - containerPort: 8080
@@ -288,7 +288,7 @@ spec:
         - name: POSTGRES_SSL_TRUST_STORE_PATH
           value: ""
         image: gcr.io/snps-polaris-onprem-dev/reporting-rp-issue-manager:0.0.760
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 5
           httpGet:
@@ -370,7 +370,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       volumes:
@@ -457,7 +457,7 @@ spec:
         - name: REPORTING_STANDALONE
           value: "false"
         image: gcr.io/snps-polaris-onprem-dev/reporting-polaris-service:0.0.706
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 5
           httpGet:
@@ -539,7 +539,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       volumes:
@@ -641,7 +641,7 @@ spec:
         - name: POSTGRES_SSL_TRUST_STORE_PATH
           value: ""
         image: gcr.io/snps-polaris-onprem-dev/reporting-rp-portfolio-service:0.0.972
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 5
           httpGet:
@@ -723,7 +723,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       volumes:
@@ -796,7 +796,7 @@ spec:
         - name: REPORTING_STANDALONE
           value: "false"
         image: gcr.io/snps-polaris-onprem-dev/reporting-swagger-doc:0.0.95
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: rp-swagger-doc
         ports:
         - containerPort: 8080
@@ -919,7 +919,7 @@ spec:
         - name: POSTGRES_SSL_TRUST_STORE_PATH
           value: ""
         image: gcr.io/snps-polaris-onprem-dev/reporting-tools-portfolio-service:0.0.1511
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 5
           httpGet:
@@ -1001,7 +1001,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       serviceAccount: auth-server
@@ -1233,7 +1233,7 @@ spec:
         - name: POSTGRES_SSL_TRUST_STORE_PATH
           value: ""
         image: gcr.io/snps-polaris-onprem-dev/reporting-report-service:0.0.1065
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 5
           httpGet:
@@ -1319,7 +1319,7 @@ spec:
               key: POSTGRES_SSL_MODE
               name: postgresql-config
         image: gcr.io/snps-polaris-onprem-dev/polaris-init:1.0.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: polaris-init
       restartPolicy: Always
       volumes:
