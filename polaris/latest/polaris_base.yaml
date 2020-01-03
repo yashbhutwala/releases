@@ -289,9 +289,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -302,9 +302,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -315,9 +315,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -328,9 +328,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
@@ -343,9 +343,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: jobfarmautoscaler
   name: jobfarmautoscaler
@@ -356,9 +356,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: jobs-controller-service
   name: jobs-controller-service
@@ -369,9 +369,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -382,9 +382,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -395,9 +395,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: notifications-service
   name: notifications-service
@@ -408,9 +408,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: pericles-swagger-ui
   name: pericles-swagger-ui
@@ -421,9 +421,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -434,9 +434,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -447,9 +447,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -460,9 +460,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -473,9 +473,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -486,9 +486,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -499,9 +499,9 @@ kind: ServiceAccount
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -572,9 +572,9 @@ kind: Role
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: leaderElector
   name: leaderElector
@@ -636,9 +636,9 @@ kind: RoleBinding
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: leaderElector
   name: leaderElector
@@ -703,9 +703,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -728,9 +728,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -753,9 +753,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -778,9 +778,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
@@ -803,9 +803,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: jobs-controller-service
   name: jobs-controller-service
@@ -825,9 +825,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -847,9 +847,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -869,9 +869,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: notifications-service
   name: notifications-service
@@ -894,9 +894,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: pericles-swagger-ui
   name: pericles-swagger-ui
@@ -916,9 +916,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -941,9 +941,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -966,9 +966,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -988,9 +988,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -1013,9 +1013,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -1038,9 +1038,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -1063,9 +1063,9 @@ kind: Service
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -1085,9 +1085,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: configs-service
   name: configs-service
@@ -1109,9 +1109,9 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         chart: swip
-        chartVersion: 0.0.7097
+        chartVersion: 0.0.7099
         component: swip
-        componentVersion: 0.0.7097
+        componentVersion: 0.0.7099
         environment: ${ENVIRONMENT_NAME}
         service: configs-service
       name: configs-service
@@ -1297,9 +1297,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: cos-server
   name: cos-server
@@ -1321,9 +1321,9 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         chart: swip
-        chartVersion: 0.0.7097
+        chartVersion: 0.0.7099
         component: swip
-        componentVersion: 0.0.7097
+        componentVersion: 0.0.7099
         environment: ${ENVIRONMENT_NAME}
         service: cos-server
       name: cos-server
@@ -1535,9 +1535,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: desktop-metrics-service
   name: desktop-metrics-service
@@ -1559,9 +1559,9 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         chart: swip
-        chartVersion: 0.0.7097
+        chartVersion: 0.0.7099
         component: swip
-        componentVersion: 0.0.7097
+        componentVersion: 0.0.7099
         environment: ${ENVIRONMENT_NAME}
         service: desktop-metrics-service
       name: desktop-metrics-service
@@ -1749,9 +1749,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: issue-server
   name: issue-server
@@ -1773,9 +1773,9 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         chart: swip
-        chartVersion: 0.0.7097
+        chartVersion: 0.0.7099
         component: swip
-        componentVersion: 0.0.7097
+        componentVersion: 0.0.7099
         environment: ${ENVIRONMENT_NAME}
         service: issue-server
       name: issue-server
@@ -1994,9 +1994,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: jobfarmautoscaler
   name: jobfarmautoscaler
@@ -2013,9 +2013,9 @@ spec:
     metadata:
       labels:
         chart: swip
-        chartVersion: 0.0.7097
+        chartVersion: 0.0.7099
         component: swip
-        componentVersion: 0.0.7097
+        componentVersion: 0.0.7099
         environment: ${ENVIRONMENT_NAME}
         service: jobfarmautoscaler
     spec:
@@ -2193,9 +2193,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: jobs-controller-service
   name: jobs-controller-service
@@ -2217,9 +2217,9 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         chart: swip
-        chartVersion: 0.0.7097
+        chartVersion: 0.0.7099
         component: swip
-        componentVersion: 0.0.7097
+        componentVersion: 0.0.7099
         environment: ${ENVIRONMENT_NAME}
         service: jobs-controller-service
       name: jobs-controller-service
@@ -2433,9 +2433,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: jobs-service
   name: jobs-service
@@ -2457,9 +2457,9 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         chart: swip
-        chartVersion: 0.0.7097
+        chartVersion: 0.0.7099
         component: swip
-        componentVersion: 0.0.7097
+        componentVersion: 0.0.7099
         environment: ${ENVIRONMENT_NAME}
         service: jobs-service
       name: jobs-service
@@ -2719,9 +2719,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: logs-service
   name: logs-service
@@ -2743,9 +2743,9 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         chart: swip
-        chartVersion: 0.0.7097
+        chartVersion: 0.0.7099
         component: swip
-        componentVersion: 0.0.7097
+        componentVersion: 0.0.7099
         environment: ${ENVIRONMENT_NAME}
         service: logs-service
       name: logs-service
@@ -2891,9 +2891,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: notifications-service
   name: notifications-service
@@ -2915,9 +2915,9 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         chart: swip
-        chartVersion: 0.0.7097
+        chartVersion: 0.0.7099
         component: swip
-        componentVersion: 0.0.7097
+        componentVersion: 0.0.7099
         environment: ${ENVIRONMENT_NAME}
         service: notifications-service
       name: notifications-service
@@ -3168,9 +3168,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: pericles-swagger-ui
   name: pericles-swagger-ui
@@ -3192,9 +3192,9 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         chart: swip
-        chartVersion: 0.0.7097
+        chartVersion: 0.0.7099
         component: swip
-        componentVersion: 0.0.7097
+        componentVersion: 0.0.7099
         environment: ${ENVIRONMENT_NAME}
         service: pericles-swagger-ui
     spec:
@@ -3277,9 +3277,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: taxonomy-server
   name: taxonomy-server
@@ -3301,9 +3301,9 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         chart: swip
-        chartVersion: 0.0.7097
+        chartVersion: 0.0.7099
         component: swip
-        componentVersion: 0.0.7097
+        componentVersion: 0.0.7099
         environment: ${ENVIRONMENT_NAME}
         service: taxonomy-server
       name: taxonomy-server
@@ -3478,9 +3478,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: tds-code-analysis
   name: tds-code-analysis
@@ -3502,9 +3502,9 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         chart: swip
-        chartVersion: 0.0.7097
+        chartVersion: 0.0.7099
         component: swip
-        componentVersion: 0.0.7097
+        componentVersion: 0.0.7099
         environment: ${ENVIRONMENT_NAME}
         service: tds-code-analysis
       name: tds-code-analysis
@@ -3717,9 +3717,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: tools-service
   name: tools-service
@@ -3741,9 +3741,9 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         chart: swip
-        chartVersion: 0.0.7097
+        chartVersion: 0.0.7099
         component: swip
-        componentVersion: 0.0.7097
+        componentVersion: 0.0.7099
         environment: ${ENVIRONMENT_NAME}
         service: tools-service
       name: tools-service
@@ -3903,9 +3903,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: triage-command-handler
   name: triage-command-handler
@@ -3927,9 +3927,9 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         chart: swip
-        chartVersion: 0.0.7097
+        chartVersion: 0.0.7099
         component: swip
-        componentVersion: 0.0.7097
+        componentVersion: 0.0.7099
         environment: ${ENVIRONMENT_NAME}
         service: triage-command-handler
       name: triage-command-handler
@@ -4146,9 +4146,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: triage-query
   name: triage-query
@@ -4170,9 +4170,9 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         chart: swip
-        chartVersion: 0.0.7097
+        chartVersion: 0.0.7099
         component: swip
-        componentVersion: 0.0.7097
+        componentVersion: 0.0.7099
         environment: ${ENVIRONMENT_NAME}
         service: triage-query
       name: triage-query
@@ -4389,9 +4389,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: vinyl-server
   name: vinyl-server
@@ -4413,9 +4413,9 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         chart: swip
-        chartVersion: 0.0.7097
+        chartVersion: 0.0.7099
         component: swip
-        componentVersion: 0.0.7097
+        componentVersion: 0.0.7099
         environment: ${ENVIRONMENT_NAME}
         service: vinyl-server
       name: vinyl-server
@@ -4565,9 +4565,9 @@ kind: Deployment
 metadata:
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: web-core
   name: web-core
@@ -4589,9 +4589,9 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         chart: swip
-        chartVersion: 0.0.7097
+        chartVersion: 0.0.7099
         component: swip
-        componentVersion: 0.0.7097
+        componentVersion: 0.0.7099
         environment: ${ENVIRONMENT_NAME}
         service: web-core
       name: web-core
@@ -4601,7 +4601,7 @@ spec:
         - nginx
         - -g
         - daemon off;
-        image: gcr.io/snps-swip-staging/web-core:1.7.1045
+        image: gcr.io/snps-swip-staging/web-core:1.7.1046
         imagePullPolicy: IfNotPresent
         name: web-core
         ports:
@@ -4679,7 +4679,7 @@ spec:
           value: /api/logs/logging/web-core
         - name: REPORTING_URL
           value: ${REPORTING_URL}
-        image: gcr.io/snps-swip-staging/web-core:1.7.1045
+        image: gcr.io/snps-swip-staging/web-core:1.7.1046
         imagePullPolicy: IfNotPresent
         name: configure-web-core
         resources:
@@ -4760,9 +4760,9 @@ metadata:
     nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0
   labels:
     chart: swip
-    chartVersion: 0.0.7097
+    chartVersion: 0.0.7099
     component: swip
-    componentVersion: 0.0.7097
+    componentVersion: 0.0.7099
     environment: ${ENVIRONMENT_NAME}
     service: swip-ingress
   name: swip-ingress
