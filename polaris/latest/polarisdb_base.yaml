@@ -1710,8 +1710,8 @@ metadata:
 apiVersion: v1
 data:
   database: vault
-  host: localhost
-  port: "5432"
+  host: ${POSTGRES_HOST}
+  port: ${POSTGRES_PORT}
   sslmode: disable
 kind: ConfigMap
 metadata:
@@ -1722,195 +1722,10 @@ data:
   bootstrap-vault.sh: |-
     #!/bin/bash
 
-    check_vault_service_status(){
-      echo "Checking for vault service availability.."
-      while true; do
-        vault status -format=json > /tmp/status.json
-        if [ $? -eq 1 ]; then
-          echo "Vault service is unreachable.. sleeping for 5s.."
-          sleep 5
-        else
-          VAULT_INIT_STATUS=$(cat /tmp/status.json | jq -r '.initialized')
-          VAULT_SEAL_STATUS=$(cat /tmp/status.json | jq -r '.sealed')
-          if [ "$VAULT_INIT_STATUS" == "true" ];then
-            if [ "$VAULT_SEAL_STATUS" == "false" ];then
-              echo "Vault initialize status : $VAULT_INIT_STATUS"
-              echo "Vault seal status : $VAULT_SEAL_STATUS"
-              echo "Vault service is available and accepting connections.."
-              break
-            fi
-          fi
-        fi
-      done
-    }
+    source /opt/scripts/vault-operations.sh
 
-    login_to_vault(){
-      echo "Trying to login into Vault.."
-      vault login -no-store $VAULT_TOKEN > /dev/null
-    }
-
-    enable_secrets_engine_in_vault(){
-      if [ -z $(vault secrets list -format=json | jq "keys" | jq '.[] | select(. == "secret/")') ]; then
-        echo "Enabling secret engine of type 'kv' with version '2' under 'secret' path.."
-        vault secrets enable -path=secret -version=2 kv
-      fi
-    }
-
-    create_or_update_vault_policies(){
-      echo "Creating/Updating auth-server policy.."
-      vault policy write auth-server /opt/policies/auth-server.hcl
-      echo "Creating auth-client policy.."
-      vault policy write auth-client /opt/policies/auth-client.hcl
-      echo "Creating tds-code-analysis policy.."
-      vault policy write tds-code-analysis /opt/policies/tds-code-analysis.hcl
-      echo "Creating vault-migrator policy.."
-        vault policy write vault-migrator /opt/policies/vault-migrator.hcl
-    }
-
-    enable_pki_engine_in_vault(){
-      if [ -z $(vault secrets list -format=json | jq "keys" | jq '.[] | select(. == "pki/")') ]; then
-        echo "Enabling pki engine at 'pki' path.."
-        vault secrets enable pki
-      fi
-    }
-
-    # Tune secret engine to generate certificates valid for 1 year
-    tune_pki_secret_engine(){
-      echo "Tuning pki secret engine.."
-      vault secrets tune -max-lease-ttl=87600h pki
-      echo "Generating self-signed root CA certificate"
-      vault write -force pki/root/generate/internal common_name=vault ttl=87600h private_key_format="pkcs8"
-      echo "Generating URL configurations to include them in certificates.."
-      vault write -force pki/config/urls issuing_certificates="${VAULT_ADDR}/v1/pki/ca" crl_distribution_points="${VAULT_ADDR}/v1/pki/crl"
-      echo "Generating pki roles.."
-      vault write -force pki/roles/client \
-        allow_any_name="true" \
-        client_flag="true" \
-        max_ttl="87600h" \
-        server_flag="false"
-      vault write -force pki/roles/server \
-        allow_any_name="true" \
-        allowed_domains="cluster.local" \
-        allow_subdomains="true" \
-        client_flag="true" \
-        max_ttl="87600h" \
-        enforce_hostnames="false" \
-        server_flag="true"
-    }
-
-    enable_cert_based_authentication_in_vault(){
-      if [ -z $(vault auth list -format=json | jq "keys" | jq '.[] | select(. == "cert/")') ]; then
-        echo "Enabling cert based authentication for vault.."
-        vault auth enable cert
-      fi
-    }
-
-    generate_vault_read_only_certificate_for_polaris(){
-      echo "Generating certs for auth-client.."
-      vault write -force pki/issue/client common_name=auth-client.$NAMESPACE.svc.cluster.local alt_names="auth-client.$NAMESPACE.svc.cluster.local,auth-client,localhost" ip_sans="127.0.0.1" -format=json ttl=8760h private_key_format="pkcs8" > /tmp/auth-client-certificates.json
-      echo "Extracting certs from auth-client-certificates.json.."
-      cat /tmp/auth-client-certificates.json | jq -r '.data.certificate' > /tmp/tls.crt
-      cat /tmp/auth-client-certificates.json | jq -r '.data.private_key' > /tmp/tls.key
-      cat /tmp/auth-client-certificates.json | jq -r '.data.issuing_ca' > /tmp/ca.crt
-      echo "Uploading certificate into vault.."
-      vault write -force auth/cert/certs/vault-read-only \
-        display_name=vault-read-only \
-        policies=auth-client \
-        certificate=@/tmp/tls.crt
-      echo "Creating vault-read-only kubernetes secret.."
-      export CA_CRT=$(cat /tmp/ca.crt | base64) TLS_CRT=$(cat /tmp/tls.crt | base64 ) TLS_KEY=$(cat /tmp/tls.key | base64)
-      status_code=$(curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-read-only --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X GET -H "Content-Type: application/json" --write-out '%{http_code}' --silent --output /dev/null)
-      if [[ $status_code -ne 200 ]];then
-        curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X POST -H "Content-Type: application/json" -H "Accept: application/json" --write-out '%{http_code}' --silent --output /dev/null -d @- <<EOF
-        {"metadata": {"name":"vault-read-only"},"data":{"ca.crt":"$CA_CRT","tls.crt":"$TLS_CRT","tls.key":"$TLS_KEY"}}
-    EOF
-      else
-        curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-read-only --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X PUT -H "Content-Type: application/json" -H "Accept: application/json" --write-out '%{http_code}' --silent --output /dev/null -d @- <<EOF
-        {"metadata": {"name":"vault-read-only"},"data":{"ca.crt":"$CA_CRT","tls.crt":"$TLS_CRT","tls.key":"$TLS_KEY"}}
-    EOF
-      fi
-    }
-
-    generate_vault_read_write_auth_certificate_for_polaris(){
-      echo "Generating certs for auth-server.."
-      vault write -force pki/issue/server common_name=auth-server.$NAMESPACE.svc.cluster.local alt_names="auth-server.$NAMESPACE.svc.cluster.local,auth-server,localhost" ip_sans="127.0.0.1" -format=json ttl=8760h private_key_format="pkcs8" > /tmp/auth-server-certificates.json
-      echo "Extracting certs from auth-server-certificates.json.."
-      cat /tmp/auth-server-certificates.json | jq -r '.data.certificate' > /tmp/tls.crt
-      cat /tmp/auth-server-certificates.json | jq -r '.data.private_key' > /tmp/tls.key
-      cat /tmp/auth-server-certificates.json | jq -r '.data.issuing_ca' > /tmp/ca.crt
-      echo "Uploading certificate into vault.."
-      vault write -force auth/cert/certs/vault-read-write-auth \
-          display_name=vault-read-write \
-          policies=auth-server \
-          certificate=@/tmp/tls.crt
-      echo "Creating vault-read-write-auth kubernetes secret.."
-      export CA_CRT=$(cat /tmp/ca.crt | base64) TLS_CRT=$(cat /tmp/tls.crt | base64 ) TLS_KEY=$(cat /tmp/tls.key | base64)
-      status_code=$(curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-read-write-auth --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X GET -H "Content-Type: application/json" --write-out '%{http_code}' --silent --output /dev/null)
-      if [[ $status_code -ne 200 ]];then
-        curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X POST -H "Content-Type: application/json" -H "Accept: application/json" --write-out '%{http_code}' --silent --output /dev/null -d @- <<EOF
-        {"metadata": {"name":"vault-read-write-auth"},"data":{"ca.crt":"$CA_CRT","tls.crt":"$TLS_CRT","tls.key":"$TLS_KEY"}}
-    EOF
-      else
-        curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-read-write-auth --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X PUT -H "Content-Type: application/json" -H "Accept: application/json" --write-out '%{http_code}' --silent --output /dev/null -d @- <<EOF
-        {"metadata": {"name":"vault-read-write-auth"},"data":{"ca.crt":"$CA_CRT","tls.crt":"$TLS_CRT","tls.key":"$TLS_KEY"}}
-    EOF
-      fi
-    }
-
-    generate_vault_read_write_tds_certificate_for_polaris(){
-      echo "Generating certs for tds-code-analysis.."
-      vault write -force pki/issue/server common_name=tds-code-analysis.$NAMESPACE.svc.cluster.local alt_names="tds-code-analysis.$NAMESPACE.svc.cluster.local,tds-code-analysis,localhost" ip_sans="127.0.0.1" -format=json ttl=8760h private_key_format="pkcs8" > /tmp/tds-code-analysis-certificates.json
-      echo "Extracting certs from tds-code-analysis-certificates.json.."
-      cat /tmp/tds-code-analysis-certificates.json | jq -r '.data.certificate' > /tmp/tls.crt
-      cat /tmp/tds-code-analysis-certificates.json | jq -r '.data.private_key' > /tmp/tls.key
-      cat /tmp/tds-code-analysis-certificates.json | jq -r '.data.issuing_ca' > /tmp/ca.crt
-      echo "Uploading certificate into vault.."
-      vault write -force auth/cert/certs/vault-read-write-tds \
-          display_name=vault-read-write-tds \
-          policies=tds-code-analysis \
-          certificate=@/tmp/tls.crt
-      echo "Creating vault-read-write-tds kubernetes secret.."
-      export CA_CRT=$(cat /tmp/ca.crt | base64) TLS_CRT=$(cat /tmp/tls.crt | base64 ) TLS_KEY=$(cat /tmp/tls.key | base64)
-      status_code=$(curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-read-write-tds --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X GET -H "Content-Type: application/json" --write-out '%{http_code}' --silent --output /dev/null)
-      if [[ $status_code -ne 200 ]];then
-        curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X POST -H "Content-Type: application/json" -H "Accept: application/json" --write-out '%{http_code}' --silent --output /dev/null -d @- <<EOF
-        {"metadata": {"name":"vault-read-write-tds"},"data":{"ca.crt":"$CA_CRT","tls.crt":"$TLS_CRT","tls.key":"$TLS_KEY"}}
-    EOF
-      else
-        curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-read-write-tds --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X PUT -H "Content-Type: application/json" -H "Accept: application/json" --write-out '%{http_code}' --silent --output /dev/null -d @- <<EOF
-        {"metadata": {"name":"vault-read-write-tds"},"data":{"ca.crt":"$CA_CRT","tls.crt":"$TLS_CRT","tls.key":"$TLS_KEY"}}
-    EOF
-      fi
-    }
-
-    generate_vault_migrator_certificate_for_polaris(){
-      echo "Generating certs for vault-migrator.."
-      vault write -force pki/issue/server common_name=vault-migrator.$NAMESPACE.svc.cluster.local alt_names="vault-migrator.$NAMESPACE.svc.cluster.local,vault-migrator,localhost" ip_sans="127.0.0.1" -format=json ttl=8760h private_key_format="pkcs8" > /tmp/vault-migrator-certificates.json
-      echo "Extracting certs from tds-code-analysis-certificates.json.."
-      cat /tmp/vault-migrator-certificates.json | jq -r '.data.certificate' > /tmp/tls.crt
-      cat /tmp/vault-migrator-certificates.json | jq -r '.data.private_key' > /tmp/tls.key
-      cat /tmp/vault-migrator-certificates.json | jq -r '.data.issuing_ca' > /tmp/ca.crt
-      echo "Uploading certificate into vault.."
-      vault write -force auth/cert/certs/vault-migrator \
-          display_name=vault-migrator \
-          policies=vault-migrator \
-          certificate=@/tmp/tls.crt
-      echo "Creating vault-migrator kubernetes secret.."
-      export CA_CRT=$(cat /tmp/ca.crt | base64) TLS_CRT=$(cat /tmp/tls.crt | base64 ) TLS_KEY=$(cat /tmp/tls.key | base64)
-      status_code=$(curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-migrator --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X GET -H "Content-Type: application/json" --write-out '%{http_code}' --silent --output /dev/null)
-      if [[ $status_code -ne 200 ]];then
-        curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X POST -H "Content-Type: application/json" -H "Accept: application/json" --write-out '%{http_code}' --silent --output /dev/null -d @- <<EOF
-        {"metadata": {"name":"vault-migrator"},"data":{"ca.crt":"$CA_CRT","tls.crt":"$TLS_CRT","tls.key":"$TLS_KEY"}}
-    EOF
-      else
-        curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-migrator --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X PUT -H "Content-Type: application/json" -H "Accept: application/json" --write-out '%{http_code}' --silent --output /dev/null -d @- <<EOF
-        {"metadata": {"name":"vault-migrator"},"data":{"ca.crt":"$CA_CRT","tls.crt":"$TLS_CRT","tls.key":"$TLS_KEY"}}
-    EOF
-      fi
-    }
-
-    # main
     check_vault_service_status
+
     set -euo pipefail
     export VAULT_TOKEN=$POLARIS_VAULT_TOKEN
     export K8S_TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
@@ -2055,6 +1870,49 @@ data:
         {"metadata": {"name":"vault-migration-status"},"data":{"status":"done"}}
     EOF
     fi
+  renew-certs.sh: |-
+    #!/bin/bash
+
+    check_for_expiry_and_renew_it(){
+      curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-read-only --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X GET -H "Content-Type: application/json" --silent | jq -r '.data."tls.crt"' | base64 -d > /tmp/tls.crt
+      openssl x509 -enddate -noout -in /tmp/tls.crt
+      if openssl x509 -checkend 259200 -noout -in /tmp/tls.crt;then
+        echo "Certificate is good.."
+      else
+        echo "Certificate is about to expire in 3 days.. Renewing certs.."
+        login_to_vault
+        tune_pki_secret_engine
+        enable_cert_based_authentication_in_vault
+        generate_vault_read_only_certificate_for_polaris
+        generate_vault_read_write_auth_certificate_for_polaris
+        generate_vault_read_write_tds_certificate_for_polaris
+        generate_vault_migrator_certificate_for_polaris
+      fi
+    }
+
+    source /opt/scripts/vault-operations.sh
+
+    check_vault_service_status
+
+    set -euo pipefail
+
+    export VAULT_TOKEN=$POLARIS_VAULT_TOKEN
+    export K8S_TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+    export K8S_API_SERVER=https://kubernetes.default
+
+    is_vault_ro_secret_exist=$(curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-read-only --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X GET -H "Content-Type: application/json" --write-out '%{http_code}' --silent --output /dev/null)
+    is_vault_rwauth_secret_exist=$(curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-read-write-auth --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X GET -H "Content-Type: application/json" --write-out '%{http_code}' --silent --output /dev/null)
+    is_vault_rwtds_secret_exist=$(curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-read-write-tds --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X GET -H "Content-Type: application/json" --write-out '%{http_code}' --silent --output /dev/null)
+    is_vault_migrator_secret_exist=$(curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-migrator --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X GET -H "Content-Type: application/json" --write-out '%{http_code}' --silent --output /dev/null)
+
+    if [[ $is_vault_ro_secret_exist -ne 200 || \
+      $is_vault_rwauth_secret_exist -ne 200 || \
+      $is_vault_rwtds_secret_exist -ne 200 || \
+      $is_vault_migrator_secret_exist -ne 200 ]];then
+      echo "Vault credentials doesn't exist.. Skipping expiry checking.."
+    else
+      check_for_expiry_and_renew_it
+    fi
   vault-init.sh: "#!/bin/bash\n\ninit_vault(){\n  vault operator init -key-shares=1
     -key-threshold=1 -format=json > /tmp/keys.json\n  export UNSEAL_KEY=$(cat /tmp/keys.json
     | jq -r -j '.unseal_keys_b64[0]' | base64 )\n  export ROOT_TOKEN=$(cat /tmp/keys.json
@@ -2076,6 +1934,195 @@ data:
     \   VAULT_SEAL_STATUS=$(cat /tmp/status.json | jq -r '.sealed')\n    if [ \"$VAULT_INIT_STATUS\"
     == \"false\" ];then\n      echo \"Initializing vault..\"\n      init_vault\n    else\n
     \     sleep 300\n    fi\n  fi\ndone"
+  vault-operations.sh: |-
+    #!/bin/bash
+
+    check_vault_service_status(){
+      echo "Checking for vault service availability.."
+      while true; do
+        vault status -format=json > /tmp/status.json
+        if [ $? -eq 1 ]; then
+          echo "Vault service is unreachable.. sleeping for 5s.."
+          sleep 5
+        else
+          VAULT_INIT_STATUS=$(cat /tmp/status.json | jq -r '.initialized')
+          VAULT_SEAL_STATUS=$(cat /tmp/status.json | jq -r '.sealed')
+          if [ "$VAULT_INIT_STATUS" == "true" ];then
+            if [ "$VAULT_SEAL_STATUS" == "false" ];then
+              echo "Vault initialize status : $VAULT_INIT_STATUS"
+              echo "Vault seal status : $VAULT_SEAL_STATUS"
+              echo "Vault service is available and accepting connections.."
+              break
+            fi
+          fi
+        fi
+      done
+    }
+
+    login_to_vault(){
+      echo "Trying to login into Vault.."
+      vault login -no-store $VAULT_TOKEN > /dev/null
+    }
+
+    enable_secrets_engine_in_vault(){
+      if [ -z $(vault secrets list -format=json | jq "keys" | jq '.[] | select(. == "secret/")') ]; then
+        echo "Enabling secret engine of type 'kv' with version '2' under 'secret' path.."
+        vault secrets enable -path=secret -version=2 kv
+      fi
+    }
+
+    create_or_update_vault_policies(){
+      echo "Creating/Updating auth-server policy.."
+      vault policy write auth-server /opt/policies/auth-server.hcl
+      echo "Creating auth-client policy.."
+      vault policy write auth-client /opt/policies/auth-client.hcl
+      echo "Creating tds-code-analysis policy.."
+      vault policy write tds-code-analysis /opt/policies/tds-code-analysis.hcl
+      echo "Creating vault-migrator policy.."
+        vault policy write vault-migrator /opt/policies/vault-migrator.hcl
+    }
+
+    enable_pki_engine_in_vault(){
+      if [ -z $(vault secrets list -format=json | jq "keys" | jq '.[] | select(. == "pki/")') ]; then
+        echo "Enabling pki engine at 'pki' path.."
+        vault secrets enable pki
+      fi
+    }
+
+    # Tune secret engine to generate certificates valid for 1 year
+    tune_pki_secret_engine(){
+      echo "Tuning pki secret engine.."
+      vault secrets tune -max-lease-ttl=87600h pki
+      echo "Generating self-signed root CA certificate"
+      vault write -force pki/root/generate/internal common_name=vault ttl=87600h private_key_format="pkcs8"
+      echo "Generating URL configurations to include them in certificates.."
+      vault write -force pki/config/urls issuing_certificates="${VAULT_ADDR}/v1/pki/ca" crl_distribution_points="${VAULT_ADDR}/v1/pki/crl"
+      echo "Generating pki roles.."
+      vault write -force pki/roles/client \
+        allow_any_name="true" \
+        client_flag="true" \
+        max_ttl="87600h" \
+        server_flag="false"
+      vault write -force pki/roles/server \
+        allow_any_name="true" \
+        allowed_domains="cluster.local" \
+        allow_subdomains="true" \
+        client_flag="true" \
+        max_ttl="87600h" \
+        enforce_hostnames="false" \
+        server_flag="true"
+    }
+
+    enable_cert_based_authentication_in_vault(){
+      if [ -z $(vault auth list -format=json | jq "keys" | jq '.[] | select(. == "cert/")') ]; then
+        echo "Enabling cert based authentication for vault.."
+        vault auth enable cert
+      fi
+    }
+
+    generate_vault_read_only_certificate_for_polaris(){
+      echo "Generating certs for auth-client.."
+      vault write -force pki/issue/client common_name=auth-client.$NAMESPACE.svc.cluster.local alt_names="auth-client.$NAMESPACE.svc.cluster.local,auth-client,localhost" ip_sans="127.0.0.1" -format=json ttl=336h private_key_format="pkcs8" > /tmp/auth-client-certificates.json
+      echo "Extracting certs from auth-client-certificates.json.."
+      cat /tmp/auth-client-certificates.json | jq -r '.data.certificate' > /tmp/tls.crt
+      cat /tmp/auth-client-certificates.json | jq -r '.data.private_key' > /tmp/tls.key
+      cat /tmp/auth-client-certificates.json | jq -r '.data.issuing_ca' > /tmp/ca.crt
+      echo "Uploading certificate into vault.."
+      vault write -force auth/cert/certs/vault-read-only \
+        display_name=vault-read-only \
+        policies=auth-client \
+        certificate=@/tmp/tls.crt
+      echo "Creating vault-read-only kubernetes secret.."
+      export CA_CRT=$(cat /tmp/ca.crt | base64) TLS_CRT=$(cat /tmp/tls.crt | base64 ) TLS_KEY=$(cat /tmp/tls.key | base64)
+      status_code=$(curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-read-only --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X GET -H "Content-Type: application/json" --write-out '%{http_code}' --silent --output /dev/null)
+      if [[ $status_code -ne 200 ]];then
+        curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X POST -H "Content-Type: application/json" -H "Accept: application/json" --write-out '%{http_code}' --silent --output /dev/null -d @- <<EOF
+        {"metadata": {"name":"vault-read-only"},"data":{"ca.crt":"$CA_CRT","tls.crt":"$TLS_CRT","tls.key":"$TLS_KEY"}}
+    EOF
+      else
+        curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-read-only --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X PUT -H "Content-Type: application/json" -H "Accept: application/json" --write-out '%{http_code}' --silent --output /dev/null -d @- <<EOF
+        {"metadata": {"name":"vault-read-only"},"data":{"ca.crt":"$CA_CRT","tls.crt":"$TLS_CRT","tls.key":"$TLS_KEY"}}
+    EOF
+      fi
+    }
+
+    generate_vault_read_write_auth_certificate_for_polaris(){
+      echo "Generating certs for auth-server.."
+      vault write -force pki/issue/server common_name=auth-server.$NAMESPACE.svc.cluster.local alt_names="auth-server.$NAMESPACE.svc.cluster.local,auth-server,localhost" ip_sans="127.0.0.1" -format=json ttl=336h private_key_format="pkcs8" > /tmp/auth-server-certificates.json
+      echo "Extracting certs from auth-server-certificates.json.."
+      cat /tmp/auth-server-certificates.json | jq -r '.data.certificate' > /tmp/tls.crt
+      cat /tmp/auth-server-certificates.json | jq -r '.data.private_key' > /tmp/tls.key
+      cat /tmp/auth-server-certificates.json | jq -r '.data.issuing_ca' > /tmp/ca.crt
+      echo "Uploading certificate into vault.."
+      vault write -force auth/cert/certs/vault-read-write-auth \
+          display_name=vault-read-write \
+          policies=auth-server \
+          certificate=@/tmp/tls.crt
+      echo "Creating vault-read-write-auth kubernetes secret.."
+      export CA_CRT=$(cat /tmp/ca.crt | base64) TLS_CRT=$(cat /tmp/tls.crt | base64 ) TLS_KEY=$(cat /tmp/tls.key | base64)
+      status_code=$(curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-read-write-auth --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X GET -H "Content-Type: application/json" --write-out '%{http_code}' --silent --output /dev/null)
+      if [[ $status_code -ne 200 ]];then
+        curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X POST -H "Content-Type: application/json" -H "Accept: application/json" --write-out '%{http_code}' --silent --output /dev/null -d @- <<EOF
+        {"metadata": {"name":"vault-read-write-auth"},"data":{"ca.crt":"$CA_CRT","tls.crt":"$TLS_CRT","tls.key":"$TLS_KEY"}}
+    EOF
+      else
+        curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-read-write-auth --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X PUT -H "Content-Type: application/json" -H "Accept: application/json" --write-out '%{http_code}' --silent --output /dev/null -d @- <<EOF
+        {"metadata": {"name":"vault-read-write-auth"},"data":{"ca.crt":"$CA_CRT","tls.crt":"$TLS_CRT","tls.key":"$TLS_KEY"}}
+    EOF
+      fi
+    }
+
+    generate_vault_read_write_tds_certificate_for_polaris(){
+      echo "Generating certs for tds-code-analysis.."
+      vault write -force pki/issue/server common_name=tds-code-analysis.$NAMESPACE.svc.cluster.local alt_names="tds-code-analysis.$NAMESPACE.svc.cluster.local,tds-code-analysis,localhost" ip_sans="127.0.0.1" -format=json ttl=336h private_key_format="pkcs8" > /tmp/tds-code-analysis-certificates.json
+      echo "Extracting certs from tds-code-analysis-certificates.json.."
+      cat /tmp/tds-code-analysis-certificates.json | jq -r '.data.certificate' > /tmp/tls.crt
+      cat /tmp/tds-code-analysis-certificates.json | jq -r '.data.private_key' > /tmp/tls.key
+      cat /tmp/tds-code-analysis-certificates.json | jq -r '.data.issuing_ca' > /tmp/ca.crt
+      echo "Uploading certificate into vault.."
+      vault write -force auth/cert/certs/vault-read-write-tds \
+          display_name=vault-read-write-tds \
+          policies=tds-code-analysis \
+          certificate=@/tmp/tls.crt
+      echo "Creating vault-read-write-tds kubernetes secret.."
+      export CA_CRT=$(cat /tmp/ca.crt | base64) TLS_CRT=$(cat /tmp/tls.crt | base64 ) TLS_KEY=$(cat /tmp/tls.key | base64)
+      status_code=$(curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-read-write-tds --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X GET -H "Content-Type: application/json" --write-out '%{http_code}' --silent --output /dev/null)
+      if [[ $status_code -ne 200 ]];then
+        curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X POST -H "Content-Type: application/json" -H "Accept: application/json" --write-out '%{http_code}' --silent --output /dev/null -d @- <<EOF
+        {"metadata": {"name":"vault-read-write-tds"},"data":{"ca.crt":"$CA_CRT","tls.crt":"$TLS_CRT","tls.key":"$TLS_KEY"}}
+    EOF
+      else
+        curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-read-write-tds --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X PUT -H "Content-Type: application/json" -H "Accept: application/json" --write-out '%{http_code}' --silent --output /dev/null -d @- <<EOF
+        {"metadata": {"name":"vault-read-write-tds"},"data":{"ca.crt":"$CA_CRT","tls.crt":"$TLS_CRT","tls.key":"$TLS_KEY"}}
+    EOF
+      fi
+    }
+
+    generate_vault_migrator_certificate_for_polaris(){
+      echo "Generating certs for vault-migrator.."
+      vault write -force pki/issue/server common_name=vault-migrator.$NAMESPACE.svc.cluster.local alt_names="vault-migrator.$NAMESPACE.svc.cluster.local,vault-migrator,localhost" ip_sans="127.0.0.1" -format=json ttl=336h private_key_format="pkcs8" > /tmp/vault-migrator-certificates.json
+      echo "Extracting certs from tds-code-analysis-certificates.json.."
+      cat /tmp/vault-migrator-certificates.json | jq -r '.data.certificate' > /tmp/tls.crt
+      cat /tmp/vault-migrator-certificates.json | jq -r '.data.private_key' > /tmp/tls.key
+      cat /tmp/vault-migrator-certificates.json | jq -r '.data.issuing_ca' > /tmp/ca.crt
+      echo "Uploading certificate into vault.."
+      vault write -force auth/cert/certs/vault-migrator \
+          display_name=vault-migrator \
+          policies=vault-migrator \
+          certificate=@/tmp/tls.crt
+      echo "Creating vault-migrator kubernetes secret.."
+      export CA_CRT=$(cat /tmp/ca.crt | base64) TLS_CRT=$(cat /tmp/tls.crt | base64 ) TLS_KEY=$(cat /tmp/tls.key | base64)
+      status_code=$(curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-migrator --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X GET -H "Content-Type: application/json" --write-out '%{http_code}' --silent --output /dev/null)
+      if [[ $status_code -ne 200 ]];then
+        curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X POST -H "Content-Type: application/json" -H "Accept: application/json" --write-out '%{http_code}' --silent --output /dev/null -d @- <<EOF
+        {"metadata": {"name":"vault-migrator"},"data":{"ca.crt":"$CA_CRT","tls.crt":"$TLS_CRT","tls.key":"$TLS_KEY"}}
+    EOF
+      else
+        curl -k $K8S_API_SERVER/api/v1/namespaces/$NAMESPACE/secrets/vault-migrator --header "Authorization: Bearer $K8S_TOKEN" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -X PUT -H "Content-Type: application/json" -H "Accept: application/json" --write-out '%{http_code}' --silent --output /dev/null -d @- <<EOF
+        {"metadata": {"name":"vault-migrator"},"data":{"ca.crt":"$CA_CRT","tls.crt":"$TLS_CRT","tls.key":"$TLS_KEY"}}
+    EOF
+      fi
+    }
   vault-unseal.sh: |-
     #!/bin/bash
 
@@ -2194,7 +2241,7 @@ metadata:
     release: vault
   name: vault
 spec:
-  replicas: 1
+  replicas: 3
   strategy:
     rollingUpdate:
       maxUnavailable: 1
@@ -2363,45 +2410,15 @@ spec:
         volumeMounts:
         - mountPath: /vault/tls
           name: vault-tls-certificate
-      - args:
-        - -instances=$(CLOUDSQL_INSTANCE_NAME)=tcp:5432
-        - -credential_file=/secrets/cloudsql/credentials.json
-        command:
-        - /cloud_sql_proxy
-        env:
-        - name: CLOUDSQL_INSTANCE_NAME
-          valueFrom:
-            secretKeyRef:
-              key: instance-name
-              name: vault-cloudsql
-        image: gcr.io/cloudsql-docker/gce-proxy:1.11
-        name: vault-cloudsql-proxy
-        ports:
-        - containerPort: 5432
-          name: postgresql
-          protocol: TCP
-        resources:
-          limits:
-            cpu: 500m
-            memory: 1Gi
-          requests:
-            cpu: 250m
-            memory: 256Mi
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-        volumeMounts:
-        - mountPath: /secrets/cloudsql
-          name: vault-cloudsql
-          readOnly: true
       serviceAccountName: init-vault
       volumes:
-      - emptyDir: {}
-        name: tmp
-      - emptyDir: {}
-        name: vault-root
       - configMap:
           name: vault-config
         name: vault-config
+      - emptyDir: {}
+        name: vault-root
+      - emptyDir: {}
+        name: tmp
       - name: vault-secret
         secret:
           optional: true
@@ -2409,9 +2426,6 @@ spec:
       - name: vault-tls-certificate
         secret:
           secretName: vault-tls-certificate-new
-      - name: vault-cloudsql
-        secret:
-          secretName: vault-cloudsql
       - configMap:
           defaultMode: 511
           items:
@@ -2419,6 +2433,67 @@ spec:
             path: vault-unseal.sh
           name: vault-scripts
         name: vault-scripts
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: vault-creds-renew
+spec:
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      completions: 1
+      parallelism: 1
+      template:
+        spec:
+          containers:
+          - command:
+            - /opt/scripts/renew-certs.sh
+            env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: VAULT_ADDR
+              value: https://vault:8200
+            - name: VAULT_CACERT
+              value: /vault/tls/ca.crt
+            - name: POLARIS_VAULT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: root_token
+                  name: vault-tokens
+            image: gcr.io/snps-swip-staging/polaris-vault-util:latest
+            imagePullPolicy: Always
+            name: vault-creds-renew
+            volumeMounts:
+            - mountPath: /vault/tls
+              name: vault-tls-certificate-new
+            - mountPath: /opt/scripts/renew-certs.sh
+              name: vault-scripts
+              subPath: renew-certs.sh
+            - mountPath: /opt/scripts/vault-operations.sh
+              name: vault-scripts
+              subPath: vault-operations.sh
+          restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 5000
+          serviceAccount: init-vault
+          volumes:
+          - name: vault-tls-certificate-new
+            secret:
+              secretName: vault-tls-certificate-new
+          - configMap:
+              defaultMode: 511
+              items:
+              - key: renew-certs.sh
+                path: renew-certs.sh
+              - key: vault-operations.sh
+                path: vault-operations.sh
+              name: vault-scripts
+            name: vault-scripts
+  schedule: 0 0 * * *
 ---
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
@@ -2467,6 +2542,9 @@ spec:
         - mountPath: /opt/scripts/bootstrap-vault.sh
           name: vault-scripts
           subPath: bootstrap-vault.sh
+        - mountPath: /opt/scripts/vault-operations.sh
+          name: vault-scripts
+          subPath: vault-operations.sh
         - mountPath: /opt/policies
           name: vault-policies
       restartPolicy: Never
@@ -2483,6 +2561,8 @@ spec:
           items:
           - key: bootstrap-vault.sh
             path: bootstrap-vault.sh
+          - key: vault-operations.sh
+            path: vault-operations.sh
           name: vault-scripts
         name: vault-scripts
       - configMap:
@@ -2615,6 +2695,16 @@ spec:
         image: postgres:9.6-alpine
         name: vault-postgresql-schema
       restartPolicy: Never
+---
+apiVersion: v1
+data:
+  database: vault
+  password: ${POSTGRES_PASSWORD}
+  sslmode: disable
+  user: ${POSTGRES_USERNAME}
+kind: secret
+metadata:
+  name: vault-postgresql
 ---
 apiVersion: v1
 kind: ServiceAccount

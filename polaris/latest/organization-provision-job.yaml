@@ -2,9 +2,9 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   chart: polaris-jobs
-  chartVersion: 0.0.43
+  chartVersion: 0.0.50
   component: polaris-jobs
-  componentVersion: 0.0.43
+  componentVersion: 0.0.50
   environment: ${ENVIRONMENT_NAME}
   labels: null
   name: organization-provision-job
@@ -18,9 +18,9 @@ spec:
         helm.sh/hook-weight: "100"
       labels:
         chart: polaris-jobs
-        chartVersion: 0.0.43
+        chartVersion: 0.0.50
         component: polaris-jobs
-        componentVersion: 0.0.43
+        componentVersion: 0.0.50
         environment: ${ENVIRONMENT_NAME}
         service: organization-provision-job
       name: organization-provision-job
@@ -104,7 +104,7 @@ spec:
             secretKeyRef:
               key: polaris
               name: organization-license
-        image: gcr.io/snps-swip-staging/polaris-organization-provision-job:1.0.23649
+        image: gcr.io/snps-swip-staging/polaris-organization-provision-job:1.0.23653
         imagePullPolicy: IfNotPresent
         name: organization-provision-job
         resources: {}
