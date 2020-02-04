@@ -65,10 +65,7 @@ nodes:
   - role: worker
 EOF
 
-kind create cluster --image kindest/node:v1.14.9 --config kind-multi-worker-cluster.yml
-
-# use rancher's local-path-storage for dynamic volume provisioning (note: this will no longer be needed in k8s>=1.16 as it is the default for kind)
-kubectl apply -f "https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.11/deploy/local-path-storage.yaml" && kubectl patch storageclass "local-path" -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}' && kubectl delete storageclass standard
+kind create cluster --image kindest/node:v1.14.10 --config kind-multi-worker-cluster.yml
 
 # deploy the ingress-nginx controller with NodePort
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml && kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/baremetal/service-nodeport.yaml
@@ -162,4 +159,4 @@ EOF
 
 ```
 
-Now you can go to your FQDN and access your local instance of Polaris.  Happy Hacking!s
+Now you can go to your FQDN and access your local instance of Polaris.  Happy Hacking!
