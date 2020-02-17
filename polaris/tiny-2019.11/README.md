@@ -43,33 +43,57 @@ Not implemented ideas:
 
 ## Usage
 
-To create cluster
+Make sure all dependencies are installed
 
 ```bash
-# Make sure all dependencies are installed
-docker --version
-kind version
-kubectl version
-synopsysctl --version
+$ docker --version
+Docker version 19.03.5, build 633a0ea
+#
+$ kind version
+kind v0.7.0 go1.13.6 darwin/amd64
+#
+$ kubectl version
+Client Version: version.Info{Major:"1", Minor:"17", GitVersion:"v1.17.3", GitCommit:"06ad960bfd03b39c8310aaf92d1e7c12ce618213", GitTreeState:"clean", BuildDate:"2020-02-13T18:06:54Z", GoVersion:"go1.13.8", Compiler:"gc", Platform:"darwin/amd64"}
+Server Version: version.Info{Major:"1", Minor:"17", GitVersion:"v1.17.0", GitCommit:"70132b0f130acc0bed193d9ba59dd186f0e634cf", GitTreeState:"clean", BuildDate:"2020-01-14T00:09:19Z", GoVersion:"go1.13.4", Compiler:"gc", Platform:"linux/amd64"}
+#
+$ synopsysctl --version
+synopsysctl version 2019.11.1
+```
 
+```bash
 # Create kind cluster config file
-# For more examples of kind configuration, see here: https://github.com/yashbhutwala/kind-hacks
-cat <<EOF > kind-multi-worker-cluster.yml
+# For more examples of kind configurations, see here: https://github.com/yashbhutwala/kind-hacks
+#
+$ cat <<EOF > kind-multi-worker-with-ingress.yaml
 # a cluster with 1 master and three worker nodes
 kind: Cluster
-apiVersion: kind.sigs.k8s.io/v1alpha3
+apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
-  - role: control-plane
-  - role: worker
-  - role: worker
-  - role: worker
+- role: control-plane
+  kubeadmConfigPatches:
+  - |
+    kind: InitConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "ingress-ready=true"
+        authorization-mode: "AlwaysAllow"
+  extraPortMappings:
+  - containerPort: 80
+    hostPort: 80
+    protocol: TCP
+  - containerPort: 443
+    hostPort: 443
+    protocol: TCP
+- role: worker
+- role: worker
+- role: worker
 EOF
-
-kind create cluster --image kindest/node:v1.14.10 --config kind-multi-worker-cluster.yml
-
-# deploy the ingress-nginx controller with NodePort
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml && kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/baremetal/service-nodeport.yaml
-
+#
+$ kind -v 3 create cluster --image kindest/node:v1.14.10 --config kind-multi-worker-with-ingress.yaml
+#
+# install ingress-nginx controller
+#
+$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/mandatory.yaml; kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/provider/baremetal/service-nodeport.yaml; kubectl patch deployments -n ingress-nginx nginx-ingress-controller -p '{"spec":{"template":{"spec":{"containers":[{"name":"nginx-ingress-controller","ports":[{"containerPort":80,"hostPort":80},{"containerPort":443,"hostPort":443}]}],"nodeSelector":{"ingress-ready":"true"},"tolerations":[{"key":"node-role.kubernetes.io/master","operator":"Equal","effect":"NoSchedule"}]}}}}'
 ```
 
 **Here is an example of synopsysctl command to use.  You will need the `GCP_SERVICE_ACCOUNT_PATH` and `POLARIS_LICENSE_PATH`. `COVERITY_LICENSE_PATH` is not needed, but to get synopsysctl to pass, simply pass an empty file (`touch coverity-license.xml`).  Also, an actual SMTP server is not needed (unless you are testing the email parts, which I highly doubt you are), just pass synopsysctl valid fields. You can read more details about synopsysctl and on-prem polaris here**
@@ -77,9 +101,11 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/mast
 - [Synopsysctl command line parameters list; you can also use `synopsysctl create polaris --help`](https://sig-confluence.internal.synopsys.com/display/DD/Installing+with+synopsysctl+CLI)
 
 ```bash
+$ cat synopsysctl-command-to-run.sh
+#!/bin/bash
+
 export NAMESPACE="onprem"
 export POLARIS_VERSION="tiny-2019.11"
-
 # this is for the gcp service account used for gcr images
 export GCP_SERVICE_ACCOUNT_PATH="${POLARIS_APP_PREREQUISITES_DIRECTORY}/gcp-service-account-token-for-images.json"
 # this is the shared coverity license being used for testing
@@ -95,7 +121,7 @@ export FQDN="yashonprem.dev.polaris.synopsys.com"
 kubectl create ns $NAMESPACE
 
 # synopsysctl command
-./synopsysctl -v debug create polaris \
+synopsysctl -v debug create polaris \
   --namespace $NAMESPACE \
   --version $POLARIS_VERSION \
   --fqdn $FQDN \
@@ -125,27 +151,19 @@ Give it ~5-10 mins, and all pods should be running and you can use `kubectl port
 
 ## Post Install Steps
 
-These steps are for you to access the Polaris UI on localhost using your FQDN.  Note, if you know what you service you wanna talk to, you can already do this without these steps :)
+Update your host's dns to map localhost to the above inputted FQDN
 
 ```bash
-# use alpine/socat:latest to forward ingress NodePort to localhost:443
-export KIND_CLUSTER_NAME="kind"
-for port in 80 443
-do
-    node_port=$(kubectl get service -n ingress-nginx ingress-nginx -o=jsonpath="{.spec.ports[?(@.port == ${port})].nodePort}")
-
-    docker run -d --name ${KIND_CLUSTER_NAME}-kind-proxy-${port} \
-      --publish 127.0.0.1:${port}:${port} \
-      --link ${KIND_CLUSTER_NAME}-control-plane:target \
-      alpine/socat -dd \
-      tcp-listen:${port},fork,reuseaddr tcp-connect:target:${node_port}
-done
-
 # Edit /etc/hosts
-sudo vi /etc/hosts
-127.0.0.1  <REPLACE WITH FQDN USED EARLIER>
+$ sudo echo "127.0.0.1 ${FQDN}" >> /etc/hosts
+```
 
-# You can use default admin credentials, here is the script
+Now you can go to your FQDN and access your local instance of Polaris.  Happy Hacking!
+
+Here is a script that you can use to get the default super user admin credentials:
+
+```bash
+$ cat owner_credentials.sh
 
 #!/bin/bash
 
@@ -158,5 +176,3 @@ vault kv get secret/auth/private/admin
 EOF
 
 ```
-
-Now you can go to your FQDN and access your local instance of Polaris.  Happy Hacking!
