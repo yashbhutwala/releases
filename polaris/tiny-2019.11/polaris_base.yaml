@@ -640,13 +640,7 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 30
           timeoutSeconds: 5
-        resources:
-          limits:
-            cpu: 750m
-            memory: 2Gi
-          requests:
-            cpu: 200m
-            memory: 1500Mi
+        resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
@@ -669,13 +663,7 @@ spec:
         - containerPort: 4040
           name: http
           protocol: TCP
-        resources:
-          limits:
-            cpu: 100m
-            memory: 256Mi
-          requests:
-            cpu: 50m
-            memory: 50Mi
+        resources: {}
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: ${IMAGE_PULL_SECRETS}
@@ -892,13 +880,7 @@ spec:
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 30
-        resources:
-          limits:
-            cpu: 750m
-            memory: 2Gi
-          requests:
-            cpu: 200m
-            memory: 1500Mi
+        resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
@@ -1128,13 +1110,7 @@ spec:
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 30
-        resources:
-          limits:
-            cpu: 750m
-            memory: 3000Mi
-          requests:
-            cpu: 150m
-            memory: 1024Mi
+        resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
@@ -1320,13 +1296,7 @@ spec:
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 30
-        resources:
-          limits:
-            cpu: 750m
-            memory: 1300Mi
-          requests:
-            cpu: 50m
-            memory: 1024Mi
+        resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
@@ -1554,13 +1524,7 @@ spec:
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 30
-        resources:
-          limits:
-            cpu: 750m
-            memory: 1300Mi
-          requests:
-            cpu: 100m
-            memory: 1024Mi
+        resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
@@ -1788,13 +1752,7 @@ spec:
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 30
-        resources:
-          limits:
-            cpu: 750m
-            memory: 1300Mi
-          requests:
-            cpu: 100m
-            memory: 1024Mi
+        resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
@@ -1955,13 +1913,7 @@ spec:
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 30
-        resources:
-          limits:
-            cpu: 750m
-            memory: 1300Mi
-          requests:
-            cpu: 100m
-            memory: 1024Mi
+        resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
@@ -2070,13 +2022,7 @@ spec:
         - containerPort: 8080
           name: http
           protocol: TCP
-        resources:
-          limits:
-            cpu: 500m
-            memory: 256Mi
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
@@ -2138,13 +2084,7 @@ spec:
         image: gcr.io/snps-polaris-onprem-dev/web-core:1.7.975
         imagePullPolicy: IfNotPresent
         name: configure-web-core
-        resources:
-          limits:
-            cpu: 500m
-            memory: 256Mi
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
@@ -2207,13 +2147,7 @@ spec:
         - containerPort: 8080
           name: http
           protocol: TCP
-        resources:
-          limits:
-            cpu: 500m
-            memory: 256Mi
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
@@ -2271,13 +2205,7 @@ spec:
         - containerPort: 8080
           name: http
           protocol: TCP
-        resources:
-          limits:
-            cpu: 500m
-            memory: 256Mi
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:

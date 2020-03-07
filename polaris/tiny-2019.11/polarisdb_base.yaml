@@ -1088,13 +1088,7 @@ spec:
           periodSeconds: 10
           successThreshold: 1
           timeoutSeconds: 5
-        resources:
-          limits:
-            cpu: 500m
-            memory: 2500Mi
-          requests:
-            cpu: 250m
-            memory: 2Gi
+        resources: {}
         securityContext:
           runAsNonRoot: true
           runAsUser: 1001
@@ -1268,13 +1262,7 @@ spec:
           periodSeconds: 15
           successThreshold: 1
           timeoutSeconds: 1
-        resources:
-          limits:
-            cpu: 500m
-            memory: 1024Mi
-          requests:
-            cpu: 250m
-            memory: 256Mi
+        resources: {}
         volumeMounts:
         - mountPath: /opt/data
           name: upload-minio
